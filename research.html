@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Research — BIA Lab</title>
+  <meta name="description" content="Research projects at the Biological Information Architecture Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero {
+      background: var(--navy);
+      padding: 5rem 0 3.5rem;
+      color: var(--white);
+    }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      transition: box-shadow .2s;
+    }
+    .project-card:hover { box-shadow: var(--shadow-lg); }
+    .project-card.flip  { direction: rtl; }
+    .project-card.flip > * { direction: ltr; }
+
+    .project-card__visual {
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      min-height: 280px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .project-card__body { padding: 2.5rem; }
+    .project-card__tag  {
+      display: inline-block;
+      background: rgba(0,201,167,.1); color: var(--teal-dark);
+      border-radius: 100px; padding: .2rem .75rem;
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: 1rem;
+    }
+    .project-card__body h3 { font-size: 1.35rem; margin-bottom: .75rem; }
+    .project-card__body p  { color: var(--muted); margin-bottom: 1.25rem; }
+    .project-card__methods { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .project-card__method  {
+      font-size: .75rem; font-weight: 600;
+      background: var(--off-white); color: var(--muted);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: .2rem .65rem;
+    }
+
+    @media (max-width: 768px) {
+      .project-card, .project-card.flip { grid-template-columns: 1fr; direction: ltr; }
+      .project-card__visual { min-height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-icon">🧬</div>
+      <div class="nav__logo-text">BIA <span>Lab</span></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Research</div>
+    <h1>Our Projects</h1>
+    <p>We ask how biological systems encode, transmit, and decode information across scales — from single molecules to whole tissues.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container" style="display:flex;flex-direction:column;gap:2.5rem;">
+
+    <!-- Project 1 -->
+    <div class="project-card">
+      <div class="project-card__visual">
+        <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <defs><radialGradient id="p1g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c9a7" stop-opacity=".3"/><stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="130" cy="100" r="90" fill="url(#p1g)"/>
+          <g fill="none" stroke="#00c9a7" stroke-opacity=".5" stroke-width="1">
+            <polygon points="130,30 165,50 165,90 130,110 95,90 95,50"/>
+            <polygon points="165,90 200,110 200,150 165,170 130,150 130,110"/>
+            <polygon points="95,90 130,110 130,150 95,170 60,150 60,110"/>
+          </g>
+          <g fill="#00c9a7" opacity=".8">
+            <circle cx="130" cy="30" r="5"/><circle cx="165" cy="50" r="4"/>
+            <circle cx="165" cy="90" r="4"/><circle cx="130" cy="110" r="6"/>
+            <circle cx="95" cy="90" r="4"/><circle cx="95" cy="50" r="4"/>
+            <circle cx="200" cy="110" r="3"/><circle cx="165" cy="170" r="3"/>
+            <circle cx="60" cy="110" r="3"/><circle cx="95" cy="170" r="3"/>
+          </g>
+          <!-- color-coded cells -->
+          <circle cx="130" cy="110" r="10" fill="none" stroke="#00c9a7" stroke-width="2" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="project-card__body">
+        <span class="project-card__tag">Spatial Signaling</span>
+        <h3>Reconstructing signaling architecture from spatial transcriptomics</h3>
+        <p>Modern spatial transcriptomics allows us to measure gene expression while retaining tissue coordinates. We develop graph-based methods to infer directionality and coupling strength of cell–cell communication across tissue sections, identifying signaling hubs and gradients that control cell-fate decisions.</p>
+        <div class="project-card__methods">
+          <span class="project-card__method">Spatial transcriptomics</span>
+          <span class="project-card__method">Graph algorithms</span>
+          <span class="project-card__method">Gaussian processes</span>
+          <span class="project-card__method">Python</span>
+        </div>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+          <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
+          <a href="software.html" class="btn btn-outline-dark btn-sm">SpatialFlow Tool</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card flip">
+      <div class="project-card__visual">
+        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <g stroke="#00c9a7" stroke-width="2" fill="none" opacity=".85">
+            <polyline points="10,80 30,45 50,110 70,35 90,95 110,55 130,85 150,40 170,90 190,50 210,80 230,60 250,70"/>
+          </g>
+          <g stroke="rgba(0,201,167,.3)" stroke-width="1.5" fill="none">
+            <polyline points="10,80 30,65 50,88 70,60 90,82 110,68 130,78 150,62 170,82 190,67 210,76 230,70 250,73"/>
+          </g>
+          <g fill="#00c9a7">
+            <circle cx="70" cy="35" r="5" opacity=".9"/>
+            <circle cx="150" cy="40" r="5" opacity=".9"/>
+            <circle cx="230" cy="60" r="5" opacity=".9"/>
+          </g>
+          <line x1="10" y1="80" x2="250" y2="80" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+          <text x="12" y="155" font-size="10" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">time →</text>
+        </svg>
+      </div>
+      <div class="project-card__body">
+        <span class="project-card__tag">Temporal Dynamics</span>
+        <h3>Oscillatory gene expression and developmental timing</h3>
+        <p>The vertebrate segmentation clock generates periodic pulses of gene expression that time the formation of body segments. We combine live single-cell imaging, optogenetics, and stochastic differential equation models to understand how noise, coupling, and external inputs shape clock precision and entrainability.</p>
+        <div class="project-card__methods">
+          <span class="project-card__method">Live imaging</span>
+          <span class="project-card__method">Optogenetics</span>
+          <span class="project-card__method">SDEs / ODEs</span>
+          <span class="project-card__method">Bayesian inference</span>
+        </div>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+          <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card">
+      <div class="project-card__visual">
+        <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <defs><radialGradient id="p3g" cx="40%" cy="50%" r="55%"><stop offset="0%" stop-color="#00c9a7" stop-opacity=".2"/><stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/></radialGradient>
+          <radialGradient id="p3g2" cx="65%" cy="50%" r="50%"><stop offset="0%" stop-color="#6496ff" stop-opacity=".15"/><stop offset="100%" stop-color="#6496ff" stop-opacity="0"/></radialGradient></defs>
+          <circle cx="100" cy="90" r="70" fill="url(#p3g)" stroke="#00c9a7" stroke-opacity=".4" stroke-width="1.5"/>
+          <circle cx="160" cy="90" r="70" fill="url(#p3g2)" stroke="#6496ff" stroke-opacity=".35" stroke-width="1.5"/>
+          <text x="68" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">H(X)</text>
+          <text x="163" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">H(Y)</text>
+          <text x="115" y="88" font-size="10" fill="#00c9a7" font-family="Inter,sans-serif" font-weight="700">I(X;Y)</text>
+          <text x="113" y="100" font-size="8" fill="rgba(0,201,167,.7)" font-family="Inter,sans-serif">0.72 bits</text>
+        </svg>
+      </div>
+      <div class="project-card__body">
+        <span class="project-card__tag">Information Theory</span>
+        <h3>Information-theoretic limits of biological signaling</h3>
+        <p>Using Shannon's framework, we quantify how much information signaling pathways can transmit about their inputs. We compute mutual information and channel capacity from single-cell data, revealing fundamental trade-offs between speed, fidelity, and energy expenditure in cell communication.</p>
+        <div class="project-card__methods">
+          <span class="project-card__method">Mutual information</span>
+          <span class="project-card__method">Channel capacity</span>
+          <span class="project-card__method">Single-cell data</span>
+          <span class="project-card__method">InfoSig toolkit</span>
+        </div>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+          <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
+          <a href="software.html" class="btn btn-outline-dark btn-sm">InfoSig Tool</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4 -->
+    <div class="project-card flip">
+      <div class="project-card__visual">
+        <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <g stroke="#00c9a7" stroke-opacity=".4" stroke-width="1" fill="none">
+            <line x1="130" y1="90" x2="80" y2="50"/><line x1="130" y1="90" x2="180" y2="50"/>
+            <line x1="130" y1="90" x2="80" y2="130"/><line x1="130" y1="90" x2="180" y2="130"/>
+            <line x1="80" y1="50" x2="40" y2="30"/><line x1="80" y1="50" x2="50" y2="80"/>
+            <line x1="180" y1="50" x2="220" y2="30"/><line x1="180" y1="50" x2="210" y2="80"/>
+            <line x1="80" y1="130" x2="40" y2="150"/><line x1="180" y1="130" x2="220" y2="150"/>
+          </g>
+          <g fill="#00c9a7">
+            <circle cx="130" cy="90" r="9" opacity=".95"/>
+            <circle cx="80"  cy="50" r="6" opacity=".8"/>
+            <circle cx="180" cy="50" r="6" opacity=".8"/>
+            <circle cx="80"  cy="130" r="6" opacity=".8"/>
+            <circle cx="180" cy="130" r="6" opacity=".8"/>
+            <circle cx="40"  cy="30" r="4" opacity=".6"/>
+            <circle cx="50"  cy="80" r="4" opacity=".6"/>
+            <circle cx="220" cy="30" r="4" opacity=".6"/>
+            <circle cx="210" cy="80" r="4" opacity=".6"/>
+            <circle cx="40"  cy="150" r="4" opacity=".6"/>
+            <circle cx="220" cy="150" r="4" opacity=".6"/>
+          </g>
+          <!-- feedback arc -->
+          <path d="M 180 130 Q 220 90 180 50" stroke="#00c9a7" stroke-opacity=".6" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+          <polygon points="180,50 174,63 186,60" fill="#00c9a7" opacity=".7"/>
+        </svg>
+      </div>
+      <div class="project-card__body">
+        <span class="project-card__tag">Network Architecture</span>
+        <h3>Design principles of gene regulatory networks</h3>
+        <p>We interrogate the topology of regulatory networks to understand how feedback, feed-forward, and modularity contribute to signal processing robustness. Using simulations and evolutionary analysis, we identify network motifs that are enriched in signaling systems and explain their functional advantages.</p>
+        <div class="project-card__methods">
+          <span class="project-card__method">Network motifs</span>
+          <span class="project-card__method">Boolean models</span>
+          <span class="project-card__method">Evolutionary analysis</span>
+          <span class="project-card__method">R / Python</span>
+        </div>
+        <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+          <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span>Built with ♡ for open science · <a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News — BIA Lab</title>
+  <meta name="description" content="Latest news from the Biological Information Architecture Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { background: var(--navy); padding: 5rem 0 3.5rem; color: var(--white); }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    .news-filter {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .news-filter-btn {
+      background: var(--off-white); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 100px;
+      padding: .35rem 1rem; font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+    }
+    .news-filter-btn:hover, .news-filter-btn.active {
+      background: var(--teal); color: var(--navy); border-color: var(--teal);
+    }
+
+    .news-timeline { position: relative; }
+    .news-timeline::before {
+      content: '';
+      position: absolute; left: 80px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+
+    .news-entry {
+      display: grid;
+      grid-template-columns: 80px 2rem 1fr;
+      gap: 0 1.25rem;
+      padding-bottom: 2.5rem;
+      align-items: start;
+    }
+
+    .news-entry__date {
+      text-align: right;
+      padding-right: 1.25rem;
+    }
+    .news-entry__date-month { font-size: .65rem; text-transform: uppercase; letter-spacing: .08em; color: var(--teal-dark); font-weight: 700; }
+    .news-entry__date-day   { font-size: 1.4rem; font-weight: 800; color: var(--navy); line-height: 1.1; }
+    .news-entry__date-year  { font-size: .65rem; color: var(--muted); }
+
+    .news-entry__dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 2px solid var(--white);
+      box-shadow: 0 0 0 2px var(--teal);
+      margin-top: .2rem;
+      flex-shrink: 0;
+      position: relative; z-index: 1;
+      justify-self: center;
+    }
+
+    .news-entry__card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .news-entry__type {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      border-radius: 100px; padding: .2rem .7rem;
+      margin-bottom: .75rem;
+    }
+    .type-paper   { background: rgba(0,201,167,.12); color: var(--teal-dark); }
+    .type-award   { background: rgba(255,200,0,.12);  color: #b58900; }
+    .type-talk    { background: rgba(100,150,255,.12); color: #4a7ce0; }
+    .type-member  { background: rgba(40,200,80,.12);  color: #1e9e40; }
+    .type-media   { background: rgba(220,80,80,.12);  color: #c03030; }
+    .type-grant   { background: rgba(160,80,220,.12); color: #8040b0; }
+
+    .news-entry__card h3 { font-size: 1.05rem; margin-bottom: .5rem; }
+    .news-entry__card p  { color: var(--muted); font-size: .9rem; }
+    .news-entry__card a.read-more {
+      display: inline-flex; align-items: center; gap: .3rem;
+      color: var(--teal-dark); font-weight: 600; font-size: .85rem;
+      margin-top: .75rem; text-decoration: none;
+    }
+    .news-entry__card a.read-more:hover { text-decoration: underline; }
+    .news-entry__card a.read-more::after { content: '→'; }
+
+    @media (max-width: 600px) {
+      .news-timeline::before { left: 16px; }
+      .news-entry { grid-template-columns: 16px 1.5rem 1fr; }
+      .news-entry__date { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">News</div>
+    <h1>Lab Updates</h1>
+    <p>Papers, awards, new members, talks, and media coverage from the BIA Lab.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+
+    <div class="news-filter">
+      <button class="news-filter-btn active" data-filter="all">All</button>
+      <button class="news-filter-btn" data-filter="paper">📄 Papers</button>
+      <button class="news-filter-btn" data-filter="award">🏆 Awards</button>
+      <button class="news-filter-btn" data-filter="grant">💰 Grants</button>
+      <button class="news-filter-btn" data-filter="member">🎓 New Members</button>
+      <button class="news-filter-btn" data-filter="talk">🎤 Talks</button>
+      <button class="news-filter-btn" data-filter="media">📰 Media</button>
+    </div>
+
+    <div class="news-timeline">
+
+      <div class="news-entry" data-type="award">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Nov</div>
+          <div class="news-entry__date-day">12</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-award">🏆 Award</span>
+          <h3>ERC Starting Grant awarded — €1.5M for spatial signaling research</h3>
+          <p>We are thrilled to announce that the BIA Lab has been awarded a European Research Council Starting Grant. The five-year project will focus on how positional information is encoded in gene regulatory networks during embryogenesis.</p>
+          <a href="#" class="read-more">Read the announcement</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="paper">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Sep</div>
+          <div class="news-entry__date-day">5</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-paper">📄 New Paper</span>
+          <h3>SpatialFlow published in <em>Nature Methods</em></h3>
+          <p>Our new computational framework for reconstructing directional signaling from spatial transcriptomics is now out. The paper includes benchmarking on mouse embryo and human colon organoid datasets.</p>
+          <a href="publications.html" class="read-more">Read the paper</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="member">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Jul</div>
+          <div class="news-entry__date-day">22</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-member">🎓 New Members</span>
+          <h3>Three PhD students join the lab</h3>
+          <p>Welcome to Maria (spatial signaling), Alex (network topology), and Wei (information theory) — we are excited to start this journey together!</p>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="talk">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Jun</div>
+          <div class="news-entry__date-day">18</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-talk">🎤 Talk</span>
+          <h3>Keynote at ISCB / ISMB 2024</h3>
+          <p>The PI delivered a keynote lecture on "Information architecture of developmental signaling" at ISMB 2024 in Montréal. Slides available on the lab GitHub.</p>
+          <a href="#" class="read-more">View slides</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="paper">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Apr</div>
+          <div class="news-entry__date-day">3</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-paper">📄 New Paper</span>
+          <h3>Partial information decomposition of multi-input signaling in <em>Cell Systems</em></h3>
+          <p>Kim, Okonkwo and PI show how to disentangle redundant vs. synergistic contributions of parallel signaling inputs using a PID framework extended to time-varying biological data.</p>
+          <a href="publications.html" class="read-more">Read the paper</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="media">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Mar</div>
+          <div class="news-entry__date-day">14</div>
+          <div class="news-entry__date-year">2024</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-media">📰 Media</span>
+          <h3>Feature in <em>The Scientist</em>: "Decoding the cell's information network"</h3>
+          <p>A long-form feature article profiles the lab's work on applying Shannon's information theory to understand how cells process and transmit signals.</p>
+          <a href="#" class="read-more">Read the article</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="paper">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Nov</div>
+          <div class="news-entry__date-day">8</div>
+          <div class="news-entry__date-year">2023</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-paper">📄 New Paper</span>
+          <h3>Noise shapes precision in segmentation clocks — eLife</h3>
+          <p>Chen, Müller and PI publish stochastic modelling of the vertebrate segmentation clock, showing how coupling buffers intrinsic noise to maintain segment periodicity.</p>
+          <a href="publications.html" class="read-more">Read the paper</a>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="grant">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Sep</div>
+          <div class="news-entry__date-day">1</div>
+          <div class="news-entry__date-year">2023</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-grant">💰 Grant</span>
+          <h3>Wellcome Trust Seed Grant for single-cell information theory</h3>
+          <p>We received a two-year Wellcome Trust Seed Grant to develop new information-theoretic methods for analysing single-cell signaling heterogeneity.</p>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="member">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Sep</div>
+          <div class="news-entry__date-day">1</div>
+          <div class="news-entry__date-year">2023</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-member">🎓 New Member</span>
+          <h3>Dr. Tomoko Watanabe joins as postdoctoral researcher</h3>
+          <p>Tomoko joins from the Bhattacharya Lab (Harvard) to work on information capacity of calcium signaling. Welcome!</p>
+        </div>
+      </div>
+
+      <div class="news-entry" data-type="talk">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">May</div>
+          <div class="news-entry__date-day">22</div>
+          <div class="news-entry__date-year">2023</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-talk">🎤 Talk</span>
+          <h3>Invited seminar at the Sanger Institute, Cambridge</h3>
+          <p>PI presented our spatial transcriptomics work to the Developmental Genomics group at the Wellcome Sanger Institute.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script>
+  document.querySelectorAll('.news-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.news-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.news-entry').forEach(entry => {
+        entry.style.display = (f === 'all' || entry.dataset.type === f) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

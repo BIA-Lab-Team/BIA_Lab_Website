@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software — BIA Lab</title>
+  <meta name="description" content="Open-source computational tools developed by the BIA Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { background: var(--navy); padding: 5rem 0 3.5rem; color: var(--white); }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    .software-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .software-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+
+    .software-card__icon {
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .software-card__name { font-size: 1.2rem; font-weight: 800; margin-bottom: .2rem; }
+    .software-card__tagline { color: var(--teal-dark); font-size: .88rem; font-weight: 600; margin-bottom: .6rem; }
+    .software-card__desc { color: var(--muted); font-size: .9rem; margin-bottom: 1.1rem; }
+
+    .badge-row { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
+    .badge {
+      display: inline-flex; align-items: center; gap: .3rem;
+      font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+      border-radius: 100px; padding: .2rem .65rem;
+    }
+    .badge-lang   { background: rgba(0,201,167,.1); color: var(--teal-dark); border: 1px solid rgba(0,201,167,.25); }
+    .badge-license{ background: rgba(100,150,255,.1); color: #4a7ce0; border: 1px solid rgba(100,150,255,.25); }
+    .badge-status { background: rgba(40,200,80,.1); color: #1e9e40; border: 1px solid rgba(40,200,80,.25); }
+
+    .software-card__links { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .software-card__links a {
+      font-size: .82rem; font-weight: 600;
+      display: inline-flex; align-items: center; gap: .3rem;
+      color: var(--navy); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: .35rem .85rem;
+      text-decoration: none; transition: background .15s, color .15s;
+    }
+    .software-card__links a:hover { background: var(--navy); color: var(--white); }
+    .software-card__links a.primary { background: var(--teal); color: var(--navy); border-color: var(--teal); }
+    .software-card__links a.primary:hover { background: var(--teal-dark); }
+
+    .code-snippet {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: .75rem 1rem;
+      font-family: var(--mono);
+      font-size: .8rem;
+      color: rgba(255,255,255,.8);
+      margin-top: .75rem;
+      overflow-x: auto;
+    }
+    .code-snippet .kw  { color: #c792ea; }
+    .code-snippet .fn  { color: #82aaff; }
+    .code-snippet .str { color: #c3e88d; }
+    .code-snippet .cm  { color: rgba(255,255,255,.35); }
+
+    @media (max-width: 600px) {
+      .software-card { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Software</div>
+    <h1>Open-source Tools</h1>
+    <p>All our software is freely available under permissive licences. We believe in open, reproducible science.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container" style="display:flex;flex-direction:column;gap:1.75rem;">
+
+    <!-- InfoSig -->
+    <div class="software-card">
+      <div class="software-card__icon">📡</div>
+      <div>
+        <div class="software-card__name">InfoSig</div>
+        <div class="software-card__tagline">Information-theoretic analysis of signaling pathways</div>
+        <p class="software-card__desc">Compute mutual information, channel capacity, noise decompositions, and partial information decompositions from bulk or single-cell signaling data. Supports GPU acceleration via JAX. Integrates with AnnData/Scanpy ecosystems.</p>
+        <div class="badge-row">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">JAX</span>
+          <span class="badge badge-license">MIT</span>
+          <span class="badge badge-status">✓ Active · v2.1</span>
+        </div>
+        <div class="code-snippet"><span class="kw">import</span> infosig <span class="kw">as</span> isg<br><span class="cm"># compute mutual information from single-cell data</span><br>mi = isg.<span class="fn">mutual_info</span>(adata, input_key=<span class="str">"stimulus"</span>, output_key=<span class="str">"X_pca"</span>)<br><span class="fn">print</span>(<span class="str">f"I(X;Y) = {mi:.3f} bits"</span>)</div>
+        <div class="software-card__links" style="margin-top:1rem;">
+          <a href="#" class="primary">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="#">PyPI</a>
+          <a href="publications.html">Cite Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SpatialFlow -->
+    <div class="software-card">
+      <div class="software-card__icon">🗺️</div>
+      <div>
+        <div class="software-card__name">SpatialFlow</div>
+        <div class="software-card__tagline">Directional signaling reconstruction from spatial transcriptomics</div>
+        <p class="software-card__desc">A graph-based toolkit for inferring the direction and magnitude of cell–cell communication in spatially resolved transcriptomic datasets. Supports 10x Visium, Slide-seq, MERFISH, and Xenium inputs. Outputs ligand–receptor flow maps and tissue-level signaling graphs.</p>
+        <div class="badge-row">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">R interface</span>
+          <span class="badge badge-license">Apache 2.0</span>
+          <span class="badge badge-status">✓ Active · v1.3</span>
+        </div>
+        <div class="code-snippet"><span class="kw">from</span> spatialflow <span class="kw">import</span> FlowGraph<br>fg = FlowGraph.<span class="fn">from_visium</span>(<span class="str">"sample.h5ad"</span>)<br>fg.<span class="fn">infer_flows</span>(lr_database=<span class="str">"CellChat"</span>)<br>fg.<span class="fn">plot_tissue_map</span>(min_flow=<span class="str">0.1</span>)</div>
+        <div class="software-card__links" style="margin-top:1rem;">
+          <a href="#" class="primary">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="#">PyPI</a>
+          <a href="publications.html">Cite Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ClockSDE -->
+    <div class="software-card">
+      <div class="software-card__icon">⏱️</div>
+      <div>
+        <div class="software-card__name">ClockSDE</div>
+        <div class="software-card__tagline">Stochastic modelling of oscillatory gene expression</div>
+        <p class="software-card__desc">Simulate and fit stochastic differential equation models of coupled genetic oscillators. Includes the Kuramoto, Goodwin, and custom coupling models. Bayesian parameter inference via NUTS/HMC using NumPyro. Designed for segmentation clock, circadian, and NF-κB oscillation datasets.</p>
+        <div class="badge-row">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">NumPyro</span>
+          <span class="badge badge-license">MIT</span>
+          <span class="badge badge-status">✓ Active · v0.9</span>
+        </div>
+        <div class="software-card__links" style="margin-top:.75rem;">
+          <a href="#" class="primary">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="publications.html">Cite Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- NetMotif -->
+    <div class="software-card">
+      <div class="software-card__icon">🕸️</div>
+      <div>
+        <div class="software-card__name">NetMotif</div>
+        <div class="software-card__tagline">Network motif detection and functional classification</div>
+        <p class="software-card__desc">Fast enumeration and statistical enrichment of network motifs in gene regulatory and signaling networks. Supports directed, signed, and weighted graphs. Classifies motifs by dynamical function (pulse generator, bistable switch, oscillator) using pre-computed phase diagrams.</p>
+        <div class="badge-row">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">C++ core</span>
+          <span class="badge badge-license">GPL-3.0</span>
+          <span class="badge badge-status">✓ Active · v1.0</span>
+        </div>
+        <div class="software-card__links" style="margin-top:.75rem;">
+          <a href="#" class="primary">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="publications.html">Cite Paper</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- GradientFit -->
+    <div class="software-card">
+      <div class="software-card__icon">📈</div>
+      <div>
+        <div class="software-card__name">GradientFit</div>
+        <div class="software-card__tagline">Morphogen gradient inference from imaging data</div>
+        <p class="software-card__desc">Fit mechanistic gradient models (diffusion–degradation, planar cell polarity) to fluorescence microscopy data. Includes tools for PSF deconvolution, automated cell segmentation, and uncertainty quantification via bootstrap. Works with Fiji/ImageJ output.</p>
+        <div class="badge-row">
+          <span class="badge badge-lang">Python</span>
+          <span class="badge badge-lang">MATLAB</span>
+          <span class="badge badge-license">MIT</span>
+          <span class="badge badge-status">⚠ Maintenance</span>
+        </div>
+        <div class="software-card__links" style="margin-top:.75rem;">
+          <a href="#" class="primary">GitHub</a>
+          <a href="#">Documentation</a>
+          <a href="publications.html">Cite Paper</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Contributing -->
+<section class="section section--alt">
+  <div class="container" style="max-width:720px;">
+    <div class="section-label">Open Science</div>
+    <h2>Contributing</h2>
+    <p style="color:var(--muted);margin-bottom:1.5rem;">All our tools are developed in the open. We welcome bug reports, feature requests, and pull requests. If you use our software in your research, please cite the relevant paper and star the repository — it helps us secure continued funding for open-source development.</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="#" class="btn btn-primary">View all repos on GitHub</a>
+      <a href="join.html" class="btn btn-outline-dark">Join the lab</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>

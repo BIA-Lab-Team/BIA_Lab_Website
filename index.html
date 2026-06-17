@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIA Lab — Biological Information Architecture</title>
+  <meta name="description" content="The Biological Information Architecture Lab studies how biological signaling is organized across space and time using computational and quantitative approaches.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/carousel.css">
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <div class="nav__logo-icon">🧬</div>
+      <div class="nav__logo-text">BIA <span>Lab</span></div>
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── Hero ───────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero__bg">
+    <svg viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#00c9a7" stop-opacity=".25"/>
+          <stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="600" cy="350" r="380" fill="url(#glow)"/>
+      <!-- network nodes -->
+      <g stroke="#00c9a7" stroke-opacity=".3" stroke-width="1" fill="none">
+        <line x1="600" y1="350" x2="820" y2="200"/><line x1="600" y1="350" x2="750" y2="480"/>
+        <line x1="600" y1="350" x2="420" y2="180"/><line x1="600" y1="350" x2="380" y2="460"/>
+        <line x1="600" y1="350" x2="700" y2="120"/><line x1="600" y1="350" x2="200" y2="300"/>
+        <line x1="820" y1="200" x2="950" y2="280"/><line x1="820" y1="200" x2="700" y2="120"/>
+        <line x1="750" y1="480" x2="900" y2="530"/><line x1="750" y1="480" x2="600" y2="580"/>
+        <line x1="420" y1="180" x2="280" y2="120"/><line x1="380" y1="460" x2="200" y2="500"/>
+        <line x1="950" y1="280" x2="1050" y2="180"/><line x1="200" y1="300" x2="80" y2="200"/>
+      </g>
+      <g fill="#00c9a7">
+        <circle cx="600" cy="350" r="8" opacity=".9"/>
+        <circle cx="820" cy="200" r="6" opacity=".7"/>
+        <circle cx="750" cy="480" r="5" opacity=".6"/>
+        <circle cx="420" cy="180" r="6" opacity=".7"/>
+        <circle cx="380" cy="460" r="4" opacity=".5"/>
+        <circle cx="700" cy="120" r="5" opacity=".6"/>
+        <circle cx="200" cy="300" r="5" opacity=".6"/>
+        <circle cx="950" cy="280" r="4" opacity=".5"/>
+        <circle cx="900" cy="530" r="4" opacity=".4"/>
+        <circle cx="600" cy="580" r="4" opacity=".4"/>
+        <circle cx="280" cy="120" r="3" opacity=".4"/>
+        <circle cx="200" cy="500" r="3" opacity=".4"/>
+        <circle cx="1050" cy="180" r="3" opacity=".35"/>
+        <circle cx="80"  cy="200" r="3" opacity=".35"/>
+      </g>
+    </svg>
+  </div>
+  <div class="container hero__content">
+    <div class="hero__eyebrow">Computational Biology · Signaling Dynamics</div>
+    <h1>Understanding the <em>architecture</em><br>of biological information</h1>
+    <p class="hero__lead">We develop computational and mathematical frameworks to decode how cells encode, transmit, and interpret signals across space and time.</p>
+    <div class="hero__actions">
+      <a href="research.html" class="btn btn-primary">Explore Our Research</a>
+      <a href="publications.html" class="btn btn-outline">Recent Publications</a>
+    </div>
+    <div class="hero__stats">
+      <div>
+        <div class="hero__stat-value">12</div>
+        <div class="hero__stat-label">Lab Members</div>
+      </div>
+      <div>
+        <div class="hero__stat-value">48</div>
+        <div class="hero__stat-label">Publications</div>
+      </div>
+      <div>
+        <div class="hero__stat-value">6</div>
+        <div class="hero__stat-label">Active Projects</div>
+      </div>
+      <div>
+        <div class="hero__stat-value">5</div>
+        <div class="hero__stat-label">Software Tools</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Carousel ───────────────────────────────────────────────────────────── -->
+<div class="carousel-section">
+  <div class="carousel__progress"><div class="carousel__progress-bar"></div></div>
+  <div class="carousel" data-carousel>
+    <div class="carousel__track">
+
+      <!-- Slide 1 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">📄 New Paper · Nature Methods 2024</div>
+          <h2>SpatialFlow: Reconstructing signaling trajectories from spatial transcriptomics</h2>
+          <p>We introduce a graph-based framework that infers directional information flow in tissue sections, revealing how morphogen gradients organize cell fate decisions.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <a href="publications.html" class="btn btn-primary btn-sm">Read Paper</a>
+            <a href="software.html" class="btn btn-outline btn-sm">Get the Code</a>
+          </div>
+        </div>
+        <div class="carousel__slide-visual">
+          <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sg1" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#00c9a7" stop-opacity=".4"/>
+                <stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="300" height="280" fill="none"/>
+            <circle cx="150" cy="140" r="120" fill="url(#sg1)"/>
+            <!-- hexagonal cell grid -->
+            <g fill="none" stroke="#00c9a7" stroke-opacity=".5" stroke-width="1">
+              <polygon points="150,40 185,60 185,100 150,120 115,100 115,60"/>
+              <polygon points="185,100 220,120 220,160 185,180 150,160 150,120"/>
+              <polygon points="115,100 150,120 150,160 115,180 80,160 80,120"/>
+              <polygon points="150,160 185,180 185,220 150,240 115,220 115,180"/>
+            </g>
+            <!-- flow arrows -->
+            <g stroke="#00c9a7" stroke-width="2" fill="#00c9a7" opacity=".8">
+              <line x1="150" y1="80" x2="150" y2="200"/>
+              <polygon points="150,200 144,186 156,186"/>
+              <line x1="100" y1="130" x2="200" y2="130"/>
+              <polygon points="200,130 186,124 186,136"/>
+            </g>
+            <circle cx="150" cy="140" r="12" fill="#00c9a7" opacity=".9"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">🔬 Featured Project · Temporal Dynamics</div>
+          <h2>Decoding oscillatory gene expression in the segmentation clock</h2>
+          <p>Using single-cell imaging and stochastic modelling, we map how noise and coupling shape the precision of somite formation across vertebrate embryos.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <a href="research.html" class="btn btn-primary btn-sm">Learn More</a>
+            <a href="publications.html" class="btn btn-outline btn-sm">Related Papers</a>
+          </div>
+        </div>
+        <div class="carousel__slide-visual">
+          <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#00c9a7" stroke-width="2" fill="none" opacity=".8">
+              <polyline points="10,100 30,60 50,130 70,50 90,120 110,70 130,110 150,55 170,115 190,65 210,105 230,75 250,95 270,80 290,90" stroke-opacity=".9"/>
+            </g>
+            <g stroke="rgba(0,201,167,.3)" stroke-width="1.5" fill="none">
+              <polyline points="10,100 30,80 50,110 70,75 90,105 110,85 130,100 150,75 170,105 190,82 210,98 230,86 250,94 270,88 290,92"/>
+            </g>
+            <g fill="#00c9a7" opacity=".7">
+              <circle cx="70" cy="50" r="4"/>
+              <circle cx="150" cy="55" r="4"/>
+              <circle cx="230" cy="75" r="4"/>
+            </g>
+            <line x1="10" y1="100" x2="290" y2="100" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">🛠 New Software · v2.0 Released</div>
+          <h2>InfoSig: An information-theoretic toolkit for signaling pathway analysis</h2>
+          <p>Quantify mutual information, channel capacity, and redundancy in signaling networks from bulk and single-cell data. Now with GPU acceleration and Python API.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <a href="software.html" class="btn btn-primary btn-sm">Download</a>
+            <a href="publications.html" class="btn btn-outline btn-sm">Cite Paper</a>
+          </div>
+        </div>
+        <div class="carousel__slide-visual">
+          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <!-- Venn/MI diagram -->
+            <circle cx="120" cy="110" r="80" fill="rgba(0,201,167,.15)" stroke="#00c9a7" stroke-opacity=".5" stroke-width="1.5"/>
+            <circle cx="180" cy="110" r="80" fill="rgba(100,150,255,.12)" stroke="#6496ff" stroke-opacity=".5" stroke-width="1.5"/>
+            <text x="88" y="115" font-size="11" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">H(X)</text>
+            <text x="185" y="115" font-size="11" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">H(Y)</text>
+            <text x="137" y="115" font-size="10" fill="#00c9a7" font-family="Inter,sans-serif" font-weight="700">I(X;Y)</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">🏆 Award · ERC Starting Grant 2024</div>
+          <h2>New ERC grant to study spatial information processing in developing tissues</h2>
+          <p>We have been awarded a €1.5M ERC Starting Grant to investigate how positional information is encoded and decoded by gene regulatory networks in embryogenesis.</p>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <a href="news.html" class="btn btn-primary btn-sm">Read Announcement</a>
+            <a href="join.html" class="btn btn-outline btn-sm">Join the Project</a>
+          </div>
+        </div>
+        <div class="carousel__slide-visual">
+          <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
+            <!-- stylised embryo / gradient field -->
+            <defs>
+              <linearGradient id="emb" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#00c9a7" stop-opacity=".8"/>
+                <stop offset="100%" stop-color="#6496ff" stop-opacity=".5"/>
+              </linearGradient>
+            </defs>
+            <ellipse cx="150" cy="120" rx="110" ry="80" fill="url(#emb)" opacity=".25" stroke="#00c9a7" stroke-opacity=".4" stroke-width="1.5"/>
+            <!-- concentration bars -->
+            <g opacity=".7">
+              <rect x="55" y="70" width="8" height="100" rx="4" fill="#00c9a7" opacity=".9"/>
+              <rect x="73" y="82" width="8" height="88"  rx="4" fill="#00c9a7" opacity=".77"/>
+              <rect x="91" y="93" width="8" height="77"  rx="4" fill="#00c9a7" opacity=".65"/>
+              <rect x="109" y="103" width="8" height="67" rx="4" fill="#00c9a7" opacity=".53"/>
+              <rect x="127" y="112" width="8" height="58" rx="4" fill="#6496ff" opacity=".53"/>
+              <rect x="145" y="120" width="8" height="50" rx="4" fill="#6496ff" opacity=".65"/>
+              <rect x="163" y="128" width="8" height="42" rx="4" fill="#6496ff" opacity=".77"/>
+              <rect x="181" y="135" width="8" height="35" rx="4" fill="#6496ff" opacity=".9"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /.carousel__track -->
+
+    <div class="carousel__controls">
+      <button class="carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
+      <div class="carousel__dots">
+        <button class="carousel__dot active" aria-label="Slide 1"></button>
+        <button class="carousel__dot" aria-label="Slide 2"></button>
+        <button class="carousel__dot" aria-label="Slide 3"></button>
+        <button class="carousel__dot" aria-label="Slide 4"></button>
+      </div>
+      <button class="carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
+    </div>
+  </div><!-- /.carousel -->
+</div><!-- /.carousel-section -->
+
+<!-- ─── Research Themes ─────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Research</div>
+      <h2>What we work on</h2>
+      <p>We combine theory, computation, and close collaborations with experimentalists to understand the principles of biological signaling.</p>
+    </div>
+    <div class="grid-4">
+      <div class="theme-card">
+        <div class="theme-card__num">01</div>
+        <div class="theme-card__icon">🗺️</div>
+        <h3>Spatial Signaling</h3>
+        <p>How do tissues use spatial patterning of signals to control cell identity and morphogenesis?</p>
+        <div class="theme-card__tags"><span class="theme-card__tag">Morphogens</span><span class="theme-card__tag">scRNA-seq</span></div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-card__num">02</div>
+        <div class="theme-card__icon">⏱️</div>
+        <h3>Temporal Dynamics</h3>
+        <p>Decoding oscillations, pulses, and noise in gene expression to reveal timing mechanisms.</p>
+        <div class="theme-card__tags"><span class="theme-card__tag">Live imaging</span><span class="theme-card__tag">ODE/SDE</span></div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-card__num">03</div>
+        <div class="theme-card__icon">📡</div>
+        <h3>Information Theory</h3>
+        <p>Applying Shannon information theory to quantify signaling channel capacity and fidelity.</p>
+        <div class="theme-card__tags"><span class="theme-card__tag">Mutual info</span><span class="theme-card__tag">Capacity</span></div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-card__num">04</div>
+        <div class="theme-card__icon">🕸️</div>
+        <h3>Network Architecture</h3>
+        <p>Uncovering design principles of regulatory networks that underpin robust signal processing.</p>
+        <div class="theme-card__tags"><span class="theme-card__tag">GRNs</span><span class="theme-card__tag">Graph theory</span></div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;text-align:center;">
+      <a href="research.html" class="btn btn-outline-dark">View All Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Stats Bar ───────────────────────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-bar__grid">
+      <div><div class="stats-bar__value">48</div><div class="stats-bar__label">Publications</div></div>
+      <div><div class="stats-bar__value">12</div><div class="stats-bar__label">Lab Members</div></div>
+      <div><div class="stats-bar__value">5</div><div class="stats-bar__label">Open-source Tools</div></div>
+      <div><div class="stats-bar__value">6</div><div class="stats-bar__label">Active Grants</div></div>
+      <div><div class="stats-bar__value">30+</div><div class="stats-bar__label">Collaborators</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Recent Publications ─────────────────────────────────────────────────── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Publications</div>
+      <h2>Recent work</h2>
+      <p>Selected papers from the last two years.</p>
+    </div>
+    <div class="grid-2" style="gap:1.25rem;">
+      <div class="pub-card">
+        <span class="pub-card__journal">Nature Methods</span>
+        <h3>SpatialFlow: Inferring directional signaling from spatial transcriptomics</h3>
+        <p class="pub-card__authors">Smith J, Patel A, <strong>Lab PI</strong> et al. (2024)</p>
+        <p class="pub-card__abstract">A graph-based algorithm for reconstructing signal propagation direction in tissue sections from spatially resolved transcriptomic data.</p>
+        <div class="pub-card__links">
+          <a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">eLife</span>
+        <h3>Noise shapes precision in vertebrate segmentation clocks</h3>
+        <p class="pub-card__authors">Chen Y, Müller R, <strong>Lab PI</strong> et al. (2024)</p>
+        <p class="pub-card__abstract">Single-cell imaging combined with stochastic modelling reveals that cell-to-cell coupling buffers noise to maintain somite periodicity.</p>
+        <div class="pub-card__links">
+          <a href="#">Paper</a><a href="#">Data</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">PLOS Comp. Biol.</span>
+        <h3>Information capacity of the NF-κB signaling pathway</h3>
+        <p class="pub-card__authors">García L, <strong>Lab PI</strong> (2023)</p>
+        <p class="pub-card__abstract">Mutual information analysis of dynamic NF-κB trajectories reveals how stimulus identity is encoded in temporal signal features.</p>
+        <div class="pub-card__links">
+          <a href="#">Paper</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">Cell Systems</span>
+        <h3>Redundancy and synergy in multi-ligand signaling networks</h3>
+        <p class="pub-card__authors">Kim S, Okonkwo T, <strong>Lab PI</strong> (2023)</p>
+        <p class="pub-card__abstract">A partial information decomposition framework to disentangle redundant vs. synergistic contributions of parallel signaling inputs.</p>
+        <div class="pub-card__links">
+          <a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2rem;text-align:center;">
+      <a href="publications.html" class="btn btn-outline-dark">All Publications</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── News ────────────────────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">News</div>
+      <h2>Lab updates</h2>
+    </div>
+    <div>
+      <div class="news-item">
+        <div class="news-item__date">
+          <div class="news-item__date-month">Nov</div>
+          <div class="news-item__date-day">12</div>
+          <div class="news-item__date-year">2024</div>
+        </div>
+        <div class="news-item__body">
+          <h4>ERC Starting Grant awarded</h4>
+          <p>We are thrilled to announce a €1.5M ERC Starting Grant to study spatial information processing in developing tissues.</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-item__date">
+          <div class="news-item__date-month">Sep</div>
+          <div class="news-item__date-day">5</div>
+          <div class="news-item__date-year">2024</div>
+        </div>
+        <div class="news-item__body">
+          <h4>SpatialFlow published in Nature Methods</h4>
+          <p>Our new computational method for reconstructing directional signaling in tissue is now out.</p>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-item__date">
+          <div class="news-item__date-month">Jul</div>
+          <div class="news-item__date-day">22</div>
+          <div class="news-item__date-year">2024</div>
+        </div>
+        <div class="news-item__body">
+          <h4>Three new PhD students join the lab</h4>
+          <p>Welcome to Maria, Alex, and Wei — starting their doctoral projects on spatial signaling and network topology.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:1.5rem;">
+      <a href="news.html" class="btn btn-outline-dark">All News</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ──────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;">
+          <div class="nav__logo-icon">🧬</div>
+          <div class="nav__logo-text">BIA <span>Lab</span></div>
+        </a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div>
+        <h4>Research</h4>
+        <ul>
+          <li><a href="research.html">Projects</a></li>
+          <li><a href="publications.html">Publications</a></li>
+          <li><a href="software.html">Software</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Lab</h4>
+        <ul>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="join.html">Join Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:pi@bialab.org">Email</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">Google Scholar</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 BIA Lab. All rights reserved.</span>
+      <span>Built with ♡ for open science · <a href="#">GitHub</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/carousel.js"></script>
+</body>
+</html>

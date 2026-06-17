@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team — BIA Lab</title>
+  <meta name="description" content="Meet the team at the Biological Information Architecture Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { background: var(--navy); padding: 5rem 0 3.5rem; color: var(--white); }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    /* PI card — full-width prominent layout */
+    .pi-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+    }
+    .pi-card__photo {
+      background: linear-gradient(160deg, var(--navy), var(--navy-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; color: rgba(255,255,255,.2);
+      min-height: 320px;
+    }
+    .pi-card__photo img { width: 100%; height: 100%; object-fit: cover; }
+    .pi-card__body { padding: 2.5rem; }
+    .pi-card__title { color: var(--teal-dark); font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .25rem; }
+    .pi-card__name  { font-size: 1.75rem; font-weight: 800; margin-bottom: .3rem; }
+    .pi-card__affil { font-size: .9rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .pi-card__bio   { color: var(--muted); font-size: .95rem; margin-bottom: 1.5rem; }
+    .pi-card__interests { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .pi-card__interest {
+      font-size: .75rem; font-weight: 600;
+      background: rgba(0,201,167,.1); color: var(--teal-dark);
+      border: 1px solid rgba(0,201,167,.25); border-radius: 100px;
+      padding: .2rem .7rem;
+    }
+    .pi-card__links { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .pi-card__links a {
+      font-size: .82rem; font-weight: 600; text-decoration: none;
+      display: inline-flex; align-items: center; gap: .35rem;
+      color: var(--navy); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: .4rem .9rem;
+      transition: background .15s, color .15s;
+    }
+    .pi-card__links a:hover { background: var(--navy); color: var(--white); }
+
+    @media (max-width: 700px) {
+      .pi-card { grid-template-columns: 1fr; }
+      .pi-card__photo { min-height: 200px; }
+    }
+
+    /* Member grid */
+    .member-avatar {
+      width: 100%; aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    /* Alumni table */
+    .alumni-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .alumni-table th {
+      text-align: left; padding: .65rem 1rem;
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--muted); border-bottom: 2px solid var(--border);
+    }
+    .alumni-table td { padding: .75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+    .alumni-table tr:hover td { background: var(--off-white); }
+    .alumni-table .now { color: var(--muted); font-size: .85rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Team</div>
+    <h1>The People</h1>
+    <p>A diverse, interdisciplinary group of researchers united by curiosity about how biological systems process information.</p>
+  </div>
+</div>
+
+<!-- PI -->
+<section class="section">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:1.25rem;">Principal Investigator</div>
+    <div class="pi-card">
+      <div class="pi-card__photo">👤</div>
+      <div class="pi-card__body">
+        <div class="pi-card__title">Principal Investigator</div>
+        <div class="pi-card__name">Prof. Alex J. Rivera</div>
+        <div class="pi-card__affil">Associate Professor · Department of Computational Biology · Institute of Systems Biology</div>
+        <p class="pi-card__bio">Alex leads the BIA Lab with a focus on developing mathematical and computational frameworks to understand biological signaling. After a PhD in Physics at ETH Zürich and postdoctoral training at the Broad Institute, Alex started the lab in 2019. The lab's work sits at the intersection of information theory, dynamical systems, and genomics.</p>
+        <div class="pi-card__interests">
+          <span class="pi-card__interest">Information theory</span>
+          <span class="pi-card__interest">Spatial transcriptomics</span>
+          <span class="pi-card__interest">Stochastic dynamics</span>
+          <span class="pi-card__interest">Developmental biology</span>
+          <span class="pi-card__interest">Open science</span>
+        </div>
+        <div class="pi-card__links">
+          <a href="#">📧 Email</a>
+          <a href="#">Scholar</a>
+          <a href="#">Twitter / X</a>
+          <a href="#">GitHub</a>
+          <a href="#">CV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Postdocs -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:1.5rem;">Postdoctoral Researchers</div>
+    <div class="grid-3">
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Dr. Tomoko Watanabe</div>
+          <div class="team-card__role">Postdoctoral Researcher</div>
+          <p class="team-card__bio">Information capacity of calcium signaling. Previously at Harvard (Bhattacharya Lab). PhD from Kyoto University.</p>
+          <div class="team-card__links">
+            <a href="#">Scholar</a><a href="#">GitHub</a><a href="#">Email</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Dr. Lucas Ferreira</div>
+          <div class="team-card__role">Postdoctoral Researcher</div>
+          <p class="team-card__bio">Network motif evolution and robustness. PhD from Universidade de São Paulo. Marie Skłodowska-Curie Fellow.</p>
+          <div class="team-card__links">
+            <a href="#">Scholar</a><a href="#">GitHub</a><a href="#">Email</a>
+          </div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Dr. Priya Nair</div>
+          <div class="team-card__role">Postdoctoral Researcher</div>
+          <p class="team-card__bio">Morphogen gradient inference and spatial transcriptomics methods. PhD from IISc Bangalore. ERC postdoctoral fellow.</p>
+          <div class="team-card__links">
+            <a href="#">Scholar</a><a href="#">GitHub</a><a href="#">Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PhD Students -->
+<section class="section">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:1.5rem;">PhD Students</div>
+    <div class="grid-4">
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Yuki Chen</div>
+          <div class="team-card__role">PhD Student · Year 4</div>
+          <p class="team-card__bio">Stochastic modelling of segmentation clocks. Co-supervised with MPI-CBG Dresden.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Luis García</div>
+          <div class="team-card__role">PhD Student · Year 3</div>
+          <p class="team-card__bio">Information theory of NF-κB dynamics. Funded by La Caixa Foundation.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Soo-Jin Kim</div>
+          <div class="team-card__role">PhD Student · Year 3</div>
+          <p class="team-card__bio">Partial information decomposition for multi-ligand signaling.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Tunde Okonkwo</div>
+          <div class="team-card__role">PhD Student · Year 2</div>
+          <p class="team-card__bio">Spatial transcriptomics and signaling flow in colon organoids.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Maria Santos</div>
+          <div class="team-card__role">PhD Student · Year 1</div>
+          <p class="team-card__bio">ERC project: spatial information processing in embryogenesis.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Alex Müller</div>
+          <div class="team-card__role">PhD Student · Year 1</div>
+          <p class="team-card__bio">Network topology and robustness in developmental gene regulatory networks.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Wei Zhang</div>
+          <div class="team-card__role">PhD Student · Year 1</div>
+          <p class="team-card__bio">Information-theoretic limits of single-cell signaling heterogeneity.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+      <div class="team-card">
+        <div class="team-card__photo member-avatar">👤</div>
+        <div class="team-card__body">
+          <div class="team-card__name">Phuong Nguyen</div>
+          <div class="team-card__role">PhD Student · Year 2</div>
+          <p class="team-card__bio">Optogenetic dissection of frequency-encoded calcium signals.</p>
+          <div class="team-card__links"><a href="#">GitHub</a><a href="#">Email</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Alumni -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label" style="margin-bottom:1.5rem;">Alumni</div>
+    <table class="alumni-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Years</th>
+          <th>Now</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dr. Rachel Wang</strong></td>
+          <td>Postdoc</td>
+          <td>2021–2023</td>
+          <td class="now">Assistant Professor, National University of Singapore</td>
+        </tr>
+        <tr>
+          <td><strong>Dr. James Smith</strong></td>
+          <td>PhD</td>
+          <td>2019–2023</td>
+          <td class="now">Scientist, Genentech</td>
+        </tr>
+        <tr>
+          <td><strong>Dr. Ananya Patel</strong></td>
+          <td>PhD</td>
+          <td>2019–2023</td>
+          <td class="now">Postdoc, Weizmann Institute</td>
+        </tr>
+        <tr>
+          <td><strong>Ramona Becker</strong></td>
+          <td>Master's student</td>
+          <td>2022</td>
+          <td class="now">PhD student, ETH Zürich</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>

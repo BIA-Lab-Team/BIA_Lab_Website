@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publications — BIA Lab</title>
+  <meta name="description" content="Publications from the Biological Information Architecture Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { background: var(--navy); padding: 5rem 0 3.5rem; color: var(--white); }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    .filter-bar {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+    .filter-btn {
+      background: var(--off-white); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 100px;
+      padding: .35rem 1rem; font-size: .82rem; font-weight: 600;
+      cursor: pointer; transition: background .15s, color .15s, border-color .15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--teal); color: var(--navy); border-color: var(--teal);
+    }
+
+    .year-group { margin-bottom: 3rem; }
+    .year-heading {
+      font-size: 1.5rem; font-weight: 800; color: var(--navy);
+      border-left: 4px solid var(--teal); padding-left: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 1rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Publications</div>
+    <h1>Research Output</h1>
+    <p>Peer-reviewed papers, preprints, and reviews from the BIA Lab. Lab members marked in <strong style="color:var(--teal)">teal</strong>.</p>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="spatial">Spatial Signaling</button>
+      <button class="filter-btn" data-filter="temporal">Temporal Dynamics</button>
+      <button class="filter-btn" data-filter="info">Information Theory</button>
+      <button class="filter-btn" data-filter="network">Network Architecture</button>
+    </div>
+
+    <!-- 2024 -->
+    <div class="year-group">
+      <div class="year-heading">2024</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="spatial">
+          <span class="pub-card__journal">Nature Methods</span>
+          <h3>SpatialFlow: Inferring directional signaling from spatial transcriptomics</h3>
+          <p class="pub-card__authors">Smith J†, <strong style="color:var(--teal-dark)">Patel A†</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024) · †equal contribution</p>
+          <p class="pub-card__abstract">A graph-based algorithm for reconstructing signal propagation direction in tissue sections from spatially resolved transcriptomic data. Benchmarked on simulated and real datasets from mouse embryo and human colon organoids.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Preprint</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="temporal">
+          <span class="pub-card__journal">eLife</span>
+          <h3>Noise shapes precision in vertebrate segmentation clocks</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Chen Y</strong>, Müller R, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024)</p>
+          <p class="pub-card__abstract">Single-cell imaging combined with stochastic modelling reveals that cell-to-cell coupling buffers noise to maintain somite periodicity under perturbation.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Data</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="info">
+          <span class="pub-card__journal">Cell Systems</span>
+          <h3>Partial information decomposition of multi-input signaling networks</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Kim S</strong>, <strong style="color:var(--teal-dark)">Okonkwo T</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024)</p>
+          <p class="pub-card__abstract">We extend PID to time-varying biological signals, disentangling redundant and synergistic contributions of parallel pathway inputs to downstream gene expression.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2023 -->
+    <div class="year-group">
+      <div class="year-heading">2023</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="info">
+          <span class="pub-card__journal">PLOS Computational Biology</span>
+          <h3>Information capacity of the NF-κB signaling pathway</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">García L</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2023)</p>
+          <p class="pub-card__abstract">Mutual information analysis of dynamic NF-κB trajectories reveals how stimulus identity is encoded in temporal signal features, including amplitude, duration, and oscillation frequency.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="network">
+          <span class="pub-card__journal">Molecular Systems Biology</span>
+          <h3>Evolutionary enrichment of incoherent feed-forward loops in mammalian signaling</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, Hartmann B (2023)</p>
+          <p class="pub-card__abstract">Comparative genomics reveals that incoherent type-1 feed-forward loops (I1-FFL) are under positive selection, consistent with their role in pulse generation and fold-change detection.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="spatial">
+          <span class="pub-card__journal">Nature Communications</span>
+          <h3>Gradient sensing accuracy sets morphogen range in developing limbs</h3>
+          <p class="pub-card__authors">Li W, <strong style="color:var(--teal-dark)">Wang R</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2023)</p>
+          <p class="pub-card__abstract">Stochastic receptor binding models combined with spatial transcriptomics data reveal a fundamental accuracy–range trade-off that constrains gradient-based patterning systems.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="temporal">
+          <span class="pub-card__journal">PNAS</span>
+          <h3>Frequency-encoded calcium signals drive cell-fate bifurcations</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Nguyen P</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong>, Bhattacharya S (2023)</p>
+          <p class="pub-card__abstract">Optogenetic control of calcium oscillation frequency reveals non-linear decoding by downstream transcription factors, explaining binary cell-fate outcomes under graded upstream signals.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2022 -->
+    <div class="year-group">
+      <div class="year-heading">2022</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="info">
+          <span class="pub-card__journal">Biophysical Journal</span>
+          <h3>InfoSig: A Python toolkit for information-theoretic analysis of signaling pathways</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, <strong style="color:var(--teal-dark)">Chen Y</strong>, <strong style="color:var(--teal-dark)">García L</strong> (2022)</p>
+          <p class="pub-card__abstract">Software paper describing InfoSig, a modular toolkit for computing mutual information, channel capacity, and noise decompositions from live-cell and population-level signaling data.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Software</a><a href="#">Docs</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="network">
+          <span class="pub-card__journal">Cell Reports</span>
+          <h3>Topology of the Wnt signaling network enables robustness to parameter variation</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, Clevers H (2022)</p>
+          <p class="pub-card__abstract">Sensitivity analysis of 400+ published Wnt pathway models identifies topological features — specifically negative feedback loops — that consistently confer robustness across parameter space.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.pub-card').forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.topic === f) ? '' : 'none';
+      });
+      document.querySelectorAll('.year-group').forEach(group => {
+        const visible = [...group.querySelectorAll('.pub-card')].some(c => c.style.display !== 'none');
+        group.style.display = visible ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" -Recurse -File)",
+      "Bash(Select-Object FullName)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Get-ChildItem -Path \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(grep -E '\\\\.\\(json|js|html|css|md|txt|yaml|yml|toml|lock|xml|py|ts|jsx|tsx\\)$')",
+      "Bash(find \"D:/Work/Claude_Code/BIA_Lab_Website\" -not -path '*/\\\\.claude/*' -type f)"
+    ]
+  }
+}

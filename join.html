@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join Us — BIA Lab</title>
+  <meta name="description" content="Open positions and how to apply to the Biological Information Architecture Lab.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    .page-hero { background: var(--navy); padding: 5rem 0 3.5rem; color: var(--white); }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 { color: var(--white); margin-bottom: .75rem; }
+    .page-hero p  { color: rgba(255,255,255,.65); font-size: 1.1rem; }
+
+    .position-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: box-shadow .2s;
+    }
+    .position-card:hover { box-shadow: var(--shadow-lg); }
+    .position-card__badge {
+      display: inline-block;
+      font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+      border-radius: 100px; padding: .25rem .75rem; margin-bottom: .75rem;
+    }
+    .badge-open   { background: rgba(40,200,80,.12); color: #1e9e40; border: 1px solid rgba(40,200,80,.3); }
+    .badge-future { background: rgba(0,201,167,.1); color: var(--teal-dark); border: 1px solid rgba(0,201,167,.25); }
+    .position-card h3 { font-size: 1.15rem; margin-bottom: .4rem; }
+    .position-card p  { color: var(--muted); font-size: .9rem; }
+    .position-card__meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .75rem; font-size: .82rem; color: var(--muted); }
+    .position-card__meta span { display: flex; align-items: center; gap: .3rem; }
+
+    @media (max-width: 600px) {
+      .position-card { grid-template-columns: 1fr; }
+    }
+
+    /* Values grid */
+    .value-card {
+      padding: 1.75rem;
+      border-radius: var(--radius-lg);
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .value-card__icon { font-size: 1.75rem; margin-bottom: .85rem; }
+    .value-card h3 { font-size: 1rem; margin-bottom: .4rem; }
+    .value-card p  { font-size: .88rem; color: var(--muted); }
+
+    /* Application guide */
+    .steps { display: flex; flex-direction: column; gap: 1.25rem; }
+    .step  { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; align-items: start; }
+    .step__num {
+      width: 2.5rem; height: 2.5rem;
+      background: var(--teal); color: var(--navy);
+      border-radius: 50%; font-weight: 800; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .step h4 { margin-bottom: .2rem; }
+    .step p  { font-size: .9rem; color: var(--muted); }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-group label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .35rem; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: .65rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: var(--font); font-size: .92rem;
+      color: var(--text); background: var(--white);
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,201,167,.15);
+    }
+    .form-group textarea { resize: vertical; min-height: 140px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Join Us</div>
+    <h1>Work With Us</h1>
+    <p>We are always looking for talented, curious, and motivated people to join the lab. We welcome applicants from diverse backgrounds — biology, physics, mathematics, computer science, and engineering.</p>
+  </div>
+</div>
+
+<!-- Open Positions -->
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Positions</div>
+      <h2>Open Positions</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+
+      <div class="position-card">
+        <div>
+          <span class="position-card__badge badge-open">● Open Now</span>
+          <h3>Postdoctoral Researcher — Spatial Information Theory</h3>
+          <p>ERC-funded postdoc to develop new computational methods for quantifying information flow in spatial transcriptomics data. Strong mathematical background required; experience with single-cell genomics a plus.</p>
+          <div class="position-card__meta">
+            <span>📍 On-site</span>
+            <span>⏱ 2 years (renewable)</span>
+            <span>💰 Competitive salary + benefits</span>
+            <span>📅 Start: Flexible 2025</span>
+          </div>
+        </div>
+        <div>
+          <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
+        </div>
+      </div>
+
+      <div class="position-card">
+        <div>
+          <span class="position-card__badge badge-open">● Open Now</span>
+          <h3>PhD Student — Stochastic Modelling of Developmental Oscillators</h3>
+          <p>PhD position (4 years) to model oscillatory gene expression in vertebrate development using SDEs and Bayesian inference. Background in physics, mathematics, or computational biology preferred.</p>
+          <div class="position-card__meta">
+            <span>📍 On-site</span>
+            <span>⏱ 4 years</span>
+            <span>💰 Fully funded</span>
+            <span>📅 Start: Sept 2025</span>
+          </div>
+        </div>
+        <div>
+          <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
+        </div>
+      </div>
+
+      <div class="position-card">
+        <div>
+          <span class="position-card__badge badge-open">● Open Now</span>
+          <h3>Research Software Engineer — Bioinformatics Tooling</h3>
+          <p>RSE position to maintain and extend our open-source Python packages (InfoSig, SpatialFlow). Strong Python and software engineering skills required. Knowledge of scientific Python stack (NumPy, JAX, Scanpy) essential.</p>
+          <div class="position-card__meta">
+            <span>📍 Hybrid</span>
+            <span>⏱ 2 years</span>
+            <span>💰 Competitive salary</span>
+            <span>📅 Start: ASAP</span>
+          </div>
+        </div>
+        <div>
+          <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
+        </div>
+      </div>
+
+      <div class="position-card">
+        <div>
+          <span class="position-card__badge badge-future">Coming 2025</span>
+          <h3>PhD Student — Network Architecture and Evolution (ERC)</h3>
+          <p>ERC-funded PhD to study the evolutionary origins of signaling network topologies using comparative genomics and dynamical modelling. Expected opening Q3 2025.</p>
+          <div class="position-card__meta">
+            <span>📍 On-site</span>
+            <span>⏱ 4 years</span>
+            <span>💰 Fully funded</span>
+          </div>
+        </div>
+        <div>
+          <a href="#apply" class="btn btn-outline-dark btn-sm">Express Interest</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Values -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Culture</div>
+      <h2>What we value</h2>
+      <p>We are committed to building an inclusive, supportive, and scientifically rigorous environment.</p>
+    </div>
+    <div class="grid-3">
+      <div class="value-card">
+        <div class="value-card__icon">🤝</div>
+        <h3>Collaboration first</h3>
+        <p>We work closely with experimental labs. No one succeeds alone — we share credit, code, and ideas openly.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">🌍</div>
+        <h3>Inclusion &amp; equity</h3>
+        <p>We actively recruit from underrepresented groups and provide mentorship pathways for all career stages.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">🔓</div>
+        <h3>Open science</h3>
+        <p>All code, data, and preprints are public. We believe science progresses faster when knowledge is shared.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">📈</div>
+        <h3>Career development</h3>
+        <p>Regular 1-on-1s, a personal development plan, and connections to industry and academia for your next step.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">🧪</div>
+        <h3>Intellectual freedom</h3>
+        <p>We encourage bold ideas and support lab members in pursuing unexpected directions with appropriate resources.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card__icon">⚖️</div>
+        <h3>Work–life balance</h3>
+        <p>Sustainable science. We don't glorify overwork — family, health, and rest make better researchers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How to Apply -->
+<section class="section">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+    <div>
+      <div class="section-label">Process</div>
+      <h2>How to apply</h2>
+      <p style="color:var(--muted);margin-bottom:2rem;">We review applications on a rolling basis. Strong candidates are contacted within two weeks.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step__num">1</div>
+          <div>
+            <h4>Read our recent papers</h4>
+            <p>Familiarise yourself with our research focus and identify which project excites you most.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">2</div>
+          <div>
+            <h4>Prepare your materials</h4>
+            <p>CV, a 1-page cover letter explaining your interest and fit, and contact details for 2–3 referees.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">3</div>
+          <div>
+            <h4>Submit below or email us</h4>
+            <p>Use the form, or email <a href="mailto:apply@bialab.org">apply@bialab.org</a> with subject line <em>[Position Name] – Application</em>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step__num">4</div>
+          <div>
+            <h4>Interviews</h4>
+            <p>Shortlisted candidates are invited for a 45-minute video call, followed by an on-site visit for finalists.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div id="apply">
+      <div class="section-label">Contact</div>
+      <h2>Get in touch</h2>
+      <p style="color:var(--muted);margin-bottom:1.75rem;">Use this form for inquiries about positions, collaborations, or anything else.</p>
+      <form class="contact-form" action="mailto:apply@bialab.org" method="get" enctype="text/plain">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">First name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Maria" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">Last name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Santos" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@university.edu" required>
+        </div>
+        <div class="form-group">
+          <label for="position">I am interested in</label>
+          <select id="position" name="position">
+            <option value="">Select a position…</option>
+            <option>Postdoctoral Researcher — Spatial Information Theory</option>
+            <option>PhD Student — Developmental Oscillators</option>
+            <option>Research Software Engineer</option>
+            <option>PhD Student — Network Architecture (2025)</option>
+            <option>Master's / rotation student</option>
+            <option>Collaboration / other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Briefly describe your background, why you're interested in the BIA Lab, and which research area you'd like to work on…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html" class="nav__logo" style="color:white;"><div class="nav__logo-icon">🧬</div><div class="nav__logo-text">BIA <span>Lab</span></div></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+</body>
+</html>
