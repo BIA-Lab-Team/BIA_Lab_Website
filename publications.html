@@ -63,7 +63,7 @@
   <div class="container">
     <div class="section-label">Publications</div>
     <h1>Research Output</h1>
-    <p>Peer-reviewed papers, preprints, and reviews from the BIA Lab. Lab members marked in <strong style="color:var(--teal)">teal</strong>.</p>
+    <p>Peer-reviewed papers, preprints, and software publications. <strong style="color:var(--teal)">Felix Y. Zhou</strong> highlighted in teal. Full list in <a href="papers.md" style="color:var(--teal)">papers.md</a>.</p>
   </div>
 </div>
 
@@ -71,36 +71,128 @@
   <div class="container">
     <div class="filter-bar">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="spatial">Spatial Signaling</button>
-      <button class="filter-btn" data-filter="temporal">Temporal Dynamics</button>
-      <button class="filter-btn" data-filter="info">Information Theory</button>
-      <button class="filter-btn" data-filter="network">Network Architecture</button>
+      <button class="filter-btn" data-filter="phenomics">Cell Phenomics</button>
+      <button class="filter-btn" data-filter="microscopy">Microscopy</button>
+      <button class="filter-btn" data-filter="signaling">Cell Signaling</button>
+      <button class="filter-btn" data-filter="imaging">Bioimage Analysis</button>
+      <button class="filter-btn" data-filter="tools">Computational Infrastructure</button>
+    </div>
+
+    <!-- 2026 -->
+    <div class="year-group">
+      <div class="year-heading">2026</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions</h3>
+          <p class="pub-card__authors">Gihana GM, Bhatt K, Chang B-J, Murali VS, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Noh J, Ravishankar R et al.</p>
+          <p class="pub-card__abstract">Demonstrates how branched actin-driven membrane protrusions spatially organise oncogenic KRAS signalling complexes, revealing a morphological mechanism by which cells amplify and sustain tumorigenic RAS activity.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="phenomics">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration and epiblast retrograde cell flow during anterior patterning</h3>
+          <p class="pub-card__authors">Stower MJ, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Valani R, Rozman J, Hathrell H, Godwin J, Lu X et al.</p>
+          <p class="pub-card__abstract">Applies multi-scale morphodynamic image analysis to reveal the collective migration mechanics of the distal visceral endoderm (DVE) during mouse anterior–posterior axis specification.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="microscopy">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy</h3>
+          <p class="pub-card__authors">Gałecki S, Chang B-J, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Shen Q, Stoddard D, Chen B, Nicastro D et al.</p>
+          <p class="pub-card__abstract">Combines iterative antibody labelling with expansion microscopy to achieve multiplexed nanoscale resolution imaging of subcellular structures, enabling systematic mapping of organelle architecture.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="imaging">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue</h3>
+          <p class="pub-card__authors">Wong AYH, Lu YD, Zhao Z, <strong style="color:var(--teal-dark)">Zhou F</strong>, Park H, Maliga Z, Anang Y et al.</p>
+          <p class="pub-card__abstract">Extends cyclic immunofluorescence into 3D volumes on FFPE tissue, enabling high-plex spatial profiling of immune cell niches at single-cell resolution throughout intact tissue blocks.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2025 -->
+    <div class="year-group">
+      <div class="year-heading">2025</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="imaging">
+          <span class="pub-card__journal">Nature Methods</span>
+          <h3>Highly multiplexed 3D profiling of cell states and immune niches in human tumors</h3>
+          <p class="pub-card__authors">Yapp C, Nirmal AJ, <strong style="color:var(--teal-dark)">Zhou F</strong>, Wong AYH, Tefft JB, Lu YD, Shang Z et al.</p>
+          <p class="pub-card__abstract">Presents 3D CyCIF, a volumetric cyclic immunofluorescence platform enabling highly multiplexed protein profiling in intact tumour tissue, revealing the spatial organisation of immune cell states and signalling niches with unprecedented depth.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">Nature Methods</span>
+          <h3>Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Marin Z, Yapp C, Zou Q, Nanes BA, Daetwyler S, Jamieson AR et al.</p>
+          <p class="pub-card__abstract">Introduces u-segment3D, a universal method for deriving consensus 3D cell segmentations from ensembles of per-slice 2D predictions, enabling robust 3D cell delineation across diverse imaging modalities without retraining.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="microscopy">
+          <span class="pub-card__journal">Nature Methods</span>
+          <h3>Imaging of cellular dynamics from a whole organism to subcellular scale with self-driving, multiscale microscopy</h3>
+          <p class="pub-card__authors">Daetwyler S, Mazloom-Farsibaf H, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Segal D, Sapoznik E, Chen B et al.</p>
+          <p class="pub-card__abstract">Develops an autonomous microscopy platform that adaptively selects imaging scale and modality in real time, enabling seamless imaging from whole-organism to subcellular resolution within a single acquisition session.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Norton-Steele A, Marsh L, Byrne H, Harrington H, Lu X</p>
+          <p class="pub-card__abstract">Introduces the SPOT framework and SAM feature taxonomy as a standardised vocabulary for describing cellular image phenotypes, enabling systematic cross-experiment comparison of cell morphology, texture, and dynamics.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Identifying phenotype–genotype–function coupling in 3D organoid imaging using SPOT</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Jacobs BA, Norton-Steele A, Han X, Zhou L, Carroll TM et al.</p>
+          <p class="pub-card__abstract">Applies the SPOT phenomics pipeline to 3D organoid imaging datasets, linking quantitative morphodynamic phenotypes to genotype perturbations and cellular function in a scalable, interpretable framework.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">PLOS Biology</span>
+          <h3>Calcium signaling is required for anterior patterning in the mouse embryo</h3>
+          <p class="pub-card__authors">Stower MJ, Tyser RCV, Thowfeequ S, <strong style="color:var(--teal-dark)">Zhou F</strong>, Portela M, Miti K et al.</p>
+          <p class="pub-card__abstract">Shows that oscillatory calcium signalling in the visceral endoderm is necessary for correct anterior–posterior axis specification in the early mouse embryo, identifying a previously unrecognised role for calcium dynamics in mammalian body-plan establishment.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
     </div>
 
     <!-- 2024 -->
     <div class="year-group">
       <div class="year-heading">2024</div>
       <div class="pub-list">
-        <div class="pub-card" data-topic="spatial">
-          <span class="pub-card__journal">Nature Methods</span>
-          <h3>SpatialFlow: Inferring directional signaling from spatial transcriptomics</h3>
-          <p class="pub-card__authors">Smith J†, <strong style="color:var(--teal-dark)">Patel A†</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024) · †equal contribution</p>
-          <p class="pub-card__abstract">A graph-based algorithm for reconstructing signal propagation direction in tissue sections from spatially resolved transcriptomic data. Benchmarked on simulated and real datasets from mouse embryo and human colon organoids.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Preprint</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">Developmental Cell</span>
+          <h3>Proteolysis-free amoeboid migration of melanoma cells through crowded environments via bleb-driven worrying</h3>
+          <p class="pub-card__authors">Driscoll MK, Welf ES, Weems A, Sapoznik E, <strong style="color:var(--teal-dark)">Zhou F</strong>, Murali VS et al.</p>
+          <p class="pub-card__abstract">Reveals that melanoma cells exploit bleb-driven mechanical worrying to physically squeeze through confined 3D environments without requiring matrix proteolysis, establishing a new mode of amoeboid invasion.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
         </div>
-        <div class="pub-card" data-topic="temporal">
-          <span class="pub-card__journal">eLife</span>
-          <h3>Noise shapes precision in vertebrate segmentation clocks</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Chen Y</strong>, Müller R, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024)</p>
-          <p class="pub-card__abstract">Single-cell imaging combined with stochastic modelling reveals that cell-to-cell coupling buffers noise to maintain somite periodicity under perturbation.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Data</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        <div class="pub-card" data-topic="phenomics">
+          <span class="pub-card__journal">Transactions of Mathematics and Its Applications</span>
+          <h3>Detecting temporal shape changes with the Euler characteristic transform</h3>
+          <p class="pub-card__authors">Marsh L, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Qin X, Lu X, Byrne HM, Harrington HA</p>
+          <p class="pub-card__abstract">Applies topological data analysis — specifically the Euler characteristic transform — as a shape descriptor for detecting and classifying morphological changes in time-lapse cell imaging data.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
         </div>
-        <div class="pub-card" data-topic="info">
-          <span class="pub-card__journal">Cell Systems</span>
-          <h3>Partial information decomposition of multi-input signaling networks</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Kim S</strong>, <strong style="color:var(--teal-dark)">Okonkwo T</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2024)</p>
-          <p class="pub-card__abstract">We extend PID to time-varying biological signals, disentangling redundant and synergistic contributions of parallel pathway inputs to downstream gene expression.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">Developmental Cell</span>
+          <h3>An integrated approach identifies the molecular underpinnings of murine anterior visceral endoderm migration</h3>
+          <p class="pub-card__authors">Thowfeequ S, Fiorentino J, Hu D, Solovey M, Ruane S, Whitehead M, <strong style="color:var(--teal-dark)">Zhou F</strong> et al.</p>
+          <p class="pub-card__abstract">Combines single-cell transcriptomics, live imaging, and quantitative morphodynamics to identify the molecular pathways governing directed collective migration of the anterior visceral endoderm during early mammalian embryogenesis.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="microscopy">
+          <span class="pub-card__journal">Nature Communications</span>
+          <h3>Projective light-sheet microscopy with flexible parameter selection</h3>
+          <p class="pub-card__authors">Chen B, Chang B-J, Daetwyler S, <strong style="color:var(--teal-dark)">Zhou F</strong>, Sharma S, Lee DM, Nayak A et al.</p>
+          <p class="pub-card__abstract">Introduces projective oblique-plane light-sheet microscopy with a reconfigurable optical geometry, enabling rapid whole-volume imaging of large specimens with user-selectable resolution–speed trade-offs.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
         </div>
       </div>
     </div>
@@ -109,33 +201,26 @@
     <div class="year-group">
       <div class="year-heading">2023</div>
       <div class="pub-list">
-        <div class="pub-card" data-topic="info">
-          <span class="pub-card__journal">PLOS Computational Biology</span>
-          <h3>Information capacity of the NF-κB signaling pathway</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">García L</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2023)</p>
-          <p class="pub-card__abstract">Mutual information analysis of dynamic NF-κB trajectories reveals how stimulus identity is encoded in temporal signal features, including amplitude, duration, and oscillation frequency.</p>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">Nature</span>
+          <h3>Blebs promote cell survival by assembling oncogenic signalling hubs</h3>
+          <p class="pub-card__authors">Weems AD, Welf ES, Driscoll MK, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Mazloom-Farsibaf H, Chang B-J, Murali VS, Gihana GM et al.</p>
+          <p class="pub-card__abstract">Shows that plasma-membrane blebs act as compartments that concentrate and activate pro-survival signalling complexes, revealing a link between actin-driven cell morphology and oncogenic pathway activity.</p>
+          <div class="pub-card__links"><a href="https://doi.org/10.1038/s41586-023-05758-6">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="microscopy">
+          <span class="pub-card__journal">Optica</span>
+          <h3>Mesoscopic oblique plane microscopy via light-sheet mirroring</h3>
+          <p class="pub-card__authors">Daetwyler S, Chang B-J, Chen B, Voigt FF, Rajendran D, <strong style="color:var(--teal-dark)">Zhou F</strong>, Fiolka R</p>
+          <p class="pub-card__abstract">Extends oblique plane microscopy to mesoscopic fields of view using a light-sheet mirroring geometry, enabling high-speed volumetric imaging of entire model organisms at cellular resolution.</p>
           <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
         </div>
-        <div class="pub-card" data-topic="network">
-          <span class="pub-card__journal">Molecular Systems Biology</span>
-          <h3>Evolutionary enrichment of incoherent feed-forward loops in mammalian signaling</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, Hartmann B (2023)</p>
-          <p class="pub-card__abstract">Comparative genomics reveals that incoherent type-1 feed-forward loops (I1-FFL) are under positive selection, consistent with their role in pulse generation and fold-change detection.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
-        </div>
-        <div class="pub-card" data-topic="spatial">
-          <span class="pub-card__journal">Nature Communications</span>
-          <h3>Gradient sensing accuracy sets morphogen range in developing limbs</h3>
-          <p class="pub-card__authors">Li W, <strong style="color:var(--teal-dark)">Wang R</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong> (2023)</p>
-          <p class="pub-card__abstract">Stochastic receptor binding models combined with spatial transcriptomics data reveal a fundamental accuracy–range trade-off that constrains gradient-based patterning systems.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
-        </div>
-        <div class="pub-card" data-topic="temporal">
-          <span class="pub-card__journal">PNAS</span>
-          <h3>Frequency-encoded calcium signals drive cell-fate bifurcations</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Nguyen P</strong>, <strong style="color:var(--teal-dark)">Lab PI</strong>, Bhattacharya S (2023)</p>
-          <p class="pub-card__abstract">Optogenetic control of calcium oscillation frequency reveals non-linear decoding by downstream transcription factors, explaining binary cell-fate outcomes under graded upstream signals.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">bioRxiv — preprint</span>
+          <h3>Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Wimalasena VK, Zou Q, Weems A, Gihana GM, Jenkins E et al.</p>
+          <p class="pub-card__abstract">Introduces a surface-guided computational framework that maps fluorescent molecular signals onto the 3D cell surface mesh, enabling quantitative analysis of how spatial signal distributions co-vary with dynamic cell shape changes.</p>
+          <div class="pub-card__links"><a href="#">Preprint</a><a href="#">Code</a><a href="#">BibTeX</a></div>
         </div>
       </div>
     </div>
@@ -144,19 +229,82 @@
     <div class="year-group">
       <div class="year-heading">2022</div>
       <div class="pub-list">
-        <div class="pub-card" data-topic="info">
-          <span class="pub-card__journal">Biophysical Journal</span>
-          <h3>InfoSig: A Python toolkit for information-theoretic analysis of signaling pathways</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, <strong style="color:var(--teal-dark)">Chen Y</strong>, <strong style="color:var(--teal-dark)">García L</strong> (2022)</p>
-          <p class="pub-card__abstract">Software paper describing InfoSig, a modular toolkit for computing mutual information, channel capacity, and noise decompositions from live-cell and population-level signaling data.</p>
-          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Software</a><a href="#">Docs</a><a href="#">BibTeX</a></div>
-        </div>
-        <div class="pub-card" data-topic="network">
-          <span class="pub-card__journal">Cell Reports</span>
-          <h3>Topology of the Wnt signaling network enables robustness to parameter variation</h3>
-          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Lab PI</strong>, Clevers H (2022)</p>
-          <p class="pub-card__abstract">Sensitivity analysis of 400+ published Wnt pathway models identifies topological features — specifically negative feedback loops — that consistently confer robustness across parameter space.</p>
+        <div class="pub-card" data-topic="microscopy">
+          <span class="pub-card__journal">Nature Methods</span>
+          <h3>Resolution doubling in light-sheet microscopy via oblique plane structured illumination</h3>
+          <p class="pub-card__authors">Chen B, Chang B-J, Roudot P, <strong style="color:var(--teal-dark)">Zhou F</strong>, Sapoznik E, Marlar-Pavey M et al.</p>
+          <p class="pub-card__abstract">Combines structured illumination with oblique plane microscopy to achieve two-fold lateral resolution improvement in light-sheet imaging, enabling sub-diffraction volumetric imaging of live specimens at high speed.</p>
           <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">EMBO Reports</span>
+          <h3>Human ZBP1 induces cell death-independent inflammatory signaling via RIPK3 and RIPK1</h3>
+          <p class="pub-card__authors">Peng R, Wang C-K, Wang-Kan X, Idorn M, Kjær M, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Fiil BK et al.</p>
+          <p class="pub-card__abstract">Demonstrates that human ZBP1 drives a RIPK1/RIPK3-dependent inflammatory signalling programme mechanistically uncoupled from cell death, expanding the known functions of Z-nucleic acid sensing in innate immunity.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">EMBO Journal</span>
+          <h3>Centrioles generate a local pulse of Polo/PLK1 activity to initiate mitotic centrosome assembly</h3>
+          <p class="pub-card__authors">Wong SS, Wilmott ZM, Saurya S, Alvarez-Rodrigo I, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Chau KY et al.</p>
+          <p class="pub-card__abstract">Shows that centrioles generate a spatially restricted burst of PLK1 kinase activity at mitotic entry that acts as a local organising signal to initiate pericentriolar material recruitment and centrosome maturation.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2021 -->
+    <div class="year-group">
+      <div class="year-heading">2021</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="imaging">
+          <span class="pub-card__journal">Medical Image Analysis</span>
+          <h3>A deep learning framework for quality assessment and restoration in video endoscopy</h3>
+          <p class="pub-card__authors">Ali S, <strong style="color:var(--teal-dark)">Zhou F</strong>, Bailey A, Braden B, East JE, Lu X, Rittscher J</p>
+          <p class="pub-card__abstract">Presents a multi-task deep learning system that simultaneously detects, classifies, and restores endoscopy imaging artefacts in video streams, improving downstream computer-assisted diagnosis reliability in clinical gastrointestinal endoscopy.</p>
+          <div class="pub-card__links"><a href="https://doi.org/10.1016/j.media.2020.101900">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2020 -->
+    <div class="year-group">
+      <div class="year-heading">2020</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">Immunity</span>
+          <h3>Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones</h3>
+          <p class="pub-card__authors">Chauveau A, Pirgova G, Cheng HW, De Martin A, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Wideman S et al.</p>
+          <p class="pub-card__abstract">Uses intravital two-photon imaging and quantitative motion analysis to map the perivascular migration routes by which naïve T cells navigate from the vasculature into the splenic T cell zone.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="signaling">
+          <span class="pub-card__journal">Cell</span>
+          <h3>An autonomous oscillation times and executes centriole biogenesis</h3>
+          <p class="pub-card__authors">Aydogan MG, Steinacker TL, Mofatteh M, Wilmott ZM, <strong style="color:var(--teal-dark)">Zhou FY</strong> et al.</p>
+          <p class="pub-card__abstract">Identifies a cell-autonomous oscillatory mechanism that both times and drives centriole biogenesis, demonstrating that the centriole duplication cycle is implemented as a biochemical oscillator with intrinsic period control.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2019 -->
+    <div class="year-group">
+      <div class="year-heading">2019</div>
+      <div class="pub-list">
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">Nature</span>
+          <h3>Diverse and robust molecular algorithms using reprogrammable DNA self-assembly</h3>
+          <p class="pub-card__authors">Woods D, Doty D, Myhrvold C, Hui J, <strong style="color:var(--teal-dark)">Zhou F</strong>, Yin P, Winfree E</p>
+          <p class="pub-card__abstract">Demonstrates that reprogrammable DNA tile self-assembly can implement a diverse library of computational algorithms, establishing a molecular substrate for the physical embedding of information-processing logic.</p>
+          <div class="pub-card__links"><a href="https://doi.org/10.1038/s41586-019-1014-9">Paper</a><a href="#">BibTeX</a></div>
+        </div>
+        <div class="pub-card" data-topic="tools">
+          <span class="pub-card__journal">eLife</span>
+          <h3>Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes</h3>
+          <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X</p>
+          <p class="pub-card__abstract">Introduces MOSES, a superpixel-based optical-flow framework that extracts quantitative motion phenotypes from time-lapse microscopy without requiring single-cell tracking, enabling large-scale unsupervised discovery of collective migration behaviours.</p>
+          <div class="pub-card__links"><a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a></div>
         </div>
       </div>
     </div>
@@ -173,7 +321,7 @@
       </div>
       <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
       <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
-      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en">Google Scholar</a></li></ul></div>
     </div>
     <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
   </div>

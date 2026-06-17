@@ -42,7 +42,7 @@
     .project-card__body { padding: 2.5rem; }
     .project-card__tag  {
       display: inline-block;
-      background: rgba(0,201,167,.1); color: var(--teal-dark);
+      background: rgba(72,120,190,.1); color: var(--teal-dark);
       border-radius: 100px; padding: .2rem .75rem;
       font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
       margin-bottom: 1rem;
@@ -87,64 +87,64 @@
 <div class="page-hero">
   <div class="container">
     <div class="section-label">Research</div>
-    <h1>Our Projects</h1>
-    <p>We ask how biological systems encode, transmit, and decode information across scales — from single molecules to whole tissues.</p>
+    <h1>Our Research</h1>
+    <p>We develop computational and mathematical tools to understand how cell shape, motion, and molecular signals are organised across space and time — from single cells to whole tissues.</p>
   </div>
 </div>
 
 <section class="section">
   <div class="container" style="display:flex;flex-direction:column;gap:2.5rem;">
 
-    <!-- Project 1 -->
+    <!-- Theme 1 — Cell Phenomics -->
     <div class="project-card">
       <div class="project-card__visual">
         <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <defs><radialGradient id="p1g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#00c9a7" stop-opacity=".3"/><stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/></radialGradient></defs>
+          <defs><radialGradient id="p1g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4878be" stop-opacity=".3"/><stop offset="100%" stop-color="#4878be" stop-opacity="0"/></radialGradient></defs>
           <circle cx="130" cy="100" r="90" fill="url(#p1g)"/>
-          <g fill="none" stroke="#00c9a7" stroke-opacity=".5" stroke-width="1">
+          <g fill="none" stroke="#4878be" stroke-opacity=".5" stroke-width="1">
             <polygon points="130,30 165,50 165,90 130,110 95,90 95,50"/>
             <polygon points="165,90 200,110 200,150 165,170 130,150 130,110"/>
             <polygon points="95,90 130,110 130,150 95,170 60,150 60,110"/>
           </g>
-          <g fill="#00c9a7" opacity=".8">
+          <g fill="#4878be" opacity=".8">
             <circle cx="130" cy="30" r="5"/><circle cx="165" cy="50" r="4"/>
             <circle cx="165" cy="90" r="4"/><circle cx="130" cy="110" r="6"/>
             <circle cx="95" cy="90" r="4"/><circle cx="95" cy="50" r="4"/>
             <circle cx="200" cy="110" r="3"/><circle cx="165" cy="170" r="3"/>
             <circle cx="60" cy="110" r="3"/><circle cx="95" cy="170" r="3"/>
           </g>
-          <!-- color-coded cells -->
-          <circle cx="130" cy="110" r="10" fill="none" stroke="#00c9a7" stroke-width="2" opacity=".9"/>
+          <circle cx="130" cy="110" r="10" fill="none" stroke="#4878be" stroke-width="2" opacity=".9"/>
         </svg>
       </div>
       <div class="project-card__body">
-        <span class="project-card__tag">Spatial Signaling</span>
-        <h3>Reconstructing signaling architecture from spatial transcriptomics</h3>
-        <p>Modern spatial transcriptomics allows us to measure gene expression while retaining tissue coordinates. We develop graph-based methods to infer directionality and coupling strength of cell–cell communication across tissue sections, identifying signaling hubs and gradients that control cell-fate decisions.</p>
+        <span class="project-card__tag">Cell Phenomics</span>
+        <h3>Quantitative cell phenotyping across scales</h3>
+        <p>We build computational frameworks that extract rich, quantitative phenotypes from time-lapse microscopy — capturing shape, appearance, and motion without requiring manual annotation. Our MOSES framework uses superpixel optical flow to discover collective migration phenotypes; SPOT/SAM provides a standardised vocabulary for comparing phenotypes across experiments and organisms. Our u-segment3D tool achieves universal 3D cell segmentation by combining diverse 2D models, removing the need to retrain for each imaging modality.</p>
         <div class="project-card__methods">
-          <span class="project-card__method">Spatial transcriptomics</span>
-          <span class="project-card__method">Graph algorithms</span>
-          <span class="project-card__method">Gaussian processes</span>
-          <span class="project-card__method">Python</span>
+          <span class="project-card__method">Motion sensing superpixels</span>
+          <span class="project-card__method">Topological data analysis</span>
+          <span class="project-card__method">Shape analysis</span>
+          <span class="project-card__method">3D segmentation</span>
+          <span class="project-card__method">Phenotype classification</span>
         </div>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
-          <a href="software.html" class="btn btn-outline-dark btn-sm">SpatialFlow Tool</a>
+          <a href="software.html" class="btn btn-outline-dark btn-sm">MOSES &amp; SPOT Tools</a>
         </div>
       </div>
     </div>
 
-    <!-- Project 2 -->
+    <!-- Theme 2 — Advanced Microscopy -->
     <div class="project-card flip">
       <div class="project-card__visual">
         <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <g stroke="#00c9a7" stroke-width="2" fill="none" opacity=".85">
+          <g stroke="#4878be" stroke-width="2" fill="none" opacity=".85">
             <polyline points="10,80 30,45 50,110 70,35 90,95 110,55 130,85 150,40 170,90 190,50 210,80 230,60 250,70"/>
           </g>
-          <g stroke="rgba(0,201,167,.3)" stroke-width="1.5" fill="none">
+          <g stroke="rgba(72,120,190,.3)" stroke-width="1.5" fill="none">
             <polyline points="10,80 30,65 50,88 70,60 90,82 110,68 130,78 150,62 170,82 190,67 210,76 230,70 250,73"/>
           </g>
-          <g fill="#00c9a7">
+          <g fill="#4878be">
             <circle cx="70" cy="35" r="5" opacity=".9"/>
             <circle cx="150" cy="40" r="5" opacity=".9"/>
             <circle cx="230" cy="60" r="5" opacity=".9"/>
@@ -154,14 +154,15 @@
         </svg>
       </div>
       <div class="project-card__body">
-        <span class="project-card__tag">Temporal Dynamics</span>
-        <h3>Oscillatory gene expression and developmental timing</h3>
-        <p>The vertebrate segmentation clock generates periodic pulses of gene expression that time the formation of body segments. We combine live single-cell imaging, optogenetics, and stochastic differential equation models to understand how noise, coupling, and external inputs shape clock precision and entrainability.</p>
+        <span class="project-card__tag">Advanced Microscopy</span>
+        <h3>Next-generation fluorescence imaging systems</h3>
+        <p>We collaborate on the development and application of advanced light-sheet imaging platforms — including oblique plane microscopy (OPM), structured illumination OPM, projective light-sheet, and self-driving multiscale microscopy — that image live specimens from whole-organism to subcellular resolution. We also develop cyclic immunofluorescence (CyCIF) in 3D to enable highly multiplexed protein profiling in intact tissue volumes, and apply expansion microscopy for nanoscale subcellular mapping.</p>
         <div class="project-card__methods">
-          <span class="project-card__method">Live imaging</span>
-          <span class="project-card__method">Optogenetics</span>
-          <span class="project-card__method">SDEs / ODEs</span>
-          <span class="project-card__method">Bayesian inference</span>
+          <span class="project-card__method">Oblique plane microscopy</span>
+          <span class="project-card__method">Structured illumination</span>
+          <span class="project-card__method">Cyclic immunofluorescence</span>
+          <span class="project-card__method">Expansion microscopy</span>
+          <span class="project-card__method">Autonomous imaging</span>
         </div>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
@@ -169,49 +170,51 @@
       </div>
     </div>
 
-    <!-- Project 3 -->
+    <!-- Theme 3 — Cell Signaling & Cancer Biology -->
     <div class="project-card">
       <div class="project-card__visual">
         <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <defs><radialGradient id="p3g" cx="40%" cy="50%" r="55%"><stop offset="0%" stop-color="#00c9a7" stop-opacity=".2"/><stop offset="100%" stop-color="#00c9a7" stop-opacity="0"/></radialGradient>
-          <radialGradient id="p3g2" cx="65%" cy="50%" r="50%"><stop offset="0%" stop-color="#6496ff" stop-opacity=".15"/><stop offset="100%" stop-color="#6496ff" stop-opacity="0"/></radialGradient></defs>
-          <circle cx="100" cy="90" r="70" fill="url(#p3g)" stroke="#00c9a7" stroke-opacity=".4" stroke-width="1.5"/>
-          <circle cx="160" cy="90" r="70" fill="url(#p3g2)" stroke="#6496ff" stroke-opacity=".35" stroke-width="1.5"/>
-          <text x="68" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">H(X)</text>
-          <text x="163" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">H(Y)</text>
-          <text x="115" y="88" font-size="10" fill="#00c9a7" font-family="Inter,sans-serif" font-weight="700">I(X;Y)</text>
-          <text x="113" y="100" font-size="8" fill="rgba(0,201,167,.7)" font-family="Inter,sans-serif">0.72 bits</text>
+          <defs>
+            <radialGradient id="p3g" cx="40%" cy="50%" r="55%"><stop offset="0%" stop-color="#4878be" stop-opacity=".2"/><stop offset="100%" stop-color="#4878be" stop-opacity="0"/></radialGradient>
+            <radialGradient id="p3g2" cx="65%" cy="50%" r="50%"><stop offset="0%" stop-color="#7b65b2" stop-opacity=".15"/><stop offset="100%" stop-color="#7b65b2" stop-opacity="0"/></radialGradient>
+          </defs>
+          <circle cx="100" cy="90" r="70" fill="url(#p3g)" stroke="#4878be" stroke-opacity=".4" stroke-width="1.5"/>
+          <circle cx="160" cy="90" r="70" fill="url(#p3g2)" stroke="#7b65b2" stroke-opacity=".35" stroke-width="1.5"/>
+          <text x="58" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">Morphology</text>
+          <text x="155" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">Signaling</text>
+          <text x="108" y="84" font-size="9" fill="#4878be" font-family="Inter,sans-serif" font-weight="700">Blebs /</text>
+          <text x="106" y="96" font-size="9" fill="#4878be" font-family="Inter,sans-serif" font-weight="700">KRAS</text>
         </svg>
       </div>
       <div class="project-card__body">
-        <span class="project-card__tag">Information Theory</span>
-        <h3>Information-theoretic limits of biological signaling</h3>
-        <p>Using Shannon's framework, we quantify how much information signaling pathways can transmit about their inputs. We compute mutual information and channel capacity from single-cell data, revealing fundamental trade-offs between speed, fidelity, and energy expenditure in cell communication.</p>
+        <span class="project-card__tag">Cell Signaling &amp; Cancer Biology</span>
+        <h3>Morphology-driven oncogenic signalling hubs</h3>
+        <p>We investigate how cell morphology controls signal transduction. Our work showed that plasma-membrane blebs act as compartments that concentrate and activate pro-survival oncogenic complexes (Nature 2023). We continue to dissect how branched actin-driven protrusions regulate KRAS signalling, and how amoeboid migration modes allow cancer cells to invade tissues without matrix proteolysis. These studies combine live-cell super-resolution imaging, optogenetics, and quantitative signal analysis.</p>
         <div class="project-card__methods">
-          <span class="project-card__method">Mutual information</span>
-          <span class="project-card__method">Channel capacity</span>
-          <span class="project-card__method">Single-cell data</span>
-          <span class="project-card__method">InfoSig toolkit</span>
+          <span class="project-card__method">Live-cell imaging</span>
+          <span class="project-card__method">Bleb dynamics</span>
+          <span class="project-card__method">KRAS signaling</span>
+          <span class="project-card__method">Actin cytoskeleton</span>
+          <span class="project-card__method">Cancer invasion</span>
         </div>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
-          <a href="software.html" class="btn btn-outline-dark btn-sm">InfoSig Tool</a>
         </div>
       </div>
     </div>
 
-    <!-- Project 4 -->
+    <!-- Theme 4 — 3D Spatial Tissue Profiling -->
     <div class="project-card flip">
       <div class="project-card__visual">
         <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <g stroke="#00c9a7" stroke-opacity=".4" stroke-width="1" fill="none">
+          <g stroke="#4878be" stroke-opacity=".4" stroke-width="1" fill="none">
             <line x1="130" y1="90" x2="80" y2="50"/><line x1="130" y1="90" x2="180" y2="50"/>
             <line x1="130" y1="90" x2="80" y2="130"/><line x1="130" y1="90" x2="180" y2="130"/>
             <line x1="80" y1="50" x2="40" y2="30"/><line x1="80" y1="50" x2="50" y2="80"/>
             <line x1="180" y1="50" x2="220" y2="30"/><line x1="180" y1="50" x2="210" y2="80"/>
             <line x1="80" y1="130" x2="40" y2="150"/><line x1="180" y1="130" x2="220" y2="150"/>
           </g>
-          <g fill="#00c9a7">
+          <g fill="#4878be">
             <circle cx="130" cy="90" r="9" opacity=".95"/>
             <circle cx="80"  cy="50" r="6" opacity=".8"/>
             <circle cx="180" cy="50" r="6" opacity=".8"/>
@@ -224,23 +227,24 @@
             <circle cx="40"  cy="150" r="4" opacity=".6"/>
             <circle cx="220" cy="150" r="4" opacity=".6"/>
           </g>
-          <!-- feedback arc -->
-          <path d="M 180 130 Q 220 90 180 50" stroke="#00c9a7" stroke-opacity=".6" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
-          <polygon points="180,50 174,63 186,60" fill="#00c9a7" opacity=".7"/>
+          <path d="M 180 130 Q 220 90 180 50" stroke="#4878be" stroke-opacity=".6" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
+          <polygon points="180,50 174,63 186,60" fill="#4878be" opacity=".7"/>
         </svg>
       </div>
       <div class="project-card__body">
-        <span class="project-card__tag">Network Architecture</span>
-        <h3>Design principles of gene regulatory networks</h3>
-        <p>We interrogate the topology of regulatory networks to understand how feedback, feed-forward, and modularity contribute to signal processing robustness. Using simulations and evolutionary analysis, we identify network motifs that are enriched in signaling systems and explain their functional advantages.</p>
+        <span class="project-card__tag">3D Spatial Tissue Profiling</span>
+        <h3>Surface-guided computing for subcellular morphodynamics in tissue context</h3>
+        <p>We develop surface-guided computational methods that map molecular signals onto the 3D cell surface to study how signal distributions co-vary with shape dynamics. Combined with volumetric cyclic immunofluorescence and universal 3D segmentation (u-segment3D, Nature Methods 2025), these approaches allow us to profile cell states and subcellular organisation in intact tumour and embryonic tissues at single-cell and subcellular resolution, linking morphodynamic phenotypes to molecular identity and tissue-level context.</p>
         <div class="project-card__methods">
-          <span class="project-card__method">Network motifs</span>
-          <span class="project-card__method">Boolean models</span>
-          <span class="project-card__method">Evolutionary analysis</span>
-          <span class="project-card__method">R / Python</span>
+          <span class="project-card__method">Surface-guided computing</span>
+          <span class="project-card__method">3D segmentation</span>
+          <span class="project-card__method">Spatial proteomics</span>
+          <span class="project-card__method">Cyclic immunofluorescence</span>
+          <span class="project-card__method">Morphodynamic mapping</span>
         </div>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
+          <a href="software.html" class="btn btn-outline-dark btn-sm">u-segment3D Tool</a>
         </div>
       </div>
     </div>
@@ -257,7 +261,7 @@
       </div>
       <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
       <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
-      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en">Google Scholar</a></li></ul></div>
     </div>
     <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span>Built with ♡ for open science · <a href="#">GitHub</a></span></div>
   </div>

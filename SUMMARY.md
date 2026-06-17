@@ -6,7 +6,8 @@ A complete, production-ready static academic website for the **Biological Inform
 ## Pages
 
 ### `index.html` — Landing page
-- Full-viewport **hero** with animated SVG node-graph background on a soft blue-grey gradient, lab tagline, and CTA buttons
+- Full-viewport **hero** with two-column layout: text (eyebrow, h1, lead, CTA buttons, stats) on the left; the lab logo displayed as a large 360×360 px circle on the right, vertically aligned so its top sits above the h1 and its bottom reaches the CTA buttons
+- Animated SVG node-graph background on a soft blue-grey gradient
 - **4-slide auto-advancing carousel** (5 s interval, pause on hover, touch/swipe support) showcasing a recent paper, an active project, a software release, and a grant award
 - **Research themes strip** — four dark navy cards covering Spatial Signaling, Temporal Dynamics, Information Theory, and Network Architecture
 - **Stats bar** — navy band with key lab metrics (publications, members, tools, grants, collaborators)

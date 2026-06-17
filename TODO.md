@@ -28,7 +28,8 @@ Items to complete before the site goes live, plus longer-term improvements.
 ### QA
 - [ ] Test on mobile (iPhone Safari, Android Chrome) — carousel swipe, nav burger, responsive layout
 - [ ] Test all filter buttons (publications page topic filters, news page category filters)
-- [ ] Verify logo renders correctly in nav (white background) and footer (white pill on dark)
+- [ ] Verify logo renders correctly in nav (white background), footer (white pill on dark), and hero circle crop (index.html only)
+- [ ] Fine-tune `object-position` on hero circle crop once real photos are in place — currently `center 35%` focuses on the "bia" graphic
 - [ ] Run HTML through [validator.w3.org](https://validator.w3.org) to catch any markup errors
 - [ ] Check colour contrast ratios meet WCAG AA — especially `#4878be` blue on white backgrounds
 
