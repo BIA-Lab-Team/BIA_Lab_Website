@@ -5,16 +5,21 @@ Items to complete before the site goes live, plus longer-term improvements.
 ## Before going live
 
 ### Content (replace placeholders)
-- [ ] Replace all `href="#"` with real URLs — GitHub org, Google Scholar, Twitter/X, LinkedIn
-- [ ] Update PI name, affiliation, email, and bio in `team.html` and all footers
+- [x] Add real publication data to `publications.html` — 25 papers (2019–2026) from Google Scholar / OpenAlex
+- [x] Add real research themes to `research.html` — 4 project cards reflecting actual work
+- [x] Update homepage recent-work pub-cards (`index.html`) with 4 real high-impact papers
+- [x] Create `papers.md` local bibliography (45 entries, source of truth)
+- [ ] Replace all `href="#"` with real URLs — GitHub repos, Google Scholar, Twitter/X, DOI links for each paper
+- [ ] Update PI / team details in `team.html` (name, affiliation, bio, photo, social links)
 - [ ] Replace emoji placeholders in team cards with real photos (see `assets/img/team/README.txt`)
-- [ ] Add real publication data to `publications.html` (see `publications-guide/README.txt`)
+- [ ] Update `software.html` — replace placeholder tools (InfoSig, SpatialFlow…) with real software (MOSES, SPOT, u-segment3D, surface-guided computing, u-infotrace)
 - [ ] Update carousel slides in `index.html` to reflect actual projects and papers
-- [ ] Add real software repository URLs and PyPI links in `software.html`
 - [ ] Replace placeholder stats (12 members, 48 publications…) with real numbers in `index.html`
 - [ ] Update contact emails (`apply@bialab.org`, `pi@bialab.org`) to real addresses
+- [ ] Update `news.html` with real lab news and announcements
 - [ ] Add real open positions or remove placeholder ones in `join.html`
 - [ ] Add real banner images to `assets/img/banners/` (see `README.txt` inside for naming convention)
+- [ ] Add DOIs and real paper URLs to all `href="#"` paper links in `publications.html` (see `papers.md` for DOIs already collected)
 
 ### Deployment
 - [ ] Create GitHub repository (`<username>.github.io` or project repo)

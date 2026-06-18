@@ -1,7 +1,7 @@
 # Website Summary
 
 ## What was built
-A complete, production-ready static academic website for the **Biological Information Architecture (BIA) Lab** — a computational biology group studying how biological signaling is organised across space and time. The site is plain HTML/CSS/JS with no build step, designed for immediate deployment on GitHub Pages.
+A complete, production-ready static academic website for **Felix Yuran Zhou** (UT Southwestern Medical Center / Ludwig Cancer Research) and the **Biological Information Architecture (BIA) Lab**. The site is plain HTML/CSS/JS with no build step, designed for immediate deployment on GitHub Pages. All publication and research content reflects Felix's real work (Google Scholar: `iRTxWEMAAAAJ`, ~45 publications, h-index 20).
 
 ## Pages
 
@@ -16,10 +16,10 @@ A complete, production-ready static academic website for the **Biological Inform
 - Sticky nav + full footer on every page
 
 ### `research.html` — Projects
-Four alternating full-width project cards (left/right layout), each with an inline SVG data figure, methods tags, and links to related papers and tools.
+Four alternating full-width project cards based on real research themes: (1) Quantitative Cell Phenomics (MOSES, SPOT, u-segment3D), (2) Advanced Fluorescence Microscopy (OPM, light-sheet, expansion, CyCIF), (3) Cell Signaling & Cancer Biology (blebs, KRAS, actin dynamics), (4) 3D Spatial Tissue Profiling (surface-guided computing, spatial proteomics). Each card has an inline SVG visual, methods tags, and links.
 
 ### `publications.html` — Publications
-Year-grouped paper list (2024 → 2022) with topic filter buttons (Spatial, Temporal, Information Theory, Network). Filter is client-side JS — no page reload. Each card has journal badge, authors (lab members highlighted in blue), abstract, and links (Paper / Code / BibTeX).
+Year-grouped paper list (2019 → 2026, 25 papers) with topic filter buttons: Cell Phenomics, Microscopy, Cell Signaling, Bioimage Analysis, Computational Infrastructure. Filter is client-side JS — year groups auto-hide when empty. Each card has journal badge, real author list (Felix highlighted in teal), abstract, and links (Paper / Code / BibTeX). Full bibliography in `papers.md`.
 
 ### `software.html` — Open-source Tools
 Five tool cards (InfoSig, SpatialFlow, ClockSDE, NetMotif, GradientFit) each with: tagline, description, language/license/status badges, a syntax-highlighted code snippet, and links to GitHub / Docs / PyPI / cite paper.
@@ -47,8 +47,9 @@ All interactive filters and carousel logic are in ~80 lines of vanilla JS across
 ## Assets & documentation
 | Path | Purpose |
 |------|---------|
-| `assets/img/bia_lab_logo.png` | Official lab logo — used in nav (white bg) and footer (white pill) |
-| `assets/img/logo.svg` | SVG placeholder monogram (can be discarded once logo is in use) |
+| `papers.md` | Local bibliography database — 45 publications, source of truth for site content |
+| `assets/img/bia_lab_logo.png` | Official lab logo — used in nav (white bg), footer (white pill), and hero (360 px circle) |
+| `assets/img/logo.svg` | SVG placeholder monogram (can be discarded) |
 | `assets/img/team/` | Team photos — see `README.txt` inside for how to add/update |
 | `assets/img/banners/` | Carousel slide images — see `README.txt` inside for naming/sizing |
 | `publications-guide/README.txt` | How to add, edit, filter, and remove publications |

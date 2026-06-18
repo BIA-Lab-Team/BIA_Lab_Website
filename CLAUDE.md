@@ -10,15 +10,21 @@ Static academic website for the **Biological Information Architecture Lab**, a c
 - **Fonts** — Inter from Google Fonts, loaded in every HTML `<head>`.
 - **No dependencies, no npm, no build pipeline.**
 
+## Researcher
+**Felix Yuran Zhou (Felix Y. Zhou)** — UT Southwestern Medical Center / Ludwig Cancer Research.
+- Google Scholar: `iRTxWEMAAAAJ` · OpenAlex: `A5030230235` · h-index: 20 · ~45 publications
+- Research themes: quantitative cell phenomics, advanced light-sheet microscopy, cell signaling & cancer biology, 3D spatial tissue profiling.
+
 ## File map
 ```
 index.html          Landing page
-research.html       Project cards
-publications.html   Filterable paper list
+research.html       Project cards (4 real research themes)
+publications.html   Filterable paper list (25 real papers, 2019–2026)
 software.html       Open-source tools
 news.html           News timeline
 team.html           PI + members + alumni
 join.html           Positions + contact form
+papers.md           Local bibliography database — all 45 publications (source of truth)
 assets/css/main.css             Global styles & design tokens
 assets/css/carousel.css         Carousel layout & animation
 assets/js/carousel.js           Carousel logic (auto-advance, touch, dots)
@@ -62,7 +68,8 @@ Palette derived from the BIA Lab logo — navy letterforms + blue/purple/green n
 - **Nav is duplicated** in every HTML file — when adding/removing a page, update all 7 files.
 - **Footer is duplicated** in every HTML file — same rule.
 - **Carousel slides** live in `index.html`. The dot count (`.carousel__dot` buttons) must match the number of `.carousel__slide` divs — the JS derives everything from the DOM.
-- **Publication filter** in `publications.html` uses `data-topic` attributes on `.pub-card` elements. Valid values: `spatial`, `temporal`, `info`, `network`.
+- **Publication filter** in `publications.html` uses `data-topic` attributes on `.pub-card` elements. Valid values: `phenomics`, `microscopy`, `signaling`, `imaging`, `tools`. Year groups auto-hide when all their cards are filtered out (JS in page `<script>` block).
+- **papers.md** is the authoritative bibliography. When adding a new paper, add it to `papers.md` first, then add a `pub-card` to `publications.html` and, if it belongs in the homepage highlights, to `index.html`.
 - **News filter** in `news.html` uses `data-type` on `.news-entry`. Valid values: `paper`, `award`, `grant`, `member`, `talk`, `media`.
 - **Team photos** — currently emoji placeholders inside `.member-avatar` divs. Replace with `<img src="assets/img/team/name.jpg" alt="...">` inside `.team-card__photo`. See `assets/img/team/README.txt` for full instructions.
 - **External links** (GitHub, Scholar, Twitter, email) are `href="#"` placeholders — update to real URLs before going live.
