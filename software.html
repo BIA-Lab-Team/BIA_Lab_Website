@@ -47,11 +47,11 @@
       font-size: .72rem; font-weight: 700; letter-spacing: .04em;
       border-radius: 100px; padding: .2rem .65rem;
     }
-    .badge-lang   { background: rgba(0,201,167,.1); color: var(--teal-dark); border: 1px solid rgba(0,201,167,.25); }
-    .badge-license{ background: rgba(100,150,255,.1); color: #4a7ce0; border: 1px solid rgba(100,150,255,.25); }
-    .badge-status { background: rgba(40,200,80,.1); color: #1e9e40; border: 1px solid rgba(40,200,80,.25); }
+    .badge-lang    { background: rgba(72,120,190,.1); color: var(--teal-dark); border: 1px solid rgba(72,120,190,.25); }
+    .badge-license { background: rgba(100,150,255,.1); color: #4a7ce0; border: 1px solid rgba(100,150,255,.25); }
+    .badge-status  { background: rgba(40,200,80,.1); color: #1e9e40; border: 1px solid rgba(40,200,80,.25); }
 
-    .software-card__links { display: flex; gap: .75rem; flex-wrap: wrap; }
+    .software-card__links { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; }
     .software-card__links a {
       font-size: .82rem; font-weight: 600;
       display: inline-flex; align-items: center; gap: .3rem;
@@ -61,7 +61,7 @@
     }
     .software-card__links a:hover { background: var(--navy); color: var(--white); }
     .software-card__links a.primary { background: var(--teal); color: var(--navy); border-color: var(--teal); }
-    .software-card__links a.primary:hover { background: var(--teal-dark); }
+    .software-card__links a.primary:hover { background: var(--teal-dark); color: var(--white); }
 
     .code-snippet {
       background: var(--navy);
@@ -73,10 +73,40 @@
       margin-top: .75rem;
       overflow-x: auto;
     }
-    .code-snippet .kw  { color: #c792ea; }
-    .code-snippet .fn  { color: #82aaff; }
-    .code-snippet .str { color: #c3e88d; }
-    .code-snippet .cm  { color: rgba(255,255,255,.35); }
+    .code-snippet .cm { color: rgba(255,255,255,.35); }
+
+    .tool-group { margin-bottom: 3.5rem; }
+    .tool-group__header { margin-bottom: 1.75rem; }
+    .tool-group__header h2 { margin-bottom: .25rem; }
+    .tool-group__header p { color: var(--muted); font-size: .95rem; }
+
+    /* Citation download dropdown */
+    .cite-drop { position: relative; display: inline-block; }
+    .cite-drop__toggle {
+      font-size: .82rem; font-weight: 600;
+      color: var(--navy); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: .35rem .85rem;
+      background: transparent; cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+    .cite-drop__toggle:hover { background: var(--navy); color: var(--white); }
+    .cite-drop__panel {
+      position: absolute; bottom: calc(100% + 6px); left: 0;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column; min-width: 140px; z-index: 20;
+    }
+    .cite-drop__panel[hidden] { display: none; }
+    .cite-drop__panel button {
+      text-align: left; padding: .5rem .9rem;
+      font-size: .82rem; font-weight: 600; color: var(--navy);
+      background: none; border: none; cursor: pointer;
+      transition: background .1s;
+    }
+    .cite-drop__panel button:hover { background: var(--off-white); }
+    .cite-drop__panel button:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+    .cite-drop__panel button:last-child  { border-radius: 0 0 var(--radius) var(--radius); }
 
     @media (max-width: 600px) {
       .software-card { grid-template-columns: 1fr; }
@@ -106,119 +136,209 @@
   <div class="container">
     <div class="section-label">Software</div>
     <h1>Open-source Tools</h1>
-    <p>All our software is freely available under permissive licences. We believe in open, reproducible science.</p>
+    <p>All our software is freely available. We believe in open, reproducible science — install from PyPI or clone from GitHub.</p>
   </div>
 </div>
 
 <section class="section">
-  <div class="container" style="display:flex;flex-direction:column;gap:1.75rem;">
+  <div class="container">
 
-    <!-- InfoSig -->
-    <div class="software-card">
-      <div class="software-card__icon">📡</div>
-      <div>
-        <div class="software-card__name">InfoSig</div>
-        <div class="software-card__tagline">Information-theoretic analysis of signaling pathways</div>
-        <p class="software-card__desc">Compute mutual information, channel capacity, noise decompositions, and partial information decompositions from bulk or single-cell signaling data. Supports GPU acceleration via JAX. Integrates with AnnData/Scanpy ecosystems.</p>
-        <div class="badge-row">
-          <span class="badge badge-lang">Python</span>
-          <span class="badge badge-lang">JAX</span>
-          <span class="badge badge-license">MIT</span>
-          <span class="badge badge-status">✓ Active · v2.1</span>
+    <!-- Group 1: Cell Phenomics & Motion Analysis -->
+    <div class="tool-group">
+      <div class="tool-group__header">
+        <div class="section-label">Group 1</div>
+        <h2>Quantitative Cell Phenomics &amp; Motion Analysis</h2>
+        <p>Frameworks for extracting, standardising, and comparing morphodynamic phenotypes from time-lapse microscopy.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.75rem;">
+
+        <!-- SAM-SPOT -->
+        <div class="software-card">
+          <div class="software-card__icon">🔬</div>
+          <div>
+            <div class="software-card__name">SAM-SPOT</div>
+            <div class="software-card__tagline">Standardised phenotyping of dynamic cells and organoids using Shape, Appearance &amp; Motion features</div>
+            <p class="software-card__desc">A three-stage pipeline — video segmentation, SAM phenome computation, and unsupervised phenotype clustering — for characterising dynamic cells and organoids in time-lapse imaging. Supports automated segmentation with pretrained neural networks and enables interpretable cross-experiment phenotype comparison. Two companion papers cover 2D fixed/live-cell imaging and 3D organoid applications.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">Ludwig License</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install SAM-SPOT</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/fyz11/SPOT" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/SAM-SPOT/" target="_blank" rel="noopener">PyPI</a>
+              <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1" target="_blank" rel="noopener">Paper (SPOT)</a>
+              <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691111" target="_blank" rel="noopener">Paper (Organoids)</a>
+              <div class="cite-drop" data-tool="sam-spot">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="code-snippet"><span class="kw">import</span> infosig <span class="kw">as</span> isg<br><span class="cm"># compute mutual information from single-cell data</span><br>mi = isg.<span class="fn">mutual_info</span>(adata, input_key=<span class="str">"stimulus"</span>, output_key=<span class="str">"X_pca"</span>)<br><span class="fn">print</span>(<span class="str">f"I(X;Y) = {mi:.3f} bits"</span>)</div>
-        <div class="software-card__links" style="margin-top:1rem;">
-          <a href="#" class="primary">GitHub</a>
-          <a href="#">Documentation</a>
-          <a href="#">PyPI</a>
-          <a href="publications.html">Cite Paper</a>
+
+        <!-- MOSES -->
+        <div class="software-card">
+          <div class="software-card__icon">🌊</div>
+          <div>
+            <div class="software-card__name">MOSES</div>
+            <div class="software-card__tagline">Motion sensing superpixels for quantifying collective cellular motion phenotypes</div>
+            <p class="software-card__desc">A superpixel-based optical-flow framework for quantifying and discovering collective motion phenotypes in time-lapse microscopy without requiring single-cell tracking. Constructs motion meshes and extracts boundary and flow statistics from live-cell image sequences. Validated on epithelial monolayer and cancer cell migration datasets.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">Ludwig License</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/fyz11/MOSES.git</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/fyz11/MOSES" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://elifesciences.org/articles/40162" target="_blank" rel="noopener">Paper (eLife)</a>
+              <a href="https://bio-protocol.org/e3365" target="_blank" rel="noopener">Protocol (Bio-protocol)</a>
+              <div class="cite-drop" data-tool="moses">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- u-Unwrap -->
+        <div class="software-card">
+          <div class="software-card__icon">📐</div>
+          <div>
+            <div class="software-card__name">u-Unwrap</div>
+            <div class="software-card__tagline">2D cell shape normalisation to canonical coordinate systems for spatiotemporal signal analysis</div>
+            <p class="software-card__desc">Maps complex and diverse 2D cell shapes to canonical disk and rectangular coordinate systems using conformal, equiareal, and equidistant parameterisation. Enables consistent spatiotemporal registration and population-level comparison of highly dynamic cell boundaries, facilitating machine-learning-ready representations of membrane-associated molecular signals.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Unwrap</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-unwrap" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/u-Unwrap/" target="_blank" rel="noopener">PyPI</a>
+              <a href="https://openreview.net/forum?id=jUmTewPzII" target="_blank" rel="noopener">Paper</a>
+              <div class="cite-drop" data-tool="u-unwrap">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- u-infotrace -->
+        <div class="software-card">
+          <div class="software-card__icon">🔗</div>
+          <div>
+            <div class="software-card__name">u-infotrace</div>
+            <div class="software-card__tagline">Multiscale pixel spatiotemporal information flow analysis in 2D time-lapse video</div>
+            <p class="software-card__desc">Computes multiscale pixel-to-pixel spatiotemporal information flows in 2D videos using formal causal measures, complementing optical flow with information-theoretic signal propagation analysis. Applicable across diverse biological phenomena including embryonic development and collective cell migration, as well as physical dynamical systems.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/DanuserLab/u-infotrace.git</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-infotrace" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://openreview.net/forum?id=4P0qQrU_SlN" target="_blank" rel="noopener">Paper</a>
+              <div class="cite-drop" data-tool="u-infotrace">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- SpatialFlow -->
-    <div class="software-card">
-      <div class="software-card__icon">🗺️</div>
-      <div>
-        <div class="software-card__name">SpatialFlow</div>
-        <div class="software-card__tagline">Directional signaling reconstruction from spatial transcriptomics</div>
-        <p class="software-card__desc">A graph-based toolkit for inferring the direction and magnitude of cell–cell communication in spatially resolved transcriptomic datasets. Supports 10x Visium, Slide-seq, MERFISH, and Xenium inputs. Outputs ligand–receptor flow maps and tissue-level signaling graphs.</p>
-        <div class="badge-row">
-          <span class="badge badge-lang">Python</span>
-          <span class="badge badge-lang">R interface</span>
-          <span class="badge badge-license">Apache 2.0</span>
-          <span class="badge badge-status">✓ Active · v1.3</span>
-        </div>
-        <div class="code-snippet"><span class="kw">from</span> spatialflow <span class="kw">import</span> FlowGraph<br>fg = FlowGraph.<span class="fn">from_visium</span>(<span class="str">"sample.h5ad"</span>)<br>fg.<span class="fn">infer_flows</span>(lr_database=<span class="str">"CellChat"</span>)<br>fg.<span class="fn">plot_tissue_map</span>(min_flow=<span class="str">0.1</span>)</div>
-        <div class="software-card__links" style="margin-top:1rem;">
-          <a href="#" class="primary">GitHub</a>
-          <a href="#">Documentation</a>
-          <a href="#">PyPI</a>
-          <a href="publications.html">Cite Paper</a>
-        </div>
+    <!-- Group 2: 3D Cell Imaging & Segmentation -->
+    <div class="tool-group">
+      <div class="tool-group__header">
+        <div class="section-label">Group 2</div>
+        <h2>3D Cell Imaging &amp; Segmentation</h2>
+        <p>Tools for robust 3D cell segmentation and surface-based morphological analysis from volumetric microscopy data.</p>
       </div>
-    </div>
+      <div style="display:flex;flex-direction:column;gap:1.75rem;">
 
-    <!-- ClockSDE -->
-    <div class="software-card">
-      <div class="software-card__icon">⏱️</div>
-      <div>
-        <div class="software-card__name">ClockSDE</div>
-        <div class="software-card__tagline">Stochastic modelling of oscillatory gene expression</div>
-        <p class="software-card__desc">Simulate and fit stochastic differential equation models of coupled genetic oscillators. Includes the Kuramoto, Goodwin, and custom coupling models. Bayesian parameter inference via NUTS/HMC using NumPyro. Designed for segmentation clock, circadian, and NF-κB oscillation datasets.</p>
-        <div class="badge-row">
-          <span class="badge badge-lang">Python</span>
-          <span class="badge badge-lang">NumPyro</span>
-          <span class="badge badge-license">MIT</span>
-          <span class="badge badge-status">✓ Active · v0.9</span>
+        <!-- u-segment3D -->
+        <div class="software-card">
+          <div class="software-card__icon">🧊</div>
+          <div>
+            <div class="software-card__name">u-segment3D</div>
+            <div class="software-card__tagline">Universal consensus 3D cell segmentation from 2D per-slice predictions — no 3D retraining required</div>
+            <p class="software-card__desc">Generates robust consensus 3D instance segmentations by intelligently merging 2D slice-by-slice predictions from orthogonal xy, xz, and yz views. Compatible with any 2D segmentation engine (e.g. Cellpose) and supports multiple distance transforms for flexible postprocessing. Published in <em>Nature Methods</em> 2025.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-lang">MATLAB</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Segment3D</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-segment3D" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/u-Segment3D/" target="_blank" rel="noopener">PyPI</a>
+              <a href="https://www.nature.com/articles/s41592-025-02887-w" target="_blank" rel="noopener">Paper</a>
+              <div class="cite-drop" data-tool="u-segment3d">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="software-card__links" style="margin-top:.75rem;">
-          <a href="#" class="primary">GitHub</a>
-          <a href="#">Documentation</a>
-          <a href="publications.html">Cite Paper</a>
-        </div>
-      </div>
-    </div>
 
-    <!-- NetMotif -->
-    <div class="software-card">
-      <div class="software-card__icon">🕸️</div>
-      <div>
-        <div class="software-card__name">NetMotif</div>
-        <div class="software-card__tagline">Network motif detection and functional classification</div>
-        <p class="software-card__desc">Fast enumeration and statistical enrichment of network motifs in gene regulatory and signaling networks. Supports directed, signed, and weighted graphs. Classifies motifs by dynamical function (pulse generator, bistable switch, oscillator) using pre-computed phase diagrams.</p>
-        <div class="badge-row">
-          <span class="badge badge-lang">Python</span>
-          <span class="badge badge-lang">C++ core</span>
-          <span class="badge badge-license">GPL-3.0</span>
-          <span class="badge badge-status">✓ Active · v1.0</span>
+        <!-- u-Unwrap3D -->
+        <div class="software-card">
+          <div class="software-card__icon">🌐</div>
+          <div>
+            <div class="software-card__name">u-Unwrap3D</div>
+            <div class="software-card__tagline">3D cell surface parameterisation for quantitative morphology and membrane-signal analysis</div>
+            <p class="software-card__desc">Transforms 3D cell surface meshes into multiple canonical representations — topographic maps, spherical parameterisations, and unfolded 2D images — using conformalized mean curvature flow and harmonic distance transforms. Enables quantitative analysis of membrane-associated molecular signals co-localised with dynamic 3D cell morphology.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Unwrap3D</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-unwrap3D" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/u-Unwrap3D/" target="_blank" rel="noopener">PyPI</a>
+              <a href="https://www.biorxiv.org/content/10.1101/2023.04.12.536640" target="_blank" rel="noopener">Paper</a>
+              <div class="cite-drop" data-tool="u-unwrap3d">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="software-card__links" style="margin-top:.75rem;">
-          <a href="#" class="primary">GitHub</a>
-          <a href="#">Documentation</a>
-          <a href="publications.html">Cite Paper</a>
-        </div>
-      </div>
-    </div>
 
-    <!-- GradientFit -->
-    <div class="software-card">
-      <div class="software-card__icon">📈</div>
-      <div>
-        <div class="software-card__name">GradientFit</div>
-        <div class="software-card__tagline">Morphogen gradient inference from imaging data</div>
-        <p class="software-card__desc">Fit mechanistic gradient models (diffusion–degradation, planar cell polarity) to fluorescence microscopy data. Includes tools for PSF deconvolution, automated cell segmentation, and uncertainty quantification via bootstrap. Works with Fiji/ImageJ output.</p>
-        <div class="badge-row">
-          <span class="badge badge-lang">Python</span>
-          <span class="badge badge-lang">MATLAB</span>
-          <span class="badge badge-license">MIT</span>
-          <span class="badge badge-status">⚠ Maintenance</span>
-        </div>
-        <div class="software-card__links" style="margin-top:.75rem;">
-          <a href="#" class="primary">GitHub</a>
-          <a href="#">Documentation</a>
-          <a href="publications.html">Cite Paper</a>
-        </div>
       </div>
     </div>
 
@@ -232,7 +352,8 @@
     <h2>Contributing</h2>
     <p style="color:var(--muted);margin-bottom:1.5rem;">All our tools are developed in the open. We welcome bug reports, feature requests, and pull requests. If you use our software in your research, please cite the relevant paper and star the repository — it helps us secure continued funding for open-source development.</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-      <a href="#" class="btn btn-primary">View all repos on GitHub</a>
+      <a href="https://github.com/fyz11" class="btn btn-primary" target="_blank" rel="noopener">fyz11 on GitHub</a>
+      <a href="https://github.com/DanuserLab" class="btn btn-outline-dark" target="_blank" rel="noopener">DanuserLab on GitHub</a>
       <a href="join.html" class="btn btn-outline-dark">Join the lab</a>
     </div>
   </div>
@@ -247,12 +368,392 @@
       </div>
       <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
       <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
-      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">Google Scholar</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="https://github.com/fyz11">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en">Google Scholar</a></li></ul></div>
     </div>
-    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="#">GitHub</a></span></div>
+    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span><a href="https://github.com/fyz11">GitHub</a></span></div>
   </div>
 </footer>
 
 <script src="assets/js/nav.js"></script>
+<script>
+const CITATIONS = {
+  'sam-spot': {
+    bibtex: {
+      text: `@article{zhou2025spot,
+  title   = {Development of a universal imaging 'phenome' using Shape, Appearance and Motion ({SAM}) features and the {SAM} Observation Tool ({SPOT})},
+  author  = {Zhou, Felix Y. and Norton-Steele, A. and Marsh, L. and Byrne, H. and Harrington, H. and Lu, X.},
+  journal = {bioRxiv},
+  year    = {2025},
+  doi     = {10.1101/2025.11.28.691105},
+  url     = {https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1}
+}
+
+@article{zhou2025spot_organoids,
+  title   = {Identifying phenotype--genotype--function coupling in {3D} organoid imaging using {SPOT}},
+  author  = {Zhou, Felix Y. and Jacobs, B.A. and Norton-Steele, A. and Han, X. and Zhou, L. and Carroll, T.M. and others},
+  journal = {bioRxiv},
+  year    = {2025},
+  doi     = {10.1101/2025.11.28.691111},
+  url     = {https://www.biorxiv.org/content/10.1101/2025.11.28.691111}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - RPRT
+TI  - Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+AU  - Zhou, Felix Y.
+AU  - Norton-Steele, A.
+AU  - Marsh, L.
+AU  - Byrne, H.
+AU  - Harrington, H.
+AU  - Lu, X.
+PY  - 2025
+DO  - 10.1101/2025.11.28.691105
+UR  - https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1
+ER  -
+
+TY  - RPRT
+TI  - Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
+AU  - Zhou, Felix Y.
+AU  - Jacobs, B.A.
+AU  - Norton-Steele, A.
+AU  - Han, X.
+AU  - Zhou, L.
+AU  - Carroll, T.M.
+PY  - 2025
+DO  - 10.1101/2025.11.28.691111
+UR  - https://www.biorxiv.org/content/10.1101/2025.11.28.691111
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%T Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+%A Zhou, Felix Y.
+%A Norton-Steele, A.
+%A Marsh, L.
+%A Byrne, H.
+%A Harrington, H.
+%A Lu, X.
+%D 2025
+%R 10.1101/2025.11.28.691105
+%U https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1
+
+%0 Journal Article
+%T Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
+%A Zhou, Felix Y.
+%A Jacobs, B.A.
+%A Norton-Steele, A.
+%A Han, X.
+%A Zhou, L.
+%A Carroll, T.M.
+%D 2025
+%R 10.1101/2025.11.28.691111
+%U https://www.biorxiv.org/content/10.1101/2025.11.28.691111`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'moses': {
+    bibtex: {
+      text: `@article{zhou2019moses,
+  title   = {Motion sensing superpixels ({MOSES}) is a systematic computational framework to quantify and discover cellular motion phenotypes},
+  author  = {Zhou, Felix Y. and Ruiz-Puig, C. and Owen, R.P. and White, M.J. and Rittscher, J. and Lu, X.},
+  journal = {eLife},
+  volume  = {8},
+  pages   = {e40162},
+  year    = {2019},
+  doi     = {10.7554/eLife.40162},
+  url     = {https://elifesciences.org/articles/40162}
+}
+
+@article{zhou2019moses_protocol,
+  title   = {Characterization of Biological Motion Using Motion Sensing Superpixels},
+  author  = {Zhou, Felix Y. and Ruiz-Puig, C. and Owen, R.P. and White, M.J. and Rittscher, J. and Lu, X.},
+  journal = {Bio-protocol},
+  volume  = {9},
+  number  = {18},
+  pages   = {e3365},
+  year    = {2019},
+  url     = {https://bio-protocol.org/e3365}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - JOUR
+TI  - Motion sensing superpixels (MOSES) is a systematic computational framework to quantify and discover cellular motion phenotypes
+AU  - Zhou, Felix Y.
+AU  - Ruiz-Puig, C.
+AU  - Owen, R.P.
+AU  - White, M.J.
+AU  - Rittscher, J.
+AU  - Lu, X.
+JO  - eLife
+VL  - 8
+SP  - e40162
+PY  - 2019
+DO  - 10.7554/eLife.40162
+UR  - https://elifesciences.org/articles/40162
+ER  -
+
+TY  - JOUR
+TI  - Characterization of Biological Motion Using Motion Sensing Superpixels
+AU  - Zhou, Felix Y.
+AU  - Ruiz-Puig, C.
+AU  - Owen, R.P.
+AU  - White, M.J.
+AU  - Rittscher, J.
+AU  - Lu, X.
+JO  - Bio-protocol
+VL  - 9
+IS  - 18
+SP  - e3365
+PY  - 2019
+UR  - https://bio-protocol.org/e3365
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%T Motion sensing superpixels (MOSES) is a systematic computational framework to quantify and discover cellular motion phenotypes
+%A Zhou, Felix Y.
+%A Ruiz-Puig, C.
+%A Owen, R.P.
+%A White, M.J.
+%A Rittscher, J.
+%A Lu, X.
+%J eLife
+%V 8
+%P e40162
+%D 2019
+%R 10.7554/eLife.40162
+%U https://elifesciences.org/articles/40162
+
+%0 Journal Article
+%T Characterization of Biological Motion Using Motion Sensing Superpixels
+%A Zhou, Felix Y.
+%A Ruiz-Puig, C.
+%A Owen, R.P.
+%A White, M.J.
+%A Rittscher, J.
+%A Lu, X.
+%J Bio-protocol
+%V 9
+%N 18
+%P e3365
+%D 2019
+%U https://bio-protocol.org/e3365`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'u-unwrap': {
+    bibtex: {
+      text: `@inproceedings{yu2025uwrap,
+  title     = {Mapping Cell Morphology to a Standard Coordinate System for Analyzing Dynamic Cell Signaling},
+  author    = {Yu, S. and Danuser, G. and Zhou, Felix Y.},
+  booktitle = {NeurIPS 2025 Workshop for Imageomics},
+  year      = {2025},
+  url       = {https://openreview.net/forum?id=jUmTewPzII}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - CONF
+TI  - Mapping Cell Morphology to a Standard Coordinate System for Analyzing Dynamic Cell Signaling
+AU  - Yu, S.
+AU  - Danuser, G.
+AU  - Zhou, Felix Y.
+T2  - NeurIPS 2025 Workshop for Imageomics
+PY  - 2025
+UR  - https://openreview.net/forum?id=jUmTewPzII
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Conference Paper
+%T Mapping Cell Morphology to a Standard Coordinate System for Analyzing Dynamic Cell Signaling
+%A Yu, S.
+%A Danuser, G.
+%A Zhou, Felix Y.
+%B NeurIPS 2025 Workshop for Imageomics
+%D 2025
+%U https://openreview.net/forum?id=jUmTewPzII`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'u-infotrace': {
+    bibtex: {
+      text: `@inproceedings{zhou2022infotrace,
+  title     = {Multiscale Pixel Spatiotemporal Information Flows},
+  author    = {Zhou, Felix Y. and Ravishankar, R.},
+  booktitle = {NeurIPS 2022 Workshop on Causality for Dynamical Systems},
+  year      = {2022},
+  url       = {https://openreview.net/forum?id=4P0qQrU_SlN}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - CONF
+TI  - Multiscale Pixel Spatiotemporal Information Flows
+AU  - Zhou, Felix Y.
+AU  - Ravishankar, R.
+T2  - NeurIPS 2022 Workshop on Causality for Dynamical Systems
+PY  - 2022
+UR  - https://openreview.net/forum?id=4P0qQrU_SlN
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Conference Paper
+%T Multiscale Pixel Spatiotemporal Information Flows
+%A Zhou, Felix Y.
+%A Ravishankar, R.
+%B NeurIPS 2022 Workshop on Causality for Dynamical Systems
+%D 2022
+%U https://openreview.net/forum?id=4P0qQrU_SlN`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'u-segment3d': {
+    bibtex: {
+      text: `@article{zhou2025usegment3d,
+  title   = {Universal consensus {3D} segmentation of cells from {2D} segmented stacks ({u-segment3D})},
+  author  = {Zhou, Felix Y. and Marin, Z. and Yapp, C. and Zou, Q. and Nanes, B.A. and Daetwyler, S. and Jamieson, A.R. and others},
+  journal = {Nature Methods},
+  volume  = {22},
+  number  = {11},
+  pages   = {2386--2399},
+  year    = {2025},
+  doi     = {10.1038/s41592-025-02887-w},
+  url     = {https://www.nature.com/articles/s41592-025-02887-w}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - JOUR
+TI  - Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)
+AU  - Zhou, Felix Y.
+AU  - Marin, Z.
+AU  - Yapp, C.
+AU  - Zou, Q.
+AU  - Nanes, B.A.
+AU  - Daetwyler, S.
+AU  - Jamieson, A.R.
+JO  - Nature Methods
+VL  - 22
+IS  - 11
+SP  - 2386
+EP  - 2399
+PY  - 2025
+DO  - 10.1038/s41592-025-02887-w
+UR  - https://www.nature.com/articles/s41592-025-02887-w
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%T Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)
+%A Zhou, Felix Y.
+%A Marin, Z.
+%A Yapp, C.
+%A Zou, Q.
+%A Nanes, B.A.
+%A Daetwyler, S.
+%A Jamieson, A.R.
+%J Nature Methods
+%V 22
+%N 11
+%P 2386-2399
+%D 2025
+%R 10.1038/s41592-025-02887-w
+%U https://www.nature.com/articles/s41592-025-02887-w`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'u-unwrap3d': {
+    bibtex: {
+      text: `@article{zhou2023uwrap3d,
+  title   = {Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in {3D}},
+  author  = {Zhou, Felix Y. and Weems, A. and Gihana, G.M. and Chen, B. and Chang, B.-J. and Driscoll, M. and Danuser, G.},
+  journal = {bioRxiv},
+  year    = {2023},
+  doi     = {10.1101/2023.04.12.536640},
+  url     = {https://www.biorxiv.org/content/10.1101/2023.04.12.536640}
+}`,
+      ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - RPRT
+TI  - Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D
+AU  - Zhou, Felix Y.
+AU  - Weems, A.
+AU  - Gihana, G.M.
+AU  - Chen, B.
+AU  - Chang, B.-J.
+AU  - Driscoll, M.
+AU  - Danuser, G.
+PY  - 2023
+DO  - 10.1101/2023.04.12.536640
+UR  - https://www.biorxiv.org/content/10.1101/2023.04.12.536640
+ER  - `,
+      ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%T Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D
+%A Zhou, Felix Y.
+%A Weems, A.
+%A Gihana, G.M.
+%A Chen, B.
+%A Chang, B.-J.
+%A Driscoll, M.
+%A Danuser, G.
+%D 2023
+%R 10.1101/2023.04.12.536640
+%U https://www.biorxiv.org/content/10.1101/2023.04.12.536640`,
+      ext: 'enw', mime: 'text/plain'
+    }
+  }
+};
+
+// Toggle dropdown open/close
+document.querySelectorAll('.cite-drop__toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    // close all others first
+    document.querySelectorAll('.cite-drop__panel').forEach(p => {
+      if (p !== btn.nextElementSibling) p.hidden = true;
+    });
+    const panel = btn.nextElementSibling;
+    panel.hidden = !panel.hidden;
+  });
+});
+
+// Close on any outside click
+document.addEventListener('click', () => {
+  document.querySelectorAll('.cite-drop__panel').forEach(p => p.hidden = true);
+});
+
+// Download citation file
+document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const tool = btn.closest('.cite-drop').dataset.tool;
+    const fmt  = btn.dataset.fmt;
+    const { text, ext, mime } = CITATIONS[tool][fmt];
+    const url = URL.createObjectURL(new Blob([text], { type: mime }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: `${tool}.${ext}` });
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    btn.closest('.cite-drop__panel').hidden = true;
+  });
+});
+</script>
 </body>
 </html>
