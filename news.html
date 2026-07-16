@@ -84,6 +84,7 @@
     .type-member  { background: rgba(40,200,80,.12);  color: #1e9e40; }
     .type-media   { background: rgba(220,80,80,.12);  color: #c03030; }
     .type-grant   { background: rgba(160,80,220,.12); color: #8040b0; }
+    .type-launch  { background: rgba(72,120,190,.12); color: var(--teal-dark); }
 
     .news-entry__card h3 { font-size: 1.05rem; margin-bottom: .5rem; }
     .news-entry__card p  { color: var(--muted); font-size: .9rem; }
@@ -144,6 +145,21 @@
 
     <div class="news-timeline">
 
+      <div class="news-entry" data-type="launch">
+        <div class="news-entry__date">
+          <div class="news-entry__date-month">Aug</div>
+          <div class="news-entry__date-day">17</div>
+          <div class="news-entry__date-year">2026</div>
+        </div>
+        <div class="news-entry__dot"></div>
+        <div class="news-entry__card">
+          <span class="news-entry__type type-launch">🎉 Lab Launch</span>
+          <h3>BIA Lab officially opens at Vanderbilt University</h3>
+          <p>The Biological Information Architecture Lab has officially launched at Vanderbilt University within the Center of Computational Systems Biology. We are excited to begin our work decoding the architecture of biological information at our new home.</p>
+        </div>
+      </div>
+
+      <!--
       <div class="news-entry" data-type="award">
         <div class="news-entry__date">
           <div class="news-entry__date-month">Nov</div>
@@ -289,6 +305,7 @@
           <p>PI presented our spatial transcriptomics work to the Developmental Genomics group at the Wellcome Sanger Institute.</p>
         </div>
       </div>
+      -->
 
     </div>
   </div>

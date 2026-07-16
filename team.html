@@ -29,7 +29,6 @@
       background: linear-gradient(160deg, var(--navy), var(--navy-light));
       display: flex; align-items: center; justify-content: center;
       font-size: 5rem; color: rgba(255,255,255,.2);
-      min-height: 320px;
     }
     .pi-card__photo img { width: 100%; height: 100%; object-fit: cover; }
     .pi-card__body { padding: 2.5rem; }
@@ -56,7 +55,7 @@
 
     @media (max-width: 700px) {
       .pi-card { grid-template-columns: 1fr; }
-      .pi-card__photo { min-height: 200px; }
+      .pi-card__photo { height: 280px; }
     }
 
     /* Member grid */
@@ -111,32 +110,30 @@
   <div class="container">
     <div class="section-label" style="margin-bottom:1.25rem;">Principal Investigator</div>
     <div class="pi-card">
-      <div class="pi-card__photo">👤</div>
+      <div class="pi-card__photo"><img src="team_pics/Felix.jpg" alt="Felix Y. Zhou"></div>
       <div class="pi-card__body">
         <div class="pi-card__title">Principal Investigator</div>
-        <div class="pi-card__name">Prof. Alex J. Rivera</div>
-        <div class="pi-card__affil">Associate Professor · Department of Computational Biology · Institute of Systems Biology</div>
-        <p class="pi-card__bio">Alex leads the BIA Lab with a focus on developing mathematical and computational frameworks to understand biological signaling. After a PhD in Physics at ETH Zürich and postdoctoral training at the Broad Institute, Alex started the lab in 2019. The lab's work sits at the intersection of information theory, dynamical systems, and genomics.</p>
+        <div class="pi-card__name">Felix Y. Zhou</div>
+        <div class="pi-card__affil">Assistant Professor · Department of Cell and Developmental Biology · Center for Computational Systems Biology · Vanderbilt University</div>
+        <p class="pi-card__bio">Felix directs the BIA Lab at Vanderbilt University (Department of Cell and Developmental Biology; Center for Computational Systems Biology), following postdoctoral training in the Danuser Lab at UT Southwestern Medical Center. His research builds quantitative imaging and computational frameworks to decode how biological information is encoded in cell shape, motion, and molecular signals — spanning cell phenomics, light-sheet microscopy, cancer cell biology, and 3D spatial tissue profiling.</p>
         <div class="pi-card__interests">
-          <span class="pi-card__interest">Information theory</span>
-          <span class="pi-card__interest">Spatial transcriptomics</span>
-          <span class="pi-card__interest">Stochastic dynamics</span>
-          <span class="pi-card__interest">Developmental biology</span>
-          <span class="pi-card__interest">Open science</span>
+          <span class="pi-card__interest">Quantitative cell phenomics</span>
+          <span class="pi-card__interest">Advanced light-sheet microscopy</span>
+          <span class="pi-card__interest">Cell signaling &amp; cancer biology</span>
+          <span class="pi-card__interest">3D spatial tissue profiling</span>
+          <span class="pi-card__interest">Computational image analysis</span>
         </div>
         <div class="pi-card__links">
-          <a href="#">📧 Email</a>
-          <a href="#">Scholar</a>
-          <a href="#">Twitter / X</a>
-          <a href="#">GitHub</a>
-          <a href="#">CV</a>
+          <a href="mailto:felix.y.zhou@vanderbilt.edu">📧 Email</a>
+          <a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a>
+          <a href="https://github.com/fyz11" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Postdocs -->
+<!-- placeholder sections (postdocs, phd students, alumni) hidden until real members join
 <section class="section section--alt">
   <div class="container">
     <div class="section-label" style="margin-bottom:1.5rem;">Postdoctoral Researchers</div>
@@ -178,7 +175,7 @@
   </div>
 </section>
 
-<!-- PhD Students -->
+PhD Students
 <section class="section">
   <div class="container">
     <div class="section-label" style="margin-bottom:1.5rem;">PhD Students</div>
@@ -259,7 +256,7 @@
   </div>
 </section>
 
-<!-- Alumni -->
+Alumni
 <section class="section section--alt">
   <div class="container">
     <div class="section-label" style="margin-bottom:1.5rem;">Alumni</div>
@@ -301,6 +298,7 @@
     </table>
   </div>
 </section>
+-->
 
 <footer class="footer">
   <div class="container">
