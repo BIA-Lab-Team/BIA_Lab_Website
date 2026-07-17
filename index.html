@@ -100,6 +100,33 @@
       .hero__northstar { grid-template-columns: 1fr; }
       .hero__northstar-col--stats .hero__stats { flex-direction: row; gap: 2rem; }
     }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background: rgba(72,120,190,.10);
+      border: 1px solid rgba(72,120,190,.22);
+      text-decoration: none;
+      animation: scrollBounce 2s ease-in-out infinite;
+      transition: background .15s, opacity .3s;
+    }
+    .scroll-hint:hover { background: rgba(72,120,190,.2); }
+    @keyframes scrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-hint { animation: none; }
+    }
+    .scroll-hint--hidden { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -204,10 +231,16 @@
       </div>
     </div>
   </div>
+
+  <a href="#highlights" class="scroll-hint" aria-label="Scroll down">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 </section>
 
 <!-- ─── Carousel ───────────────────────────────────────────────────────────── -->
-<div class="carousel-section">
+<div class="carousel-section" id="highlights">
   <div class="carousel__progress"><div class="carousel__progress-bar"></div></div>
   <div class="carousel" data-carousel>
     <div class="carousel__track">
@@ -484,5 +517,14 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/carousel.js"></script>
+<script>
+(function () {
+  var hint = document.querySelector('.scroll-hint');
+  if (!hint) return;
+  window.addEventListener('scroll', function () {
+    hint.classList.toggle('scroll-hint--hidden', window.scrollY > 80);
+  }, { passive: true });
+})();
+</script>
 </body>
 </html>
