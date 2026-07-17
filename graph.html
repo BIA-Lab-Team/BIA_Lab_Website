@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -646,7 +646,7 @@ function showDetail(p){
   const col=CATS[p.c].color;
   const ci=p.n>0?p.n:'—';
   const fa=p.fa?`<span class="d-badge" style="color:${col}"><span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);display:inline-block"></span>First author</span>`:'';
-  const nodal=(p.deg>=4||p.n>=50)?`<span class="d-badge" style="color:${col}">â— Nodal paper</span>`:'';
+  const nodal=(p.deg>=4||p.n>=50)?`<span class="d-badge" style="color:${col}">&#9679; Nodal paper</span>`:'';
   const connIds=new Set();
   edges.forEach(e=>{if(e.s===p.id)connIds.add(e.t);if(e.t===p.id)connIds.add(e.s);});
   const conns=[...connIds].map(id=>nById[id]).sort((a,b)=>b.n-a.n);
