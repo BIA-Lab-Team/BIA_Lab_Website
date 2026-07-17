@@ -87,7 +87,7 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 36 | An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy | Ali S, **Zhou F**, Braden B, Bailey A, Yang S et al. | *Scientific Reports* 10(1):2748, 2020 | — | 152 |
+| 36 | An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy | Ali S†, **Zhou F**†, Braden B, Bailey A, Yang S et al. | *Scientific Reports* 10(1):2748, 2020 | — | 152 |
 | 37 | Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones | Chauveau A, Pirgova G, Cheng HW, De Martin A, **Zhou FY**, Wideman S et al. | *Immunity* 52(5):794–807, 2020 | — | 82 |
 | 38 | An autonomous oscillation times and executes centriole biogenesis | Aydogan MG, Steinacker TL, Mofatteh M, Wilmott ZM, **Zhou FY** et al. | *Cell* 181(7):1566–1581, 2020 | — | 56 |
 
