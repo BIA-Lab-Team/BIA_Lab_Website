@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publication Knowledge Graph â€” BIA Lab</title>
-  <meta name="description" content="Interactive knowledge graph of all BIA Lab publications â€” explore connections, themes, and nodal papers.">
+  <title>Publication Knowledge Graph — BIA Lab</title>
+  <meta name=”description” content=”Interactive knowledge graph of all BIA Lab publications — explore connections, themes, and nodal papers.”>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -273,7 +273,7 @@
 <div id="lp" class="panel">
   <div>
     <div class="slabel">Search</div>
-    <input id="search" type="text" placeholder="Title, method, venueâ€¦" autocomplete="off">
+    <input id="search" type="text" placeholder="Title, method, venue…" autocomplete="off">
   </div>
   <div>
     <div class="slabel">Research theme</div>
@@ -291,14 +291,14 @@
         <span>First-author paper</span>
       </div>
       <div>Glow = high connectivity / citations</div>
-      <div style="margin-top:4px;color:rgba(90,120,152,.75)">Scroll to zoom Â· drag to pan<br>click a node to explore</div>
+      <div style="margin-top:4px;color:rgba(90,120,152,.75)">Scroll to zoom · drag to pan<br>click a node to explore</div>
     </div>
   </div>
 </div>
 
 <!-- Right panel -->
 <div id="rp" class="panel">
-  <button id="rp-close">Ã—</button>
+  <button id="rp-close">×</button>
   <div id="rp-content"></div>
 </div>
 
@@ -595,7 +595,7 @@ cv.addEventListener('mousemove',e=>{
     tip.style.top=oy+'px';
     const ci=h.n>0?`${h.n} citations`:'New / preprint';
     const fa=h.fa?' <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);vertical-align:middle;margin-right:2px"></span>First author':'';
-    tip.innerHTML=`<div style="font-weight:700;color:${CATS[h.c].color};margin-bottom:4px">${h.s}</div><div style="font-size:10.5px;color:#5a7898;margin-bottom:4px;line-height:1.45">${h.f.length>90?h.f.slice(0,90)+'â€¦':h.f}</div><div style="font-size:10px">${h.y} Â· ${h.v} Â· <b style="color:#b8ccde">${ci}</b>${fa}</div>`;
+    tip.innerHTML=`<div style="font-weight:700;color:${CATS[h.c].color};margin-bottom:4px">${h.s}</div><div style="font-size:10.5px;color:#5a7898;margin-bottom:4px;line-height:1.45">${h.f.length>90?h.f.slice(0,90)+'…':h.f}</div><div style="font-size:10px">${h.y} · ${h.v} · <b style="color:#b8ccde">${ci}</b>${fa}</div>`;
   }else{tip.style.display='none';}
 });
 
@@ -644,7 +644,7 @@ document.getElementById('zrst').onclick=()=>{tx=0;ty=0;ts=1;};
 function showDetail(p){
   const rp=document.getElementById('rp');
   const col=CATS[p.c].color;
-  const ci=p.n>0?p.n:'â€”';
+  const ci=p.n>0?p.n:'—';
   const fa=p.fa?`<span class="d-badge" style="color:${col}"><span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);display:inline-block"></span>First author</span>`:'';
   const nodal=(p.deg>=4||p.n>=50)?`<span class="d-badge" style="color:${col}">â— Nodal paper</span>`:'';
   const connIds=new Set();
@@ -661,7 +661,7 @@ function showDetail(p){
     <div class="d-cat" style="color:${col}">${CATS[p.c].label}</div>
     <div class="d-title">${p.f}</div>
     <div style="margin-bottom:8px">${fa}${nodal}</div>
-    <div class="d-meta">${p.y} Â· ${p.v}</div>
+    <div class="d-meta">${p.y} · ${p.v}</div>
     <div class="d-cit"><div class="d-cit-n" style="color:${col}">${ci}</div><div class="d-cit-l">citations</div></div>
     ${p.d?`<div class="d-digest">${p.d}</div>`:''}
     ${cHtml}
