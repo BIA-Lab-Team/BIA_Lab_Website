@@ -239,6 +239,36 @@
 
     /* Background color for the whole page */
     body { background: #060d1a; }
+
+    #lp-toggle {
+      display: none;
+      position: fixed;
+      top: calc(var(--nav-h) + 14px);
+      left: 16px;
+      z-index: 110;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 13px;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+    }
+
+    @media (max-width: 768px) {
+      #lp {
+        width: calc(100vw - 32px);
+        max-height: 60vh;
+        display: none;
+        z-index: 105;
+      }
+      #lp.open { display: flex; }
+      #rp { width: calc(100vw - 32px); right: 16px; left: 16px; }
+      #lp-toggle { display: flex; align-items: center; gap: 6px; }
+    }
   </style>
 </head>
 <body>
@@ -260,11 +290,14 @@
       <li><a href="join.html">Join Us</a></li>
     </ul>
     <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
-    <button class="nav__burger" aria-label="Open menu">
+    <button class=”nav__burger” aria-label=”Open menu”>
       <span></span><span></span><span></span>
     </button>
+    <a href=”join.html” class=”btn btn-primary btn-sm nav__mobile-cta”>Open Positions</a>
   </div>
 </nav>
+
+<button id=”lp-toggle”>&#9776; Filters</button>
 
 <!-- â”€â”€â”€ Graph Canvas â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
 <canvas id="c"></canvas>
@@ -704,6 +737,10 @@ function loop(){simStep();draw();requestAnimationFrame(loop);}
 initGraph();
 buildChips();
 loop();
+
+document.getElementById('lp-toggle').addEventListener('click', function() {
+  document.getElementById('lp').classList.toggle('open');
+});
 </script>
 
 </body>

@@ -44,6 +44,16 @@
       .position-card { grid-template-columns: 1fr; }
     }
 
+    .how-to-apply-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .how-to-apply-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
     /* Values grid */
     .value-card {
       padding: 1.75rem;
@@ -112,6 +122,7 @@
     </ul>
     <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
     <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="join.html" class="btn btn-primary btn-sm nav__mobile-cta">Open Positions</a>
   </div>
 </nav>
 
@@ -231,7 +242,7 @@
 
 <!-- How to Apply -->
 <section class="section">
-  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+  <div class="container how-to-apply-grid">
     <div>
       <div class="section-label">Process</div>
       <h2>How to apply</h2>

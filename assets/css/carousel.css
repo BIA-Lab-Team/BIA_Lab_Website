@@ -22,9 +22,12 @@
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
   gap: 0;
-  height: 160px;
+  height: 180px;
   min-height: unset;
+  text-decoration: none;
+  cursor: pointer;
 }
+.carousel__slide:hover .carousel__slide-content { opacity: .85; }
 
 .carousel__slide-visual {
   position: relative;
