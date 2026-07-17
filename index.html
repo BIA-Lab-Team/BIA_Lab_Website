@@ -101,32 +101,6 @@
       .hero__northstar-col--stats .hero__stats { flex-direction: row; gap: 2rem; }
     }
 
-    .scroll-hint {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      background: rgba(72,120,190,.10);
-      border: 1px solid rgba(72,120,190,.22);
-      text-decoration: none;
-      animation: scrollBounce 2s ease-in-out infinite;
-      transition: background .15s, opacity .3s;
-    }
-    .scroll-hint:hover { background: rgba(72,120,190,.2); }
-    @keyframes scrollBounce {
-      0%, 100% { transform: translateX(-50%) translateY(0); }
-      50%       { transform: translateX(-50%) translateY(6px); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .scroll-hint { animation: none; }
-    }
-    .scroll-hint--hidden { opacity: 0; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -153,6 +127,59 @@
     </button>
   </div>
 </nav>
+
+<!-- ─── Carousel ───────────────────────────────────────────────────────────── -->
+<div class="carousel-section" id="highlights">
+  <div class="carousel__progress"><div class="carousel__progress-bar"></div></div>
+  <div class="carousel" data-carousel>
+    <div class="carousel__track">
+
+      <!-- Slide 1 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions</h2>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration during anterior patterning</h2>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy</h2>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="carousel__slide">
+        <div class="carousel__slide-content">
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue</h2>
+        </div>
+      </div>
+
+    </div><!-- /.carousel__track -->
+
+    <div class="carousel__controls">
+      <button class="carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
+      <div class="carousel__dots">
+        <button class="carousel__dot active" aria-label="Slide 1"></button>
+        <button class="carousel__dot" aria-label="Slide 2"></button>
+        <button class="carousel__dot" aria-label="Slide 3"></button>
+        <button class="carousel__dot" aria-label="Slide 4"></button>
+      </div>
+      <button class="carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
+    </div>
+  </div><!-- /.carousel -->
+</div><!-- /.carousel-section -->
 
 <!-- ─── Hero ───────────────────────────────────────────────────────────────── -->
 <section class="hero">
@@ -232,96 +259,15 @@
     </div>
   </div>
 
-  <a href="#highlights" class="scroll-hint" aria-label="Scroll down">
-    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <a href="#research" class="scroll-hint" aria-label="Scroll down">
+    <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 </section>
 
-<!-- ─── Carousel ───────────────────────────────────────────────────────────── -->
-<div class="carousel-section" id="highlights">
-  <div class="carousel__progress"><div class="carousel__progress-bar"></div></div>
-  <div class="carousel" data-carousel>
-    <div class="carousel__track">
-
-      <!-- Slide 1 -->
-      <div class="carousel__slide">
-        <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
-          <h2>Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions</h2>
-          <p>Branched actin-driven membrane protrusions spatially organise oncogenic KRAS signalling complexes, revealing a morphological mechanism by which cells amplify and sustain tumorigenic RAS activity.</p>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
-          </div>
-        </div>
-        <div class="carousel__slide-visual">
-          <img src="assets/img/banners/banner_kras.jpg" alt="KRAS signaling figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
-        </div>
-      </div>
-
-      <!-- Slide 2 -->
-      <div class="carousel__slide">
-        <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
-          <h2>Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration during anterior patterning</h2>
-          <p>Multi-scale morphodynamic image analysis reveals the collective migration mechanics of the distal visceral endoderm during mouse anterior–posterior axis specification.</p>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
-          </div>
-        </div>
-        <div class="carousel__slide-visual">
-          <img src="assets/img/banners/banner_dve.jpg" alt="DVE migration figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
-        </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="carousel__slide">
-        <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
-          <h2>Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy</h2>
-          <p>Iterative antibody labelling combined with expansion microscopy achieves multiplexed nanoscale imaging of subcellular structures, enabling systematic mapping of organelle architecture.</p>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
-          </div>
-        </div>
-        <div class="carousel__slide-visual">
-          <img src="assets/img/banners/banner_cyexm.jpg" alt="Cyclically Multiplexed Expansion Microscopy figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
-        </div>
-      </div>
-
-      <!-- Slide 4 -->
-      <div class="carousel__slide">
-        <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
-          <h2>Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue</h2>
-          <p>Cyclic immunofluorescence extended into 3D volumes on FFPE tissue enables high-plex spatial profiling of immune cell niches at single-cell resolution throughout intact tissue blocks.</p>
-          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
-          </div>
-        </div>
-        <div class="carousel__slide-visual">
-          <img src="assets/img/banners/banner_vcycif.jpg" alt="Volumetric CyCIF figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
-        </div>
-      </div>
-
-    </div><!-- /.carousel__track -->
-
-    <div class="carousel__controls">
-      <button class="carousel__btn" data-carousel-prev aria-label="Previous">&#8592;</button>
-      <div class="carousel__dots">
-        <button class="carousel__dot active" aria-label="Slide 1"></button>
-        <button class="carousel__dot" aria-label="Slide 2"></button>
-        <button class="carousel__dot" aria-label="Slide 3"></button>
-        <button class="carousel__dot" aria-label="Slide 4"></button>
-      </div>
-      <button class="carousel__btn" data-carousel-next aria-label="Next">&#8594;</button>
-    </div>
-  </div><!-- /.carousel -->
-</div><!-- /.carousel-section -->
-
 <!-- ─── Research Themes ─────────────────────────────────────────────────────── -->
-<section class="section">
+<section class="section" id="research">
   <div class="container">
     <div class="section-header">
       <div class="section-label">Research</div>
@@ -517,14 +463,6 @@
 
 <script src="assets/js/nav.js"></script>
 <script src="assets/js/carousel.js"></script>
-<script>
-(function () {
-  var hint = document.querySelector('.scroll-hint');
-  if (!hint) return;
-  window.addEventListener('scroll', function () {
-    hint.classList.toggle('scroll-hint--hidden', window.scrollY > 80);
-  }, { passive: true });
-})();
-</script>
+<script src="assets/js/scroll-hint.js" defer></script>
 </body>
 </html>

@@ -300,7 +300,7 @@ p { max-width: 68ch; }
   padding-block: 3rem;
 }
 .stats-bar__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; text-align: center; }
-.stats-bar__value { font-size: 2.5rem; font-weight: 800; color: var(--teal); line-height: 1; }
+.stats-bar__value { font-size: 2.5rem; font-weight: 800; color: var(--white); line-height: 1; }
 .stats-bar__label { font-size: .8rem; color: rgba(255,255,255,.55); text-transform: uppercase; letter-spacing: .1em; margin-top: .35rem; }
 
 /* ─── News / Timeline ───────────────────────────────────────────────────────── */
@@ -400,3 +400,32 @@ p { max-width: 68ch; }
   .footer__grid { grid-template-columns: 1fr; }
   .hero__stats { gap: 1.5rem; }
 }
+
+/* ─── Scroll-hint ───────────────────────────────────────────────────────────── */
+.scroll-hint {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: rgba(30,45,79,.55);
+  border: 2px solid rgba(72,120,190,.7);
+  text-decoration: none;
+  animation: scrollBounce 2s ease-in-out infinite;
+  transition: background .15s, opacity .3s;
+}
+.scroll-hint:hover { background: rgba(30,45,79,.8); }
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(7px); }
+}
+@media (prefers-reduced-motion: reduce) { .scroll-hint { animation: none; } }
+.scroll-hint--hidden { opacity: 0; pointer-events: none; }
+
+/* page-hero must be position:relative for the scroll-hint to be contained */
+.page-hero { position: relative; }
