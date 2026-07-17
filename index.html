@@ -10,6 +10,97 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/carousel.css">
+  <style>
+    section.hero { display: block; }
+
+    /* Hero top row: 2-col with logo */
+    .hero__content { padding-block: 3rem 2rem; }
+    .hero__logo { padding-top: 2rem; }
+
+    /* 3-col north star row */
+    .hero__northstar {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+      padding-top: 1.5rem;
+      padding-bottom: 2rem;
+      border-top: 1px solid rgba(72,120,190,.2);
+    }
+
+    /* Quote column */
+    .hero__northstar-col--quote {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .hero__quote {
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      font-style: italic;
+      font-weight: 600;
+      color: var(--teal-dark);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Body column */
+    .hero__northstar-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-size: .9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--teal);
+      margin-bottom: .85rem;
+    }
+    .hero__northstar-label::before,
+    .hero__northstar-label::after {
+      content: '';
+      height: 2px;
+      flex: 1;
+      max-width: 3rem;
+      background: var(--teal);
+      border-radius: 2px;
+    }
+    .hero__northstar-col--body p {
+      font-size: clamp(.95rem, 1.6vw, 1.05rem);
+      color: var(--navy);
+      line-height: 1.7;
+      margin: 0 0 .65rem;
+      text-align: justify;
+    }
+    .hero__northstar-col--body em {
+      font-style: normal;
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    /* Stats column */
+    .hero__northstar-col--stats {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .hero__northstar-col--stats .hero__stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    .hero__northstar-col--stats .hero__stat-value {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero__northstar { grid-template-columns: 1fr; }
+      .hero__northstar-col--stats .hero__stats { flex-direction: row; gap: 2rem; }
+    }
+  </style>
 </head>
 <body>
 
@@ -82,28 +173,34 @@
       <div class="hero__actions">
         <a href="research.html" class="btn btn-primary">Explore Our Research</a>
         <a href="publications.html" class="btn btn-outline-dark">Recent Publications</a>
-      </div>
-      <div class="hero__stats">
-        <div>
-          <div class="hero__stat-value">12</div>
-          <div class="hero__stat-label">Lab Members</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">48</div>
-          <div class="hero__stat-label">Publications</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">6</div>
-          <div class="hero__stat-label">Active Projects</div>
-        </div>
-        <div>
-          <div class="hero__stat-value">5</div>
-          <div class="hero__stat-label">Software Tools</div>
-        </div>
+        <a href="graph.html" class="btn btn-outline-dark">Publication Graph</a>
       </div>
     </div>
     <div class="hero__logo">
       <img src="assets/img/bia_lab_logo.png" alt="BIA Lab logo">
+    </div>
+  </div>
+  <!-- 3-col north star row -->
+  <div class="container hero__northstar">
+    <div class="hero__northstar-col hero__northstar-col--quote">
+      <p class="hero__quote">"Because it's the ones bold enough to believe they can reshape the world who actually do."</p>
+    </div>
+    <div class="hero__northstar-col hero__northstar-col--body">
+      <div class="hero__northstar-label">Our North Star</div>
+      <p>To make tissues <em>designable in software</em> — to turn the coordination of biological signaling across space and time from something we merely observe into something we can specify, predict, and engineer, the way an architect designs a building before it is built.</p>
+      <p>We will not get there by cataloguing what is already known. We bet on ambition over certainty, imagination over knowledge, doing over theorizing. Most of what we try will not work. That is the cost of pushing far enough past the frontier to actually change something. It is expected. It is not failure.</p>
+    </div>
+    <div class="hero__northstar-col hero__northstar-col--stats">
+      <div class="hero__stats">
+        <div>
+          <div class="hero__stat-value">43</div>
+          <div class="hero__stat-label">Publications</div>
+        </div>
+        <div>
+          <div class="hero__stat-value">6</div>
+          <div class="hero__stat-label">Software Tools</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -117,128 +214,60 @@
       <!-- Slide 1 -->
       <div class="carousel__slide">
         <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">📄 New Paper · Nature Methods 2024</div>
-          <h2>SpatialFlow: Reconstructing signaling trajectories from spatial transcriptomics</h2>
-          <p>We introduce a graph-based framework that infers directional information flow in tissue sections, revealing how morphogen gradients organize cell fate decisions.</p>
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions</h2>
+          <p>Branched actin-driven membrane protrusions spatially organise oncogenic KRAS signalling complexes, revealing a morphological mechanism by which cells amplify and sustain tumorigenic RAS activity.</p>
           <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="publications.html" class="btn btn-primary btn-sm">Read Paper</a>
-            <a href="software.html" class="btn btn-outline btn-sm">Get the Code</a>
+            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
           </div>
         </div>
         <div class="carousel__slide-visual">
-          <svg viewBox="0 0 300 280" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="sg1" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#4878be" stop-opacity=".4"/>
-                <stop offset="100%" stop-color="#4878be" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <rect width="300" height="280" fill="none"/>
-            <circle cx="150" cy="140" r="120" fill="url(#sg1)"/>
-            <!-- hexagonal cell grid -->
-            <g fill="none" stroke="#4878be" stroke-opacity=".5" stroke-width="1">
-              <polygon points="150,40 185,60 185,100 150,120 115,100 115,60"/>
-              <polygon points="185,100 220,120 220,160 185,180 150,160 150,120"/>
-              <polygon points="115,100 150,120 150,160 115,180 80,160 80,120"/>
-              <polygon points="150,160 185,180 185,220 150,240 115,220 115,180"/>
-            </g>
-            <!-- flow arrows -->
-            <g stroke="#4878be" stroke-width="2" fill="#4878be" opacity=".8">
-              <line x1="150" y1="80" x2="150" y2="200"/>
-              <polygon points="150,200 144,186 156,186"/>
-              <line x1="100" y1="130" x2="200" y2="130"/>
-              <polygon points="200,130 186,124 186,136"/>
-            </g>
-            <circle cx="150" cy="140" r="12" fill="#4878be" opacity=".9"/>
-          </svg>
+          <img src="assets/img/banners/banner_kras.jpg" alt="KRAS signaling figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
       </div>
 
       <!-- Slide 2 -->
       <div class="carousel__slide">
         <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">🔬 Featured Project · Temporal Dynamics</div>
-          <h2>Decoding oscillatory gene expression in the segmentation clock</h2>
-          <p>Using single-cell imaging and stochastic modelling, we map how noise and coupling shape the precision of somite formation across vertebrate embryos.</p>
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration during anterior patterning</h2>
+          <p>Multi-scale morphodynamic image analysis reveals the collective migration mechanics of the distal visceral endoderm during mouse anterior–posterior axis specification.</p>
           <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="research.html" class="btn btn-primary btn-sm">Learn More</a>
-            <a href="publications.html" class="btn btn-outline btn-sm">Related Papers</a>
+            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
           </div>
         </div>
         <div class="carousel__slide-visual">
-          <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
-            <g stroke="#4878be" stroke-width="2" fill="none" opacity=".8">
-              <polyline points="10,100 30,60 50,130 70,50 90,120 110,70 130,110 150,55 170,115 190,65 210,105 230,75 250,95 270,80 290,90" stroke-opacity=".9"/>
-            </g>
-            <g stroke="rgba(72,120,190,.3)" stroke-width="1.5" fill="none">
-              <polyline points="10,100 30,80 50,110 70,75 90,105 110,85 130,100 150,75 170,105 190,82 210,98 230,86 250,94 270,88 290,92"/>
-            </g>
-            <g fill="#4878be" opacity=".7">
-              <circle cx="70" cy="50" r="4"/>
-              <circle cx="150" cy="55" r="4"/>
-              <circle cx="230" cy="75" r="4"/>
-            </g>
-            <line x1="10" y1="100" x2="290" y2="100" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
-          </svg>
+          <img src="assets/img/banners/banner_dve.jpg" alt="DVE migration figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
       </div>
 
       <!-- Slide 3 -->
       <div class="carousel__slide">
         <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">🛠 New Software · v2.0 Released</div>
-          <h2>InfoSig: An information-theoretic toolkit for signaling pathway analysis</h2>
-          <p>Quantify mutual information, channel capacity, and redundancy in signaling networks from bulk and single-cell data. Now with GPU acceleration and Python API.</p>
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy</h2>
+          <p>Iterative antibody labelling combined with expansion microscopy achieves multiplexed nanoscale imaging of subcellular structures, enabling systematic mapping of organelle architecture.</p>
           <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="software.html" class="btn btn-primary btn-sm">Download</a>
-            <a href="publications.html" class="btn btn-outline btn-sm">Cite Paper</a>
+            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
           </div>
         </div>
         <div class="carousel__slide-visual">
-          <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
-            <!-- Venn/MI diagram -->
-            <circle cx="120" cy="110" r="80" fill="rgba(72,120,190,.15)" stroke="#4878be" stroke-opacity=".5" stroke-width="1.5"/>
-            <circle cx="180" cy="110" r="80" fill="rgba(100,150,255,.12)" stroke="#6496ff" stroke-opacity=".5" stroke-width="1.5"/>
-            <text x="88" y="115" font-size="11" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">H(X)</text>
-            <text x="185" y="115" font-size="11" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">H(Y)</text>
-            <text x="137" y="115" font-size="10" fill="#4878be" font-family="Inter,sans-serif" font-weight="700">I(X;Y)</text>
-          </svg>
+          <img src="assets/img/banners/banner_cyexm.jpg" alt="Cyclically Multiplexed Expansion Microscopy figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
       </div>
 
       <!-- Slide 4 -->
       <div class="carousel__slide">
         <div class="carousel__slide-content">
-          <div class="carousel__slide-badge">🏆 Award · ERC Starting Grant 2024</div>
-          <h2>New ERC grant to study spatial information processing in developing tissues</h2>
-          <p>We have been awarded a €1.5M ERC Starting Grant to investigate how positional information is encoded and decoded by gene regulatory networks in embryogenesis.</p>
+          <div class="carousel__slide-badge">📄 New Preprint · bioRxiv 2026</div>
+          <h2>Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue</h2>
+          <p>Cyclic immunofluorescence extended into 3D volumes on FFPE tissue enables high-plex spatial profiling of immune cell niches at single-cell resolution throughout intact tissue blocks.</p>
           <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <a href="news.html" class="btn btn-primary btn-sm">Read Announcement</a>
-            <a href="join.html" class="btn btn-outline btn-sm">Join the Project</a>
+            <a href="publications.html" class="btn btn-primary btn-sm">Read Preprint</a>
           </div>
         </div>
         <div class="carousel__slide-visual">
-          <svg viewBox="0 0 300 240" xmlns="http://www.w3.org/2000/svg">
-            <!-- stylised embryo / gradient field -->
-            <defs>
-              <linearGradient id="emb" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#4878be" stop-opacity=".8"/>
-                <stop offset="100%" stop-color="#6496ff" stop-opacity=".5"/>
-              </linearGradient>
-            </defs>
-            <ellipse cx="150" cy="120" rx="110" ry="80" fill="url(#emb)" opacity=".25" stroke="#4878be" stroke-opacity=".4" stroke-width="1.5"/>
-            <!-- concentration bars -->
-            <g opacity=".7">
-              <rect x="55" y="70" width="8" height="100" rx="4" fill="#4878be" opacity=".9"/>
-              <rect x="73" y="82" width="8" height="88"  rx="4" fill="#4878be" opacity=".77"/>
-              <rect x="91" y="93" width="8" height="77"  rx="4" fill="#4878be" opacity=".65"/>
-              <rect x="109" y="103" width="8" height="67" rx="4" fill="#4878be" opacity=".53"/>
-              <rect x="127" y="112" width="8" height="58" rx="4" fill="#6496ff" opacity=".53"/>
-              <rect x="145" y="120" width="8" height="50" rx="4" fill="#6496ff" opacity=".65"/>
-              <rect x="163" y="128" width="8" height="42" rx="4" fill="#6496ff" opacity=".77"/>
-              <rect x="181" y="135" width="8" height="35" rx="4" fill="#6496ff" opacity=".9"/>
-            </g>
-          </svg>
+          <img src="assets/img/banners/banner_vcycif.jpg" alt="Volumetric CyCIF figure" style="width:100%;height:100%;object-fit:cover;object-position:center;">
         </div>
       </div>
 
@@ -263,36 +292,38 @@
     <div class="section-header">
       <div class="section-label">Research</div>
       <h2>What we work on</h2>
-      <p>We combine theory, computation, and close collaborations with experimentalists to understand the principles of biological signaling.</p>
+      <p>We approach problems from first principles. We combine theory, computation, and close collaborations with experimentalists to understand the informational flow of biological signaling from molecules to tissue.</p>
+      <p style="margin-top:.75rem;">To do this, we ask:</p>
+      <ol style="margin-top:.5rem;padding-left:1.4rem;display:flex;flex-direction:column;gap:.35rem;color:var(--muted);font-size:1rem;line-height:1.6;">
+        <li>Which biological measurements reveal the system?</li>
+        <li>How can tissue be conceived as a computing machine?</li>
+        <li>How can scalable pipelines turn that complexity into insight?</li>
+      </ol>
     </div>
     <div class="grid-4">
       <div class="theme-card">
         <div class="theme-card__num">01</div>
-        <div class="theme-card__icon">🗺️</div>
-        <h3>Spatial Signaling</h3>
+        <div class="theme-card__icon">🧬</div>
+        <h3>Spatial Signaling Architecture</h3>
         <p>How do tissues use spatial patterning of signals to control cell identity and morphogenesis?</p>
-        <div class="theme-card__tags"><span class="theme-card__tag">Morphogens</span><span class="theme-card__tag">scRNA-seq</span></div>
       </div>
       <div class="theme-card">
         <div class="theme-card__num">02</div>
-        <div class="theme-card__icon">⏱️</div>
+        <div class="theme-card__icon">🌊</div>
         <h3>Temporal Dynamics</h3>
-        <p>Decoding oscillations, pulses, and noise in gene expression to reveal timing mechanisms.</p>
-        <div class="theme-card__tags"><span class="theme-card__tag">Live imaging</span><span class="theme-card__tag">ODE/SDE</span></div>
+        <p>Characterising and decoding temporal fluctuations in molecular expression and morphology to reveal causal regulation mechanisms.</p>
       </div>
       <div class="theme-card">
         <div class="theme-card__num">03</div>
-        <div class="theme-card__icon">📡</div>
+        <div class="theme-card__icon">⚖️</div>
         <h3>Information Theory</h3>
-        <p>Applying Shannon information theory to quantify signaling channel capacity and fidelity.</p>
-        <div class="theme-card__tags"><span class="theme-card__tag">Mutual info</span><span class="theme-card__tag">Capacity</span></div>
+        <p>Building phenomena-agnostic, information-theoretic frameworks to quantify how information flows between cells and across tissue components.</p>
       </div>
       <div class="theme-card">
         <div class="theme-card__num">04</div>
-        <div class="theme-card__icon">🕸️</div>
-        <h3>Network Architecture</h3>
-        <p>Uncovering design principles of regulatory networks that underpin robust signal processing.</p>
-        <div class="theme-card__tags"><span class="theme-card__tag">GRNs</span><span class="theme-card__tag">Graph theory</span></div>
+        <div class="theme-card__icon">🎯</div>
+        <h3>Causality</h3>
+        <p>Building causal frameworks to model and interpret information flow across molecules, cells, and tissue — and to identify the tipping points that dictate organismal fate.</p>
       </div>
     </div>
     <div style="margin-top:2rem;text-align:center;">
@@ -305,11 +336,8 @@
 <div class="stats-bar">
   <div class="container">
     <div class="stats-bar__grid">
-      <div><div class="stats-bar__value">48</div><div class="stats-bar__label">Publications</div></div>
-      <div><div class="stats-bar__value">12</div><div class="stats-bar__label">Lab Members</div></div>
-      <div><div class="stats-bar__value">5</div><div class="stats-bar__label">Open-source Tools</div></div>
-      <div><div class="stats-bar__value">6</div><div class="stats-bar__label">Active Grants</div></div>
-      <div><div class="stats-bar__value">30+</div><div class="stats-bar__label">Collaborators</div></div>
+      <div><div class="stats-bar__value">43</div><div class="stats-bar__label">Publications</div></div>
+      <div><div class="stats-bar__value">6</div><div class="stats-bar__label">Open-source Tools</div></div>
     </div>
   </div>
 </div>
@@ -319,42 +347,60 @@
   <div class="container">
     <div class="section-header">
       <div class="section-label">Publications</div>
-      <h2>Recent work</h2>
-      <p>Selected papers from the last two years.</p>
+      <h2>Selected work</h2>
+      <p>Selected papers. Lab members highlighted in teal.</p>
     </div>
     <div class="grid-2" style="gap:1.25rem;">
       <div class="pub-card">
-        <span class="pub-card__journal">Nature · 2023</span>
-        <h3>Blebs promote cell survival by assembling oncogenic signalling hubs</h3>
-        <p class="pub-card__authors">Weems AD, Welf ES, Driscoll MK, <strong style="color:var(--teal-dark)">Zhou FY</strong>, Mazloom-Farsibaf H, Chang B-J, Murali VS et al.</p>
-        <p class="pub-card__abstract">Plasma-membrane blebs act as signalling compartments that concentrate and activate pro-survival oncogenic complexes, linking cell morphology to tumour cell survival.</p>
+        <span class="pub-card__journal">bioRxiv · 2025</span>
+        <h3>Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)</h3>
+        <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Norton-Steele A, Marsh L, Byrne H, Harrington H, Lu X</p>
+        <p class="pub-card__abstract">Introduces the SPOT framework and SAM feature taxonomy as a standardised vocabulary for describing cellular image phenotypes, enabling systematic cross-experiment comparison of cell morphology, texture, and dynamics.</p>
         <div class="pub-card__links">
-          <a href="https://doi.org/10.1038/s41586-023-05758-6">Paper</a><a href="#">BibTeX</a>
+          <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1" target="_blank" rel="noopener">Preprint</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">bioRxiv · 2025</span>
+        <h3>Identifying phenotype–genotype–function coupling in 3D organoid imaging using SPOT</h3>
+        <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Jacobs BA, Norton-Steele A, Han X, Zhou L, Carroll TM et al.</p>
+        <p class="pub-card__abstract">Applies the SPOT phenomics pipeline to 3D organoid imaging datasets, linking quantitative morphodynamic phenotypes to genotype perturbations and cellular function in a scalable, interpretable framework.</p>
+        <div class="pub-card__links">
+          <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691111" target="_blank" rel="noopener">Preprint</a><a href="#">BibTeX</a>
         </div>
       </div>
       <div class="pub-card">
         <span class="pub-card__journal">Nature Methods · 2025</span>
         <h3>Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)</h3>
         <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Marin Z, Yapp C, Zou Q, Nanes BA, Daetwyler S, Jamieson AR et al.</p>
-        <p class="pub-card__abstract">A universal method for deriving consensus 3D cell segmentations from ensembles of 2D predictions — robust across imaging modalities without retraining.</p>
+        <p class="pub-card__abstract">Introduces u-segment3D, a universal method for deriving consensus 3D cell segmentations from ensembles of per-slice 2D predictions, enabling robust 3D cell delineation across diverse imaging modalities without retraining.</p>
         <div class="pub-card__links">
           <a href="#">Paper</a><a href="#">Code</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">bioRxiv · 2023</span>
+        <h3>Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D (u-unwrap3D)</h3>
+        <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Weems A, Prahl LS, Liu AP, Bhatt DL, Danuser G</p>
+        <p class="pub-card__abstract">Transforms 3D cell surfaces into multiple canonical 2D representations, enabling population-level quantitative analysis of how membrane-associated molecular signals co-localise with dynamic 3D morphology.</p>
+        <div class="pub-card__links">
+          <a href="https://www.biorxiv.org/content/10.1101/2023.04.12.536640" target="_blank" rel="noopener">Preprint</a><a href="#">BibTeX</a>
+        </div>
+      </div>
+      <div class="pub-card">
+        <span class="pub-card__journal">NeurIPS Workshop · 2022</span>
+        <h3>Multiscale Pixel Spatiotemporal Information Flows (u-infotrace)</h3>
+        <p class="pub-card__authors"><strong style="color:var(--teal-dark)">Zhou FY</strong>, Ravishankar R</p>
+        <p class="pub-card__abstract">Introduces u-infotrace, a multiscale framework for tracing spatiotemporal information flows at the pixel level in time-lapse imaging, enabling causal analysis of signal propagation across cellular and tissue scales.</p>
+        <div class="pub-card__links">
+          <a href="#">Paper</a><a href="#">BibTeX</a>
         </div>
       </div>
       <div class="pub-card">
         <span class="pub-card__journal">Nature Methods · 2025</span>
         <h3>Highly multiplexed 3D profiling of cell states and immune niches in human tumors</h3>
         <p class="pub-card__authors">Yapp C, Nirmal AJ, <strong style="color:var(--teal-dark)">Zhou F</strong>, Wong AYH, Tefft JB, Lu YD, Shang Z et al.</p>
-        <p class="pub-card__abstract">3D CyCIF enables volumetric multiplexed protein profiling in intact tumour tissue, revealing spatial organisation of immune cell states and signalling niches.</p>
-        <div class="pub-card__links">
-          <a href="#">Paper</a><a href="#">BibTeX</a>
-        </div>
-      </div>
-      <div class="pub-card">
-        <span class="pub-card__journal">Nature Methods · 2022</span>
-        <h3>Resolution doubling in light-sheet microscopy via oblique plane structured illumination</h3>
-        <p class="pub-card__authors">Chen B, Chang B-J, Roudot P, <strong style="color:var(--teal-dark)">Zhou F</strong>, Sapoznik E, Marlar-Pavey M et al.</p>
-        <p class="pub-card__abstract">Structured illumination combined with oblique plane microscopy achieves two-fold lateral resolution improvement for high-speed volumetric live imaging.</p>
+        <p class="pub-card__abstract">Presents 3D CyCIF, a volumetric cyclic immunofluorescence platform enabling highly multiplexed protein profiling in intact tumour tissue, revealing the spatial organisation of immune cell states and signalling niches with unprecedented depth.</p>
         <div class="pub-card__links">
           <a href="#">Paper</a><a href="#">BibTeX</a>
         </div>
@@ -376,35 +422,13 @@
     <div>
       <div class="news-item">
         <div class="news-item__date">
-          <div class="news-item__date-month">Nov</div>
-          <div class="news-item__date-day">12</div>
-          <div class="news-item__date-year">2024</div>
+          <div class="news-item__date-month">Aug</div>
+          <div class="news-item__date-day">17</div>
+          <div class="news-item__date-year">2026</div>
         </div>
         <div class="news-item__body">
-          <h4>ERC Starting Grant awarded</h4>
-          <p>We are thrilled to announce a €1.5M ERC Starting Grant to study spatial information processing in developing tissues.</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-item__date">
-          <div class="news-item__date-month">Sep</div>
-          <div class="news-item__date-day">5</div>
-          <div class="news-item__date-year">2024</div>
-        </div>
-        <div class="news-item__body">
-          <h4>SpatialFlow published in Nature Methods</h4>
-          <p>Our new computational method for reconstructing directional signaling in tissue is now out.</p>
-        </div>
-      </div>
-      <div class="news-item">
-        <div class="news-item__date">
-          <div class="news-item__date-month">Jul</div>
-          <div class="news-item__date-day">22</div>
-          <div class="news-item__date-year">2024</div>
-        </div>
-        <div class="news-item__body">
-          <h4>Three new PhD students join the lab</h4>
-          <p>Welcome to Maria, Alex, and Wei — starting their doctoral projects on spatial signaling and network topology.</p>
+          <h4>BIA Lab officially opens at Vanderbilt University</h4>
+          <p>The Biological Information Architecture Lab opens its doors at the Center for Computational Systems Biology, Vanderbilt University.</p>
         </div>
       </div>
     </div>
@@ -443,15 +467,14 @@
       <div>
         <h4>Connect</h4>
         <ul>
-          <li><a href="mailto:pi@bialab.org">Email</a></li>
-          <li><a href="#">GitHub</a></li>
-          <li><a href="#">Twitter / X</a></li>
-          <li><a href="#">Google Scholar</a></li>
+          <li><a href="mailto:felix.y.zhou@vanderbilt.edu">Email</a></li>
+          <li><a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
         </ul>
       </div>
     </div>
     <div class="footer__bottom">
-      <span>© 2024 BIA Lab. All rights reserved.</span>
+      <span>© 2026 BIA Lab. All rights reserved.</span>
       <span>Built with ♡ for open science · <a href="#">GitHub</a></span>
     </div>
   </div>

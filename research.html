@@ -98,22 +98,65 @@
     <!-- Theme 1 — Cell Phenomics -->
     <div class="project-card">
       <div class="project-card__visual">
-        <svg viewBox="0 0 260 200" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <defs><radialGradient id="p1g" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#4878be" stop-opacity=".3"/><stop offset="100%" stop-color="#4878be" stop-opacity="0"/></radialGradient></defs>
-          <circle cx="130" cy="100" r="90" fill="url(#p1g)"/>
-          <g fill="none" stroke="#4878be" stroke-opacity=".5" stroke-width="1">
-            <polygon points="130,30 165,50 165,90 130,110 95,90 95,50"/>
-            <polygon points="165,90 200,110 200,150 165,170 130,150 130,110"/>
-            <polygon points="95,90 130,110 130,150 95,170 60,150 60,110"/>
+        <!-- Schematic: diverse cell shapes → SAM feature extraction → phenotype clusters -->
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <!-- Cell 1: round -->
+          <circle cx="38" cy="60" r="22" fill="none" stroke="#4878be" stroke-width="1.8" opacity=".85"/>
+          <circle cx="38" cy="60" r="8" fill="#4878be" opacity=".25"/>
+          <!-- Cell 2: elongated -->
+          <ellipse cx="38" cy="115" rx="10" ry="24" fill="none" stroke="#7b65b2" stroke-width="1.8" opacity=".85"/>
+          <ellipse cx="38" cy="115" rx="4" ry="9" fill="#7b65b2" opacity=".25"/>
+          <!-- Cell 3: branched/irregular -->
+          <path d="M38,155 Q22,148 18,162 Q10,175 28,178 Q38,180 44,170 Q58,164 52,152 Z" fill="none" stroke="#3fa86a" stroke-width="1.8" opacity=".85"/>
+          <circle cx="36" cy="165" r="6" fill="#3fa86a" opacity=".2"/>
+          <!-- Label -->
+          <text x="38" y="198" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">cell shapes</text>
+          <!-- Arrow pipeline -->
+          <line x1="72" y1="100" x2="100" y2="100" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <polygon points="100,96 108,100 100,104" fill="rgba(255,255,255,.35)"/>
+          <!-- Feature bar chart (middle) -->
+          <g transform="translate(112,55)">
+            <text x="18" y="-6" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.5)" font-family="Inter,sans-serif">SAM features</text>
+            <rect x="0"  y="0"  width="8" height="30" rx="2" fill="#4878be" opacity=".7"/>
+            <rect x="10" y="15" width="8" height="15" rx="2" fill="#4878be" opacity=".55"/>
+            <rect x="20" y="5"  width="8" height="25" rx="2" fill="#4878be" opacity=".65"/>
+            <rect x="30" y="20" width="8" height="10" rx="2" fill="#4878be" opacity=".5"/>
+            <rect x="0"  y="40" width="8" height="18" rx="2" fill="#7b65b2" opacity=".7"/>
+            <rect x="10" y="32" width="8" height="26" rx="2" fill="#7b65b2" opacity=".55"/>
+            <rect x="20" y="45" width="8" height="13" rx="2" fill="#7b65b2" opacity=".65"/>
+            <rect x="30" y="38" width="8" height="20" rx="2" fill="#7b65b2" opacity=".5"/>
+            <rect x="0"  y="75" width="8" height="22" rx="2" fill="#3fa86a" opacity=".7"/>
+            <rect x="10" y="68" width="8" height="29" rx="2" fill="#3fa86a" opacity=".55"/>
+            <rect x="20" y="80" width="8" height="17" rx="2" fill="#3fa86a" opacity=".65"/>
+            <rect x="30" y="72" width="8" height="25" rx="2" fill="#3fa86a" opacity=".5"/>
           </g>
-          <g fill="#4878be" opacity=".8">
-            <circle cx="130" cy="30" r="5"/><circle cx="165" cy="50" r="4"/>
-            <circle cx="165" cy="90" r="4"/><circle cx="130" cy="110" r="6"/>
-            <circle cx="95" cy="90" r="4"/><circle cx="95" cy="50" r="4"/>
-            <circle cx="200" cy="110" r="3"/><circle cx="165" cy="170" r="3"/>
-            <circle cx="60" cy="110" r="3"/><circle cx="95" cy="170" r="3"/>
+          <!-- Arrow -->
+          <line x1="168" y1="100" x2="194" y2="100" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-dasharray="3 2"/>
+          <polygon points="194,96 202,100 194,104" fill="rgba(255,255,255,.35)"/>
+          <!-- UMAP-style cluster plot -->
+          <g transform="translate(205,45)">
+            <text x="30" y="-6" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.5)" font-family="Inter,sans-serif">phenotype clusters</text>
+            <!-- Cluster 1 (blue) -->
+            <circle cx="18" cy="30" r="3.5" fill="#4878be" opacity=".9"/>
+            <circle cx="25" cy="22" r="3"   fill="#4878be" opacity=".75"/>
+            <circle cx="12" cy="22" r="3"   fill="#4878be" opacity=".75"/>
+            <circle cx="22" cy="38" r="2.5" fill="#4878be" opacity=".6"/>
+            <circle cx="10" cy="34" r="2.5" fill="#4878be" opacity=".6"/>
+            <!-- Cluster 2 (purple) -->
+            <circle cx="42" cy="62" r="3.5" fill="#7b65b2" opacity=".9"/>
+            <circle cx="50" cy="55" r="3"   fill="#7b65b2" opacity=".75"/>
+            <circle cx="36" cy="58" r="3"   fill="#7b65b2" opacity=".75"/>
+            <circle cx="48" cy="68" r="2.5" fill="#7b65b2" opacity=".6"/>
+            <!-- Cluster 3 (green) -->
+            <circle cx="18" cy="82" r="3.5" fill="#3fa86a" opacity=".9"/>
+            <circle cx="26" cy="88" r="3"   fill="#3fa86a" opacity=".75"/>
+            <circle cx="10" cy="88" r="2.5" fill="#3fa86a" opacity=".6"/>
+            <circle cx="24" cy="76" r="2.5" fill="#3fa86a" opacity=".6"/>
+            <!-- Ellipse overlays -->
+            <ellipse cx="17" cy="29" rx="14" ry="13" fill="none" stroke="#4878be" stroke-width="1" stroke-dasharray="3 2" opacity=".4"/>
+            <ellipse cx="43" cy="62" rx="13" ry="11" fill="none" stroke="#7b65b2" stroke-width="1" stroke-dasharray="3 2" opacity=".4"/>
+            <ellipse cx="18" cy="84" rx="12" ry="10" fill="none" stroke="#3fa86a" stroke-width="1" stroke-dasharray="3 2" opacity=".4"/>
           </g>
-          <circle cx="130" cy="110" r="10" fill="none" stroke="#4878be" stroke-width="2" opacity=".9"/>
         </svg>
       </div>
       <div class="project-card__body">
@@ -137,20 +180,63 @@
     <!-- Theme 2 — Advanced Microscopy -->
     <div class="project-card flip">
       <div class="project-card__visual">
-        <svg viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <g stroke="#4878be" stroke-width="2" fill="none" opacity=".85">
-            <polyline points="10,80 30,45 50,110 70,35 90,95 110,55 130,85 150,40 170,90 190,50 210,80 230,60 250,70"/>
-          </g>
-          <g stroke="rgba(72,120,190,.3)" stroke-width="1.5" fill="none">
-            <polyline points="10,80 30,65 50,88 70,60 90,82 110,68 130,78 150,62 170,82 190,67 210,76 230,70 250,73"/>
-          </g>
-          <g fill="#4878be">
-            <circle cx="70" cy="35" r="5" opacity=".9"/>
-            <circle cx="150" cy="40" r="5" opacity=".9"/>
-            <circle cx="230" cy="60" r="5" opacity=".9"/>
-          </g>
-          <line x1="10" y1="80" x2="250" y2="80" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
-          <text x="12" y="155" font-size="10" fill="rgba(255,255,255,.35)" font-family="Inter,sans-serif">time →</text>
+        <!-- Schematic: light-sheet OPM setup + CyCIF multiplexing cycles -->
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <!-- OPM light-sheet schematic (left) -->
+          <!-- Objective lens (vertical, left) -->
+          <rect x="14" y="72" width="18" height="56" rx="4" fill="#4878be" opacity=".35" stroke="#4878be" stroke-width="1.2"/>
+          <text x="23" y="69" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">obj.</text>
+          <!-- Light sheet fan emerging from objective -->
+          <polygon points="32,100 90,72 90,128" fill="#4878be" opacity=".12"/>
+          <line x1="32" y1="100" x2="90" y2="72"  stroke="#4878be" stroke-width="1.2" opacity=".6"/>
+          <line x1="32" y1="100" x2="90" y2="128" stroke="#4878be" stroke-width="1.2" opacity=".6"/>
+          <!-- Thin light sheet plane -->
+          <line x1="32" y1="100" x2="130" y2="100" stroke="#4878be" stroke-width="2.5" opacity=".9"/>
+          <!-- Sample: embryo/organoid oval -->
+          <ellipse cx="100" cy="100" rx="34" ry="28" fill="rgba(72,120,190,.12)" stroke="#4878be" stroke-width="1.5" opacity=".75"/>
+          <!-- Nuclei dots inside sample -->
+          <circle cx="92"  cy="95"  r="3.5" fill="#4878be" opacity=".6"/>
+          <circle cx="106" cy="92"  r="3"   fill="#7b65b2" opacity=".6"/>
+          <circle cx="98"  cy="108" r="3.5" fill="#3fa86a" opacity=".6"/>
+          <circle cx="112" cy="105" r="3"   fill="#4878be" opacity=".5"/>
+          <circle cx="88"  cy="108" r="2.5" fill="#7b65b2" opacity=".5"/>
+          <!-- Detection objective (angled, below) -->
+          <rect x="118" y="128" width="16" height="46" rx="4" fill="#4878be" opacity=".35" stroke="#4878be" stroke-width="1.2" transform="rotate(-45,126,151)"/>
+          <text x="148" y="168" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">detection</text>
+          <!-- Label -->
+          <text x="72" y="148" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">light-sheet OPM</text>
+
+          <!-- Divider -->
+          <line x1="155" y1="30" x2="155" y2="175" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="4 3"/>
+
+          <!-- CyCIF cycles (right) -->
+          <text x="216" y="28" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">CyCIF multiplexing</text>
+          <!-- Cycle 1 -->
+          <rect x="165" y="35" width="100" height="30" rx="5" fill="rgba(72,120,190,.15)" stroke="#4878be" stroke-width="1" opacity=".8"/>
+          <text x="174" y="54" font-size="7" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">Cycle 1</text>
+          <circle cx="220" cy="50" r="4" fill="#4878be" opacity=".8"/>
+          <circle cx="232" cy="50" r="4" fill="#7b65b2" opacity=".8"/>
+          <circle cx="244" cy="50" r="4" fill="#3fa86a" opacity=".8"/>
+          <!-- Arrow -->
+          <line x1="215" y1="65" x2="215" y2="75" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
+          <polygon points="211,75 215,82 219,75" fill="rgba(255,255,255,.3)"/>
+          <!-- Cycle 2 -->
+          <rect x="165" y="82" width="100" height="30" rx="5" fill="rgba(123,101,178,.15)" stroke="#7b65b2" stroke-width="1" opacity=".8"/>
+          <text x="174" y="101" font-size="7" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">Cycle 2</text>
+          <circle cx="220" cy="97" r="4" fill="#e05c8a" opacity=".8"/>
+          <circle cx="232" cy="97" r="4" fill="#e09b3a" opacity=".8"/>
+          <circle cx="244" cy="97" r="4" fill="#4878be" opacity=".8"/>
+          <!-- Arrow -->
+          <line x1="215" y1="112" x2="215" y2="122" stroke="rgba(255,255,255,.3)" stroke-width="1.2"/>
+          <polygon points="211,122 215,129 219,122" fill="rgba(255,255,255,.3)"/>
+          <!-- Cycle N -->
+          <rect x="165" y="129" width="100" height="30" rx="5" fill="rgba(63,168,106,.15)" stroke="#3fa86a" stroke-width="1" opacity=".8"/>
+          <text x="174" y="148" font-size="7" fill="rgba(255,255,255,.6)" font-family="Inter,sans-serif">Cycle N</text>
+          <circle cx="220" cy="144" r="4" fill="#3fa86a" opacity=".8"/>
+          <circle cx="232" cy="144" r="4" fill="#4878be" opacity=".8"/>
+          <circle cx="244" cy="144" r="4" fill="#7b65b2" opacity=".8"/>
+          <!-- 40+ channels label -->
+          <text x="215" y="175" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Inter,sans-serif" font-weight="600">40+ protein channels</text>
         </svg>
       </div>
       <div class="project-card__body">
@@ -173,17 +259,70 @@
     <!-- Theme 3 — Cell Signaling & Cancer Biology -->
     <div class="project-card">
       <div class="project-card__visual">
-        <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
+        <!-- Schematic: cell with bleb protrusion, KRAS signal concentrated at bleb membrane -->
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" width="100%">
           <defs>
-            <radialGradient id="p3g" cx="40%" cy="50%" r="55%"><stop offset="0%" stop-color="#4878be" stop-opacity=".2"/><stop offset="100%" stop-color="#4878be" stop-opacity="0"/></radialGradient>
-            <radialGradient id="p3g2" cx="65%" cy="50%" r="50%"><stop offset="0%" stop-color="#7b65b2" stop-opacity=".15"/><stop offset="100%" stop-color="#7b65b2" stop-opacity="0"/></radialGradient>
+            <radialGradient id="blebGlow" cx="75%" cy="40%" r="50%">
+              <stop offset="0%" stop-color="#4878be" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#4878be" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="cellGlow" cx="40%" cy="55%" r="55%">
+              <stop offset="0%" stop-color="#1e2d4f" stop-opacity=".6"/>
+              <stop offset="100%" stop-color="#1e2d4f" stop-opacity="0"/>
+            </radialGradient>
           </defs>
-          <circle cx="100" cy="90" r="70" fill="url(#p3g)" stroke="#4878be" stroke-opacity=".4" stroke-width="1.5"/>
-          <circle cx="160" cy="90" r="70" fill="url(#p3g2)" stroke="#7b65b2" stroke-opacity=".35" stroke-width="1.5"/>
-          <text x="58" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">Morphology</text>
-          <text x="155" y="95" font-size="12" fill="rgba(255,255,255,.55)" font-family="Inter,sans-serif">Signaling</text>
-          <text x="108" y="84" font-size="9" fill="#4878be" font-family="Inter,sans-serif" font-weight="700">Blebs /</text>
-          <text x="106" y="96" font-size="9" fill="#4878be" font-family="Inter,sans-serif" font-weight="700">KRAS</text>
+          <!-- Cell body -->
+          <ellipse cx="118" cy="108" rx="72" ry="62" fill="rgba(30,45,79,.5)" stroke="#4878be" stroke-width="1.8" opacity=".85"/>
+          <!-- Nucleus -->
+          <ellipse cx="108" cy="112" rx="26" ry="22" fill="rgba(72,120,190,.18)" stroke="#4878be" stroke-width="1.2" stroke-dasharray="3 2" opacity=".7"/>
+          <!-- Actin filaments (branched) inside cell -->
+          <g stroke="#7b65b2" stroke-width="1" opacity=".5" fill="none">
+            <line x1="140" y1="108" x2="168" y2="85"/>
+            <line x1="140" y1="108" x2="172" y2="100"/>
+            <line x1="140" y1="108" x2="170" y2="115"/>
+            <line x1="168" y1="85"  x2="178" y2="75"/>
+            <line x1="172" y1="100" x2="184" y2="95"/>
+          </g>
+          <text x="148" y="138" font-size="7" fill="rgba(123,101,178,.7)" font-family="Inter,sans-serif">actin</text>
+          <!-- Bleb protrusion -->
+          <ellipse cx="196" cy="90" rx="32" ry="26" fill="url(#blebGlow)" stroke="#4878be" stroke-width="2" opacity=".9"/>
+          <!-- KRAS molecules concentrated at bleb membrane -->
+          <g fill="#4878be">
+            <circle cx="178" cy="74"  r="3.5" opacity=".95"/>
+            <circle cx="188" cy="67"  r="3"   opacity=".9"/>
+            <circle cx="200" cy="64"  r="3.5" opacity=".95"/>
+            <circle cx="213" cy="68"  r="3"   opacity=".9"/>
+            <circle cx="222" cy="78"  r="3.5" opacity=".95"/>
+            <circle cx="225" cy="90"  r="3"   opacity=".85"/>
+            <circle cx="222" cy="103" r="3.5" opacity=".9"/>
+            <circle cx="213" cy="112" r="3"   opacity=".85"/>
+            <circle cx="200" cy="117" r="3.5" opacity=".9"/>
+            <circle cx="188" cy="113" r="3"   opacity=".8"/>
+            <circle cx="179" cy="106" r="3.5" opacity=".9"/>
+          </g>
+          <!-- RAS signal halo inside bleb -->
+          <ellipse cx="198" cy="90" rx="18" ry="14" fill="#4878be" opacity=".1"/>
+          <!-- Label: KRAS -->
+          <text x="196" y="87" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.75)" font-family="Inter,sans-serif" font-weight="700">KRAS</text>
+          <text x="196" y="98" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.5)" font-family="Inter,sans-serif">activated</text>
+          <!-- Arrow showing signal concentration -->
+          <line x1="145" y1="90" x2="168" y2="82" stroke="rgba(255,255,255,.3)" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <!-- Signal intensity bar (right) -->
+          <g transform="translate(246,55)">
+            <text x="12" y="-4" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.4)" font-family="Inter,sans-serif">signal</text>
+            <defs>
+              <linearGradient id="sigBar" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#4878be" stop-opacity=".9"/>
+                <stop offset="100%" stop-color="#4878be" stop-opacity=".05"/>
+              </linearGradient>
+            </defs>
+            <rect x="6" y="0" width="12" height="90" rx="3" fill="url(#sigBar)"/>
+            <!-- Tick at bleb level -->
+            <line x1="0" y1="12" x2="6" y2="12" stroke="rgba(255,255,255,.5)" stroke-width="1"/>
+            <text x="-2" y="15" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,.4)" font-family="Inter,sans-serif">bleb</text>
+            <line x1="0" y1="72" x2="6" y2="72" stroke="rgba(255,255,255,.3)" stroke-width="1"/>
+            <text x="-2" y="75" text-anchor="end" font-size="6.5" fill="rgba(255,255,255,.3)" font-family="Inter,sans-serif">body</text>
+          </g>
         </svg>
       </div>
       <div class="project-card__body">
@@ -206,29 +345,101 @@
     <!-- Theme 4 — 3D Spatial Tissue Profiling -->
     <div class="project-card flip">
       <div class="project-card__visual">
-        <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" width="100%">
-          <g stroke="#4878be" stroke-opacity=".4" stroke-width="1" fill="none">
-            <line x1="130" y1="90" x2="80" y2="50"/><line x1="130" y1="90" x2="180" y2="50"/>
-            <line x1="130" y1="90" x2="80" y2="130"/><line x1="130" y1="90" x2="180" y2="130"/>
-            <line x1="80" y1="50" x2="40" y2="30"/><line x1="80" y1="50" x2="50" y2="80"/>
-            <line x1="180" y1="50" x2="220" y2="30"/><line x1="180" y1="50" x2="210" y2="80"/>
-            <line x1="80" y1="130" x2="40" y2="150"/><line x1="180" y1="130" x2="220" y2="150"/>
+        <!-- Schematic: isometric tissue cube with coloured cells → unwrap → 2D surface map -->
+        <!-- Isometric cube vertices (edge=58px):
+             Back-top(BT)=(79,24), Right-top(RT)=(129,53), Left-top(LT)=(29,53),
+             Front-top(CT)=(79,82), Front-bot(CB)=(79,140),
+             Left-bot(LB)=(29,111), Right-bot(RB)=(129,111) -->
+        <svg viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" width="100%">
+          <defs>
+            <linearGradient id="cubeTop"   x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3a5698" stop-opacity=".95"/>
+              <stop offset="100%" stop-color="#263a6a" stop-opacity=".8"/>
+            </linearGradient>
+            <linearGradient id="cubeLeft"  x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#1e2d4f" stop-opacity=".98"/>
+              <stop offset="100%" stop-color="#263a6a" stop-opacity=".85"/>
+            </linearGradient>
+            <linearGradient id="cubeRight" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#263a6a" stop-opacity=".9"/>
+              <stop offset="100%" stop-color="#1e2d4f" stop-opacity=".98"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Isometric cube — 3 equal faces -->
+          <!-- Top face: BT(79,24) RT(129,53) CT(79,82) LT(29,53) -->
+          <polygon points="79,24 129,53 79,82 29,53"
+                   fill="url(#cubeTop)" stroke="#4878be" stroke-width="1.4" opacity=".9"/>
+          <!-- Left face: LT(29,53) CT(79,82) CB(79,140) LB(29,111) -->
+          <polygon points="29,53 79,82 79,140 29,111"
+                   fill="url(#cubeLeft)" stroke="#4878be" stroke-width="1.4" opacity=".9"/>
+          <!-- Right face: RT(129,53) CT(79,82) CB(79,140) RB(129,111) -->
+          <polygon points="129,53 79,82 79,140 129,111"
+                   fill="url(#cubeRight)" stroke="#4878be" stroke-width="1.4" opacity=".9"/>
+
+          <!-- Cells on LEFT face (front-left) -->
+          <circle cx="42"  cy="82"  r="7.5" fill="#4878be" opacity=".9"/>
+          <circle cx="64"  cy="73"  r="6.5" fill="#7b65b2" opacity=".85"/>
+          <circle cx="47"  cy="103" r="7"   fill="#3fa86a" opacity=".85"/>
+          <circle cx="68"  cy="96"  r="7.5" fill="#4878be" opacity=".8"/>
+          <circle cx="57"  cy="120" r="6.5" fill="#e05c8a" opacity=".85"/>
+          <circle cx="38"  cy="118" r="6"   fill="#7b65b2" opacity=".8"/>
+          <circle cx="70"  cy="117" r="6"   fill="#3fa86a" opacity=".8"/>
+
+          <!-- Cells on RIGHT face (front-right) -->
+          <circle cx="96"  cy="96"  r="7"   fill="#e05c8a" opacity=".8"/>
+          <circle cx="114" cy="88"  r="6.5" fill="#4878be" opacity=".8"/>
+          <circle cx="100" cy="116" r="7"   fill="#7b65b2" opacity=".8"/>
+          <circle cx="118" cy="108" r="6"   fill="#3fa86a" opacity=".75"/>
+          <circle cx="92"  cy="128" r="6"   fill="#4878be" opacity=".75"/>
+          <circle cx="114" cy="125" r="6"   fill="#e05c8a" opacity=".75"/>
+
+          <!-- Cells on TOP face -->
+          <circle cx="68"  cy="52"  r="5"   fill="#4878be" opacity=".75"/>
+          <circle cx="90"  cy="44"  r="4.5" fill="#3fa86a" opacity=".7"/>
+          <circle cx="107" cy="56"  r="5"   fill="#7b65b2" opacity=".7"/>
+          <circle cx="79"  cy="64"  r="4.5" fill="#e05c8a" opacity=".65"/>
+
+          <!-- Arrow: cube → 2D map -->
+          <line x1="143" y1="100" x2="170" y2="100" stroke="rgba(255,255,255,.4)" stroke-width="1.8" stroke-dasharray="4 2"/>
+          <polygon points="170,95 181,100 170,105" fill="rgba(255,255,255,.45)"/>
+          <text x="162" y="90" text-anchor="middle" font-size="7" fill="rgba(255,255,255,.4)" font-family="Inter,sans-serif">unwrap</text>
+
+          <!-- 2D surface map (right) -->
+          <rect x="186" y="42" width="82" height="116" rx="4" fill="rgba(30,45,79,.6)" stroke="#4878be" stroke-width="1.2" opacity=".85"/>
+          <g opacity=".88">
+            <rect x="190" y="46"  width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="208" y="46"  width="16" height="14" rx="1" fill="#7b65b2"/>
+            <rect x="226" y="46"  width="16" height="14" rx="1" fill="#3fa86a"/>
+            <rect x="244" y="46"  width="20" height="14" rx="1" fill="#4878be"/>
+
+            <rect x="190" y="62"  width="16" height="14" rx="1" fill="#3fa86a"/>
+            <rect x="208" y="62"  width="16" height="14" rx="1" fill="#e05c8a"/>
+            <rect x="226" y="62"  width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="244" y="62"  width="20" height="14" rx="1" fill="#7b65b2"/>
+
+            <rect x="190" y="78"  width="16" height="14" rx="1" fill="#7b65b2"/>
+            <rect x="208" y="78"  width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="226" y="78"  width="16" height="14" rx="1" fill="#e05c8a"/>
+            <rect x="244" y="78"  width="20" height="14" rx="1" fill="#3fa86a"/>
+
+            <rect x="190" y="94"  width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="208" y="94"  width="16" height="14" rx="1" fill="#3fa86a"/>
+            <rect x="226" y="94"  width="16" height="14" rx="1" fill="#7b65b2"/>
+            <rect x="244" y="94"  width="20" height="14" rx="1" fill="#4878be"/>
+
+            <rect x="190" y="110" width="16" height="14" rx="1" fill="#e05c8a"/>
+            <rect x="208" y="110" width="16" height="14" rx="1" fill="#7b65b2"/>
+            <rect x="226" y="110" width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="244" y="110" width="20" height="14" rx="1" fill="#3fa86a"/>
+
+            <rect x="190" y="126" width="16" height="14" rx="1" fill="#3fa86a"/>
+            <rect x="208" y="126" width="16" height="14" rx="1" fill="#4878be"/>
+            <rect x="226" y="126" width="16" height="14" rx="1" fill="#e05c8a"/>
+            <rect x="244" y="126" width="20" height="14" rx="1" fill="#7b65b2"/>
           </g>
-          <g fill="#4878be">
-            <circle cx="130" cy="90" r="9" opacity=".95"/>
-            <circle cx="80"  cy="50" r="6" opacity=".8"/>
-            <circle cx="180" cy="50" r="6" opacity=".8"/>
-            <circle cx="80"  cy="130" r="6" opacity=".8"/>
-            <circle cx="180" cy="130" r="6" opacity=".8"/>
-            <circle cx="40"  cy="30" r="4" opacity=".6"/>
-            <circle cx="50"  cy="80" r="4" opacity=".6"/>
-            <circle cx="220" cy="30" r="4" opacity=".6"/>
-            <circle cx="210" cy="80" r="4" opacity=".6"/>
-            <circle cx="40"  cy="150" r="4" opacity=".6"/>
-            <circle cx="220" cy="150" r="4" opacity=".6"/>
-          </g>
-          <path d="M 180 130 Q 220 90 180 50" stroke="#4878be" stroke-opacity=".6" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
-          <polygon points="180,50 174,63 186,60" fill="#4878be" opacity=".7"/>
+          <text x="227" y="170" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.45)" font-family="Inter,sans-serif">2D surface map</text>
+          <text x="186" y="180" font-size="7" fill="rgba(255,255,255,.3)" font-family="Inter,sans-serif">protein markers →</text>
         </svg>
       </div>
       <div class="project-card__body">
@@ -245,6 +456,7 @@
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
           <a href="publications.html" class="btn btn-outline-dark btn-sm">Related Papers</a>
           <a href="software.html" class="btn btn-outline-dark btn-sm">u-segment3D Tool</a>
+          <a href="https://github.com/DanuserLab/u-unwrap3D" class="btn btn-outline-dark btn-sm" target="_blank" rel="noopener">u-unwrap3D Tool</a>
         </div>
       </div>
     </div>
@@ -261,9 +473,9 @@
       </div>
       <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="software.html">Software</a></li></ul></div>
       <div><h4>Lab</h4><ul><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
-      <div><h4>Connect</h4><ul><li><a href="mailto:pi@bialab.org">Email</a></li><li><a href="#">GitHub</a></li><li><a href="#">Twitter / X</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en">Google Scholar</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:felix.y.zhou@vanderbilt.edu">Email</a></li><li><a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li></ul></div>
     </div>
-    <div class="footer__bottom"><span>© 2024 BIA Lab.</span><span>Built with ♡ for open science · <a href="#">GitHub</a></span></div>
+    <div class="footer__bottom"><span>© 2026 BIA Lab. All rights reserved.</span><span>Built with ♡ for open science · <a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></span></div>
   </div>
 </footer>
 

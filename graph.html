@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publication Knowledge Graph — BIA Lab</title>
+  <meta name="description" content="Interactive knowledge graph of all BIA Lab publications — explore connections, themes, and nodal papers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/nav.js" defer></script>
+  <style>
+    /* Graph page: nav floats over the dark canvas */
+    body { overflow: hidden; }
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: rgba(8, 18, 36, 0.88);
+      border-bottom: 1px solid rgba(72, 120, 190, 0.2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .nav__logo-img { filter: none; }
+    .nav__links a { color: rgba(184, 204, 222, 0.8); }
+    .nav__links a:hover, .nav__links a.active { color: #fff; }
+    .nav__links a.active::after { background: #4878be; }
+    .nav__burger span { background: rgba(184, 204, 222, 0.8); }
+
+    /* Graph canvas fills below nav */
+    :root { --nav-h: 62px; }
+    #c {
+      display: block;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; right: 0; bottom: 0;
+      cursor: default;
+    }
+
+    /* Tokens */
+    :root {
+      --bg0: #060d1a;
+      --surface: rgba(8, 18, 36, 0.92);
+      --border: rgba(72, 120, 190, 0.14);
+      --accent: #4878be;
+      --text: #b8ccde;
+      --muted: #5a7898;
+      --text-strong: #d4e4f4;
+    }
+
+    /* Panels */
+    .panel {
+      position: fixed;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #lp {
+      top: calc(var(--nav-h) + 14px);
+      left: 16px;
+      width: 214px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      max-height: calc(100vh - var(--nav-h) - 28px);
+      overflow-y: auto;
+      font-size: 13px;
+      color: var(--text);
+    }
+    #rp {
+      top: calc(var(--nav-h) + 14px);
+      right: 16px;
+      width: 304px;
+      padding: 16px;
+      max-height: calc(100vh - var(--nav-h) - 28px);
+      overflow-y: auto;
+      display: none;
+      position: fixed;
+      font-size: 13px;
+      color: var(--text);
+    }
+    #rp.open { display: block; }
+
+    .slabel {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #search {
+      width: 100%;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+      transition: border .15s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #search:focus { border-color: var(--accent); }
+    #search::placeholder { color: var(--muted); }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 6px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      font-size: 11.5px;
+      color: var(--muted);
+      user-select: none;
+      transition: background .12s, color .12s, opacity .12s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .chip:hover { background: rgba(255,255,255,.05); color: var(--text); }
+    .chip.on { color: var(--text-strong); border-color: rgba(255,255,255,.08); }
+    .chip.off { opacity: .38; }
+    .cdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .cn { margin-left: auto; font-size: 10px; color: var(--muted); }
+
+    .leg-note { font-size: 10px; color: var(--muted); line-height: 1.65; font-family: 'Inter', system-ui, sans-serif; }
+    .leg-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+    .leg-circle { border-radius: 50%; background: rgba(72,120,190,.4); border: 1.5px solid #4878be; flex-shrink: 0; }
+
+    /* Detail panel */
+    #rp { position: fixed; }
+    #rp-close {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: none; border: none;
+      color: var(--muted);
+      font-size: 17px; cursor: pointer;
+      line-height: 1; padding: 2px 5px;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #rp-close:hover { color: var(--text); }
+    .d-cat { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em; margin-bottom: 5px; font-family: 'Inter', system-ui, sans-serif; }
+    .d-title { font-size: 13px; font-weight: 600; line-height: 1.45; margin-bottom: 8px; color: var(--text-strong); font-family: 'Inter', system-ui, sans-serif; }
+    .d-meta { font-size: 11px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; font-family: 'Inter', system-ui, sans-serif; }
+    .d-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px; font-size: 10px;
+      margin-right: 5px; margin-bottom: 6px;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .d-cit { display: flex; align-items: baseline; gap: 6px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .d-cit-n { font-size: 30px; font-weight: 800; font-variant-numeric: tabular-nums; line-height: 1; font-family: 'Inter', system-ui, sans-serif; }
+    .d-cit-l { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; font-family: 'Inter', system-ui, sans-serif; }
+    .d-conn-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .13em; color: var(--muted); margin-bottom: 7px; font-family: 'Inter', system-ui, sans-serif; }
+    .conn-item {
+      display: flex; align-items: center; gap: 7px;
+      padding: 5px 0; font-size: 11px; color: var(--muted);
+      cursor: pointer; border-bottom: 1px solid rgba(255,255,255,.04);
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .conn-item:last-child { border-bottom: none; }
+    .conn-item:hover { color: var(--text); }
+    .conn-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .conn-year { margin-left: auto; font-size: 10px; flex-shrink: 0; }
+
+    /* Tooltip */
+    #tip {
+      position: fixed;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 9px 12px;
+      font-size: 11.5px;
+      max-width: 250px;
+      pointer-events: none;
+      display: none;
+      z-index: 200;
+      backdrop-filter: blur(18px);
+      line-height: 1.5;
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+    }
+
+    /* Zoom controls */
+    #zbx { position: fixed; bottom: 18px; right: 18px; display: flex; flex-direction: column; gap: 5px; }
+    .zbtn {
+      width: 31px; height: 31px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(18px);
+      transition: background .12s;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    .zbtn:hover { background: rgba(72,120,190,.18); }
+
+    /* Back link */
+    #back-link {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--muted);
+      pointer-events: none;
+      letter-spacing: .05em;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    #node-count {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      color: var(--muted);
+      pointer-events: none;
+      letter-spacing: .05em;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    /* Background color for the whole page */
+    body { background: #060d1a; }
+  </style>
+</head>
+<body>
+
+<!-- ─── Navigation ─────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="nav__logo-img">
+    </a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── Graph Canvas ──────────────────────────────────────────────────────── -->
+<canvas id="c"></canvas>
+
+<!-- Left panel -->
+<div id="lp" class="panel">
+  <div>
+    <div class="slabel">Search</div>
+    <input id="search" type="text" placeholder="Title, method, venue…" autocomplete="off">
+  </div>
+  <div>
+    <div class="slabel">Research theme</div>
+    <div id="chips"></div>
+  </div>
+  <div>
+    <div class="slabel">Legend</div>
+    <div class="leg-note">
+      <div class="leg-row">
+        <div class="leg-circle" style="width:6px;height:6px"></div><span>Few citations</span>
+        <div class="leg-circle" style="width:14px;height:14px;margin-left:4px"></div><span>100+ citations</span>
+      </div>
+      <div class="leg-row" style="margin-top:2px">
+        <svg width="10" height="10"><circle cx="5" cy="5" r="4" fill="rgba(72,120,190,.5)" stroke="#4878be" stroke-width="1.5"/><circle cx="5" cy="5" r="2" fill="rgba(255,255,255,.75)"/></svg>
+        <span>First-author paper</span>
+      </div>
+      <div>Glow = high connectivity / citations</div>
+      <div style="margin-top:4px;color:rgba(90,120,152,.75)">Scroll to zoom · drag to pan<br>click a node to explore</div>
+    </div>
+  </div>
+</div>
+
+<!-- Right panel -->
+<div id="rp" class="panel">
+  <button id="rp-close">×</button>
+  <div id="rp-content"></div>
+</div>
+
+<div id="tip"></div>
+
+<div id="zbx">
+  <button class="zbtn" id="zin" title="Zoom in">+</button>
+  <button class="zbtn" id="zrst" title="Reset view" style="font-size:11px">⟳</button>
+  <button class="zbtn" id="zout" title="Zoom out">−</button>
+</div>
+
+<div id="node-count"></div>
+
+<script>
+// ── Palette ──────────────────────────────────────────────────────────
+const CATS = {
+  phenomics:   {label:'Phenomics & Shape',        color:'#4878be'},
+  microscopy:  {label:'Advanced Microscopy',       color:'#5bb8f0'},
+  profiling:   {label:'3D Tissue Profiling',       color:'#2dbeaa'},
+  signaling:   {label:'Cell Signaling & Cancer',   color:'#e8655a'},
+  development: {label:'Developmental Biology',     color:'#f0ac38'},
+  centriole:   {label:'Centriole Biology',         color:'#9f80ea'},
+  medical:     {label:'Medical AI',                color:'#45c48a'},
+  other:       {label:'Other',                     color:'#7a9ab2'},
+};
+
+// ── Papers ───────────────────────────────────────────────────────────
+const PP = [
+  {id:1,  s:'KRAS & Branched Actin',           f:'Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions',                                                                y:2026,c:'signaling',  n:0,  v:'bioRxiv',              fa:false},
+  {id:2,  s:'DVE Migration & Patterning',       f:'Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration during anterior patterning',                                  y:2026,c:'development',n:0,  v:'bioRxiv',              fa:true},
+  {id:3,  s:'Cyclic Expansion Microscopy',      f:'Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy',                                                                    y:2026,c:'profiling',  n:0,  v:'bioRxiv',              fa:false},
+  {id:4,  s:'vCyCIF — Volumetric CyCIF',        f:'Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue',                                                  y:2026,c:'profiling',  n:0,  v:'bioRxiv',              fa:false},
+  {id:5,  s:'Light-Sheet Neural Systems',       f:'Advanced Tissue Clearing and Axially Swept Light-Sheet Microscopy for High-Resolution Imaging of Neural Systems',                                          y:2026,c:'microscopy', n:0,  v:'Book Chapter',          fa:false},
+  {id:6,  s:'3D CyCIF — Yapp et al.',           f:'Highly multiplexed 3D profiling of cell states and immune niches in human tumors',                                                                         y:2025,c:'profiling',  n:54, v:'Nature Methods',       fa:false},
+  {id:7,  s:'u-segment3D',                      f:'Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)',                                                                      y:2025,c:'profiling',  n:33, v:'Nature Methods',       fa:true},
+  {id:8,  s:'Self-Driving Microscopy',          f:'Imaging of cellular dynamics from whole organism to subcellular scale with self-driving multiscale microscopy',                                            y:2025,c:'microscopy', n:27, v:'Nature Methods',       fa:false},
+  {id:9,  s:'SAM-SPOT — Phenome Tool',          f:'Development of a universal imaging phenome using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)',                        y:2025,c:'phenomics',  n:0,  v:'bioRxiv',              fa:true},
+  {id:10, s:'SAM-SPOT — Organoids',             f:'Identifying phenotype–genotype–function coupling in 3D organoid imaging using SPOT',                                                                       y:2025,c:'phenomics',  n:0,  v:'bioRxiv',              fa:true},
+  {id:11, s:'Calcium & Anterior Patterning',    f:'Calcium signaling is required for anterior patterning in the mouse embryo',                                                                                y:2025,c:'development',n:1,  v:'PLOS Biology',         fa:false},
+  {id:12, s:'miOPM Platform',                   f:'Multi-immersion Oblique Plane Microscope (miOPM): A reconfigurable platform for Light-Sheet Fluorescence Microscopy',                                      y:2025,c:'microscopy', n:0,  v:'bioRxiv',              fa:false},
+  {id:13, s:'Morphology Coordinate System',     f:'Mapping Cell Morphology to a Standard Coordinate System for Analyzing Dynamic Cell Signaling',                                                             y:2025,c:'phenomics',  n:0,  v:'NeurIPS Workshop',      fa:false},
+  {id:14, s:'Caveolin-1 in Ewing Sarcoma',      f:'Caveolin-1 regulates context-dependent signaling and survival in Ewing sarcoma',                                                                          y:2025,c:'signaling',  n:0,  v:'bioRxiv',              fa:false},
+  {id:15, s:'Melanoma Amoeboid Migration',      f:'Proteolysis-free amoeboid migration of melanoma cells through crowded environments via bleb-driven worrying',                                              y:2024,c:'signaling',  n:39, v:'Developmental Cell',   fa:false},
+  {id:16, s:'Euler Characteristic Transform',   f:'Detecting temporal shape changes with the Euler characteristic transform',                                                                                 y:2024,c:'phenomics',  n:23, v:'Trans. Math. & Apps',  fa:false},
+  {id:17, s:'AVE Migration — Molecular',        f:'An integrated approach identifies the molecular underpinnings of murine anterior visceral endoderm migration',                                             y:2024,c:'development',n:13, v:'Developmental Cell',   fa:false},
+  {id:18, s:'Projective Light-Sheet',           f:'Projective light-sheet microscopy with flexible parameter selection',                                                                                      y:2024,c:'microscopy', n:12, v:'Nature Communications',fa:false},
+  {id:19, s:'RhoU Homo-Oligomers',              f:'RhoU forms homo-oligomers to regulate cellular responses',                                                                                                 y:2024,c:'signaling',  n:7,  v:'J Cell Science',       fa:false},
+  {id:20, s:'Patent: Morphodynamics',           f:'Methods and systems for characterizing morphodynamic profiles of objects',                                                                                 y:2024,c:'phenomics',  n:0,  v:'WO Patent',            fa:true},
+  {id:21, s:'Fascin F-Actin Bundling',          f:"Anchorage-independent cell proliferation promoted by fascin's F-actin bundling",                                                                          y:2024,c:'signaling',  n:0,  v:'bioRxiv',              fa:false},
+  {id:22, s:'Blebs & Oncogenic Hubs',           f:'Blebs promote cell survival by assembling oncogenic signalling hubs',                                                                                      y:2023,c:'signaling',  n:148,v:'Nature',              fa:false},
+  {id:23, s:'Mesoscopic OPM',                   f:'Mesoscopic oblique plane microscopy via light-sheet mirroring',                                                                                            y:2023,c:'microscopy', n:24, v:'Optica',              fa:false},
+  {id:24, s:'u-unwrap3D',                       f:'Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D',                                            y:2023,c:'profiling',  n:16, v:'bioRxiv',              fa:true},
+  {id:25, s:'Mouse Patterning Phenomics',       f:'Single-cell phenomics reveals behavioural and mechanical heterogeneities underpinning collective migration during mouse anterior patterning',              y:2023,c:'development',n:8,  v:'bioRxiv',              fa:true},
+  {id:26, s:'Patent: Time-Ordered Images',      f:'Methods and systems for analyzing time ordered image data',                                                                                                y:2023,c:'phenomics',  n:9,  v:'US Patent',            fa:true},
+  {id:27, s:'OPM + SIM Resolution Doubling',    f:'Resolution doubling in light-sheet microscopy via oblique plane structured illumination',                                                                  y:2022,c:'microscopy', n:87, v:'Nature Methods',       fa:false},
+  {id:28, s:'ZBP1 Inflammatory Signaling',      f:'Human ZBP1 induces cell death-independent inflammatory signaling via RIPK3 and RIPK1',                                                                    y:2022,c:'signaling',  n:91, v:'EMBO Reports',         fa:false},
+  {id:29, s:'Centrioles Generate PLK1 Pulse',   f:'Centrioles generate a local pulse of Polo/PLK1 activity to initiate mitotic centrosome assembly',                                                        y:2022,c:'centriole',  n:27, v:'EMBO Journal',         fa:false},
+  {id:30, s:'ASPP2 in Stressed Epithelia',      f:'ASPP2 maintains the integrity of mechanically stressed pseudostratified epithelia during morphogenesis',                                                  y:2022,c:'development',n:17, v:'Nature Communications',fa:false},
+  {id:31, s:'OPM Optical Tiling',               f:'Increasing the field-of-view in oblique plane microscopy via optical tiling',                                                                             y:2022,c:'microscopy', n:26, v:'Biomed Optics Express',fa:false},
+  {id:32, s:'CP110 & Cep97 Centriole Growth',   f:'Centriole distal-end proteins CP110 and Cep97 influence centriole cartwheel growth at the proximal end',                                                 y:2022,c:'centriole',  n:17, v:'J Cell Science',       fa:false},
+  {id:33, s:'Cholesterol & Breast Cancer Mets', f:'Enhanced cholesterol biosynthesis promotes breast cancer metastasis via modulating CCDC25 expression and neutrophil extracellular traps',                y:2022,c:'signaling',  n:38, v:'Scientific Reports',   fa:false},
+  {id:34, s:'u-infotrace',                      f:'Multiscale Pixel Spatiotemporal Information Flows (u-infotrace)',                                                                                          y:2022,c:'phenomics',  n:0,  v:'NeurIPS Workshop',      fa:true},
+  {id:35, s:'Endoscopy Deep Learning QA',       f:'A deep learning framework for quality assessment and restoration in video endoscopy',                                                                      y:2021,c:'medical',    n:187,v:'Medical Image Analysis',fa:false},
+  {id:36, s:'EAD Artefact Benchmark',           f:'An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy',                                                    y:2020,c:'medical',    n:152,v:'Scientific Reports',   fa:false},
+  {id:37, s:'T Cell Migration Network',         f:'Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones',                               y:2020,c:'other',      n:82, v:'Immunity',             fa:false},
+  {id:38, s:'Centriole Biogenesis Oscillation', f:'An autonomous oscillation times and executes centriole biogenesis',                                                                                       y:2020,c:'centriole',  n:56, v:'Cell',                 fa:false},
+  {id:39, s:'DNA Self-Assembly Algorithms',     f:'Diverse and robust molecular algorithms using reprogrammable DNA self-assembly',                                                                          y:2019,c:'other',      n:365,v:'Nature',              fa:false},
+  {id:40, s:'MOSES Motion Phenotyping',         f:'Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes',                           y:2019,c:'phenomics',  n:24, v:'eLife',                fa:true},
+  {id:41, s:'EAD 2019 Challenge Dataset',       f:'Endoscopy artifact detection (EAD 2019) challenge dataset',                                                                                               y:2019,c:'medical',    n:112,v:'arXiv',               fa:false},
+  {id:42, s:'MOSES Protocol',                   f:'Characterization of Biological Motion Using Motion Sensing Superpixels',                                                                                  y:2019,c:'phenomics',  n:4,  v:'Bio-protocol',         fa:true},
+  {id:43, s:'iASPP & Cardiocutaneous',          f:'Cell autonomous role of iASPP deficiency in causing cardiocutaneous disorders',                                                                           y:2018,c:'centriole',  n:21, v:'Cell Death & Diff.',   fa:false},
+];
+
+const EL = [
+  [9,10],[9,40],[9,16],[9,13],[10,7],[40,42],[40,34],[26,40],[20,9],[20,16],[34,26],
+  [27,23],[27,31],[27,18],[27,12],[12,18],[12,8],[5,12],[8,18],[5,27],
+  [7,6],[7,4],[6,4],[24,7],[3,6],[3,4],[6,8],
+  [22,15],[22,1],[22,14],[22,21],[1,21],[15,24],[28,22],[19,22],[33,22],
+  [2,17],[2,11],[2,25],[17,11],[17,25],[30,17],[25,40],[25,16],
+  [29,38],[29,32],[38,32],[43,29],
+  [35,36],[35,41],[36,41],
+  [8,22],[18,22],[7,2],[24,22],[37,40],[24,15],[6,3],
+];
+
+// ── State ────────────────────────────────────────────────────────────
+let nodes=[],edges=[],nById={};
+let tx=0,ty=0,ts=1;
+let alpha=1;
+let hovId=null,selId=null;
+let matchSet=null;
+let activeCats=new Set(Object.keys(CATS));
+let pan={active:false,sx:0,sy:0,stx:0,sty:0};
+let mdown=null;
+let stars=[];
+
+// ── Canvas ───────────────────────────────────────────────────────────
+const cv=document.getElementById('c');
+const cx2=cv.getContext('2d');
+const dpr=Math.min(window.devicePixelRatio||1,2);
+const NAV_H=62;
+
+function resize(){
+  const w=window.innerWidth,h=window.innerHeight-NAV_H;
+  cv.style.width=w+'px';cv.style.height=h+'px';
+  cv.width=w*dpr;cv.height=h*dpr;
+  cx2.setTransform(dpr,0,0,dpr,0,0);
+}
+window.addEventListener('resize',resize);
+resize();
+
+function cW(){return window.innerWidth;}
+function cH(){return window.innerHeight-NAV_H;}
+
+// ── Init ─────────────────────────────────────────────────────────────
+const CP={phenomics:[.30,.42],microscopy:[.52,.22],profiling:[.68,.36],signaling:[.72,.58],development:[.50,.72],centriole:[.68,.78],medical:[.24,.68],other:[.20,.48]};
+
+function nodeR(n){return 5+Math.log1p(n)*2.4;}
+
+function initGraph(){
+  const w=cW(),h=cH();
+  nodes=PP.map(p=>{
+    const [cx,cy]=CP[p.c];
+    return{...p,x:cx*w+(Math.random()-.5)*90,y:cy*h+(Math.random()-.5)*90,vx:0,vy:0,r:nodeR(p.n),deg:0};
+  });
+  nById={};nodes.forEach(n=>{nById[n.id]=n;});
+  edges=EL.map(([s,t])=>({s,t}));
+  edges.forEach(e=>{nById[e.s].deg++;nById[e.t].deg++;});
+  stars=[];
+  for(let i=0;i<100;i++){stars.push({x:Math.random(),y:Math.random(),r:Math.random()<.2?.9:.4,o:.1+Math.random()*.32});}
+  for(let i=0;i<280;i++)physStep(.35);
+  alpha=.28;
+}
+
+// ── Physics ──────────────────────────────────────────────────────────
+const KR=6500,KS=.042,LL=115,KG=.007,DA=.86;
+
+function physStep(a){
+  const w=cW(),h=cH();
+  const cx=w/2,cy=h/2;
+  const N=nodes.length;
+  for(let i=0;i<N;i++){
+    const a_=nodes[i];
+    for(let j=i+1;j<N;j++){
+      const b=nodes[j];
+      let dx=b.x-a_.x,dy=b.y-a_.y;
+      const d2=dx*dx+dy*dy||.01;
+      const d=Math.sqrt(d2);
+      const f=KR/d2;
+      const fx=f*dx/d,fy=f*dy/d;
+      a_.vx-=fx;a_.vy-=fy;b.vx+=fx;b.vy+=fy;
+    }
+  }
+  for(const e of edges){
+    const a_=nById[e.s],b=nById[e.t];
+    const dx=b.x-a_.x,dy=b.y-a_.y;
+    const d=Math.sqrt(dx*dx+dy*dy)||.01;
+    const f=KS*(d-LL);
+    const fx=f*dx/d,fy=f*dy/d;
+    a_.vx+=fx;a_.vy+=fy;b.vx-=fx;b.vy-=fy;
+  }
+  for(const n of nodes){
+    n.vx+=(cx-n.x)*KG*a;
+    n.vy+=(cy-n.y)*KG*a;
+  }
+  for(const n of nodes){
+    n.x+=n.vx*DA;n.y+=n.vy*DA;
+    n.vx*=DA;n.vy*=DA;
+    const pad=n.r+18;
+    n.x=Math.max(pad,Math.min(w-pad,n.x));
+    n.y=Math.max(pad,Math.min(h-pad,n.y));
+  }
+}
+
+function simStep(){if(alpha>0){physStep(alpha);alpha=Math.max(0,alpha-.003);}}
+
+// ── Helpers ──────────────────────────────────────────────────────────
+function rgba(hex,a){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return`rgba(${r},${g},${b},${a})`;
+}
+function s2w(sx,sy){return[(sx-tx)/ts,(sy-ty)/ts];}
+
+// ── Draw ─────────────────────────────────────────────────────────────
+function draw(){
+  const w=cW(),h=cH();
+  cx2.clearRect(0,0,w,h);
+  const bg=cx2.createRadialGradient(w*.5,h*.45,0,w*.5,h*.5,Math.max(w,h)*.85);
+  bg.addColorStop(0,'#0c1828');bg.addColorStop(1,'#060d1a');
+  cx2.fillStyle=bg;cx2.fillRect(0,0,w,h);
+
+  for(const s of stars){
+    cx2.beginPath();cx2.arc(s.x*w,s.y*h,s.r,0,Math.PI*2);
+    cx2.fillStyle=`rgba(255,255,255,${s.o})`;cx2.fill();
+  }
+
+  cx2.save();
+  cx2.translate(tx,ty);cx2.scale(ts,ts);
+
+  let hlSet=null;
+  if(selId!==null){
+    hlSet=new Set([selId]);
+    edges.forEach(e=>{if(e.s===selId)hlSet.add(e.t);if(e.t===selId)hlSet.add(e.s);});
+  }
+
+  function nOp(n){
+    if(hlSet)return hlSet.has(n.id)?1:.08;
+    if(matchSet)return matchSet.has(n.id)?1:.1;
+    if(!activeCats.has(n.c))return.07;
+    return 1;
+  }
+  function eOp(e){
+    const a=nById[e.s],b=nById[e.t];
+    if(hlSet)return(hlSet.has(a.id)&&hlSet.has(b.id))?.72:.03;
+    if(matchSet)return(matchSet.has(a.id)||matchSet.has(b.id))?.3:.03;
+    if(!activeCats.has(a.c)&&!activeCats.has(b.c))return.03;
+    return.18;
+  }
+
+  for(const e of edges){
+    const a=nById[e.s],b=nById[e.t];
+    const op=eOp(e);
+    if(op<.02)continue;
+    cx2.beginPath();cx2.moveTo(a.x,a.y);cx2.lineTo(b.x,b.y);
+    cx2.strokeStyle=rgba(CATS[a.c].color,op);
+    cx2.lineWidth=1.1/ts;cx2.stroke();
+  }
+
+  for(const n of nodes){
+    const col=CATS[n.c].color;
+    const op=nOp(n);
+    const r=n.r;
+    if(op<.03)continue;
+    if((n.deg>=4||n.n>=50)&&op>.3){
+      const gr=r*3.2;
+      const grd=cx2.createRadialGradient(n.x,n.y,r*.2,n.x,n.y,gr);
+      grd.addColorStop(0,rgba(col,.28*op));grd.addColorStop(1,rgba(col,0));
+      cx2.beginPath();cx2.arc(n.x,n.y,gr,0,Math.PI*2);
+      cx2.fillStyle=grd;cx2.fill();
+    }
+    const fg=cx2.createRadialGradient(n.x-r*.28,n.y-r*.28,r*.05,n.x,n.y,r);
+    fg.addColorStop(0,rgba(col,.92*op));fg.addColorStop(1,rgba(col,.5*op));
+    cx2.beginPath();cx2.arc(n.x,n.y,r,0,Math.PI*2);
+    cx2.fillStyle=fg;cx2.fill();
+    cx2.strokeStyle=rgba(col,.75*op);cx2.lineWidth=1.5/ts;cx2.stroke();
+    if(n.fa){
+      cx2.beginPath();cx2.arc(n.x,n.y,r*.38,0,Math.PI*2);
+      cx2.fillStyle=`rgba(255,255,255,${.8*op})`;cx2.fill();
+    }
+    if(n.id===hovId||n.id===selId){
+      cx2.beginPath();cx2.arc(n.x,n.y,r+4.5/ts,0,Math.PI*2);
+      cx2.strokeStyle=rgba(col,op);cx2.lineWidth=2/ts;cx2.stroke();
+    }
+    const showLbl=(n.deg>=5||n.n>=80||ts>1.6)&&op>.3;
+    if(showLbl){
+      const sz=Math.max(8.5,10.5/ts);
+      cx2.font=`600 ${sz}px Inter, system-ui`;
+      cx2.textAlign='center';
+      cx2.fillStyle=rgba('#c8d8ec',.88*op);
+      cx2.fillText(n.s,n.x,n.y+r+13/ts);
+    }
+  }
+  cx2.restore();
+
+  const visible=nodes.filter(n=>{
+    if(matchSet)return matchSet.has(n.id);
+    return activeCats.has(n.c);
+  }).length;
+  document.getElementById('node-count').textContent=`${visible} of ${PP.length} papers`;
+}
+
+// ── Hit test ─────────────────────────────────────────────────────────
+function hit(sx,sy){
+  const[wx,wy]=s2w(sx,sy);
+  for(let i=nodes.length-1;i>=0;i--){
+    const n=nodes[i];
+    const dx=wx-n.x,dy=wy-n.y;
+    if(dx*dx+dy*dy<=(n.r+5)*(n.r+5))return n;
+  }
+  return null;
+}
+
+// ── Interactions ─────────────────────────────────────────────────────
+cv.addEventListener('mousemove',e=>{
+  if(pan.active){tx=pan.stx+(e.clientX-pan.sx);ty=pan.sty+(e.clientY-pan.sy);return;}
+  const ey=e.clientY-NAV_H;
+  const h=hit(e.clientX,ey);
+  hovId=h?h.id:null;
+  cv.style.cursor=h?'pointer':'default';
+  const tip=document.getElementById('tip');
+  if(h){
+    tip.style.display='block';
+    const ox=e.clientX+16,oy=e.clientY-8;
+    tip.style.left=(ox+220>window.innerWidth?e.clientX-230:ox)+'px';
+    tip.style.top=oy+'px';
+    const ci=h.n>0?`${h.n} citations`:'New / preprint';
+    const fa=h.fa?' <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);vertical-align:middle;margin-right:2px"></span>First author':'';
+    tip.innerHTML=`<div style="font-weight:700;color:${CATS[h.c].color};margin-bottom:4px">${h.s}</div><div style="font-size:10.5px;color:#5a7898;margin-bottom:4px;line-height:1.45">${h.f.length>90?h.f.slice(0,90)+'…':h.f}</div><div style="font-size:10px">${h.y} · ${h.v} · <b style="color:#b8ccde">${ci}</b>${fa}</div>`;
+  }else{tip.style.display='none';}
+});
+
+cv.addEventListener('mouseleave',()=>{hovId=null;document.getElementById('tip').style.display='none';});
+
+cv.addEventListener('mousedown',e=>{
+  const ey=e.clientY-NAV_H;
+  mdown={x:e.clientX,y:ey,h:hit(e.clientX,ey)};
+  if(!mdown.h){pan={active:true,sx:e.clientX,sy:ey,stx:tx,sty:ty};cv.style.cursor='grabbing';}
+});
+
+cv.addEventListener('mouseup',e=>{
+  if(pan.active){pan.active=false;cv.style.cursor=hovId?'pointer':'default';}
+  if(mdown){
+    const ey=e.clientY-NAV_H;
+    const dx=e.clientX-mdown.x,dy=ey-mdown.y;
+    if(Math.sqrt(dx*dx+dy*dy)<5){
+      if(mdown.h){
+        selId=(selId===mdown.h.id)?null:mdown.h.id;
+        selId!==null?showDetail(mdown.h):hideDetail();
+      }else{selId=null;hideDetail();}
+    }
+    mdown=null;
+  }
+});
+
+cv.addEventListener('wheel',e=>{
+  e.preventDefault();
+  const f=e.deltaY<0?1.12:.89;
+  const prev=ts;
+  ts=Math.max(.18,Math.min(5,ts*f));
+  tx=e.clientX-(e.clientX-tx)*(ts/prev);
+  ty=(e.clientY-NAV_H)-((e.clientY-NAV_H)-ty)*(ts/prev);
+},{passive:false});
+
+let touch0=null;
+cv.addEventListener('touchstart',e=>{if(e.touches.length===1){touch0={x:e.touches[0].clientX,y:e.touches[0].clientY-NAV_H,tx,ty};}},{passive:true});
+cv.addEventListener('touchmove',e=>{if(e.touches.length===1&&touch0){tx=touch0.tx+e.touches[0].clientX-touch0.x;ty=touch0.ty+(e.touches[0].clientY-NAV_H)-touch0.y;}},{passive:true});
+cv.addEventListener('touchend',()=>{touch0=null;});
+
+document.getElementById('zin').onclick=()=>{ts=Math.min(5,ts*1.2);};
+document.getElementById('zout').onclick=()=>{ts=Math.max(.18,ts*.82);};
+document.getElementById('zrst').onclick=()=>{tx=0;ty=0;ts=1;};
+
+// ── Detail Panel ─────────────────────────────────────────────────────
+function showDetail(p){
+  const rp=document.getElementById('rp');
+  const col=CATS[p.c].color;
+  const ci=p.n>0?p.n:'—';
+  const fa=p.fa?`<span class="d-badge" style="color:${col}"><span style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.75);display:inline-block"></span>First author</span>`:'';
+  const nodal=(p.deg>=4||p.n>=50)?`<span class="d-badge" style="color:${col}">● Nodal paper</span>`:'';
+  const connIds=new Set();
+  edges.forEach(e=>{if(e.s===p.id)connIds.add(e.t);if(e.t===p.id)connIds.add(e.s);});
+  const conns=[...connIds].map(id=>nById[id]).sort((a,b)=>b.n-a.n);
+  let cHtml='';
+  if(conns.length>0){
+    cHtml=`<div class="d-conn-label">Connected papers (${conns.length})</div>`;
+    for(const cp of conns){
+      cHtml+=`<div class="conn-item" data-id="${cp.id}"><div class="conn-dot" style="background:${CATS[cp.c].color}"></div><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${cp.s}</span><span class="conn-year" style="color:${CATS[cp.c].color}">${cp.y}</span></div>`;
+    }
+  }
+  document.getElementById('rp-content').innerHTML=`
+    <div class="d-cat" style="color:${col}">${CATS[p.c].label}</div>
+    <div class="d-title">${p.f}</div>
+    <div style="margin-bottom:8px">${fa}${nodal}</div>
+    <div class="d-meta">${p.y} · ${p.v}</div>
+    <div class="d-cit"><div class="d-cit-n" style="color:${col}">${ci}</div><div class="d-cit-l">citations</div></div>
+    ${cHtml}
+  `;
+  rp.classList.add('open');
+  rp.querySelectorAll('.conn-item').forEach(el=>{
+    el.addEventListener('click',()=>{const id=parseInt(el.dataset.id);const n=nById[id];if(n){selId=id;showDetail(n);}});
+  });
+}
+
+function hideDetail(){document.getElementById('rp').classList.remove('open');selId=null;}
+document.getElementById('rp-close').onclick=hideDetail;
+
+// ── Category chips ────────────────────────────────────────────────────
+function buildChips(){
+  const counts={};PP.forEach(p=>counts[p.c]=(counts[p.c]||0)+1);
+  const cont=document.getElementById('chips');
+  for(const[k,cat]of Object.entries(CATS)){
+    const d=document.createElement('div');
+    d.className='chip on';d.dataset.cat=k;
+    d.innerHTML=`<div class="cdot" style="background:${cat.color}"></div>${cat.label}<span class="cn">${counts[k]||0}</span>`;
+    d.addEventListener('click',()=>{
+      if(activeCats.has(k)){activeCats.delete(k);d.className='chip off';}
+      else{activeCats.add(k);d.className='chip on';}
+    });
+    cont.appendChild(d);
+  }
+}
+
+// ── Search ────────────────────────────────────────────────────────────
+document.getElementById('search').addEventListener('input',e=>{
+  const q=e.target.value.trim().toLowerCase();
+  if(q){matchSet=new Set(PP.filter(p=>p.f.toLowerCase().includes(q)||p.s.toLowerCase().includes(q)||p.v.toLowerCase().includes(q)||String(p.y).includes(q)).map(p=>p.id));}
+  else{matchSet=null;}
+});
+
+// ── Loop ──────────────────────────────────────────────────────────────
+function loop(){simStep();draw();requestAnimationFrame(loop);}
+
+initGraph();
+buildChips();
+loop();
+</script>
+
+</body>
+</html>

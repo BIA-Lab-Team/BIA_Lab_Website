@@ -11,7 +11,7 @@
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
 | 1 | Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions | Gihana GM, Bhatt K, Chang B-J, Murali VS, **Zhou FY**, Noh J, Ravishankar R et al. | *bioRxiv* 2026 [preprint] | — | — |
-| 2 | Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration and epiblast retrograde cell flow during anterior patterning in the mouse embryo | Stower MJ, **Zhou FY**, Valani R, Rozman J, Hathrell H, Godwin J, Lu X et al. | *bioRxiv* 2026.04.24.720339 [preprint] | — | — |
+| 2 | Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration and epiblast retrograde cell flow during anterior patterning in the mouse embryo | Stower MJ†, **Zhou FY**†, Valani R, Rozman J, Hathrell H, Godwin J, Lu X et al. | *bioRxiv* 2026.04.24.720339 [preprint] | — | — |
 | 3 | Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy | Gałecki S, Chang B-J, **Zhou FY**, Shen Q, Stoddard D, Chen B, Nicastro D et al. | *bioRxiv* 2026.01.01.697161 [preprint] | — | — |
 | 4 | Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue | Wong AYH, Lu YD, Zhao Z, **Zhou F**, Park H, Maliga Z, Anang Y et al. | *bioRxiv* 2026.05.17.725158 [preprint] | — | — |
 | 5 | Advanced Tissue Clearing and Axially Swept Light-Sheet Microscopy for High-Resolution Imaging of Neural Systems | Borges HM, Haug J, Lin J, Calvache S, **Zhou FY**, Luo X, Pop IV, Zhong Z et al. | *Light Sheet Microscopy* pp. 23–47, 2026 [book chapter] | — | — |
@@ -55,7 +55,7 @@
 | 22 | Blebs promote cell survival by assembling oncogenic signalling hubs | Weems AD, Welf ES, Driscoll MK, **Zhou FY**, Mazloom-Farsibaf H, Chang B-J, Murali VS, Gihana GM et al. | *Nature* 615(7952):517–525, 2023 | 10.1038/s41586-023-05758-6 | 148 |
 | 23 | Mesoscopic oblique plane microscopy via light-sheet mirroring | Daetwyler S, Chang B-J, Chen B, Voigt FF, Rajendran D, **Zhou F**, Fiolka R | *Optica* 10(11):1571–1581, 2023 | — | 24 |
 | 24 | Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D | **Zhou FY**, Wimalasena VK, Zou Q, Weems A, Gihana GM, Jenkins E et al. | *bioRxiv* 2023.04.12.536640 [preprint] | — | 16 |
-| 25 | Single-cell phenomics reveals behavioural and mechanical heterogeneities underpinning collective migration during mouse anterior patterning | Stower M, **Zhou F**, Hathrell H, Yeung J, Thowfeequ S, Godwin J et al. | *bioRxiv* 2023.03.31.534937 [preprint] | — | 8 |
+| 25 | Single-cell phenomics reveals behavioural and mechanical heterogeneities underpinning collective migration during mouse anterior patterning | Stower M†, **Zhou F**†, Hathrell H, Yeung J, Thowfeequ S, Godwin J et al. | *bioRxiv* 2023.03.31.534937 [preprint] | — | 8 |
 | 26 | Methods and systems for analyzing time ordered image data | **Zhou F**, Lu X, Ruiz-Puig C, Rittscher J | *US Patent* 11,748,885, 2023 [patent] | — | 9 |
 
 ---
