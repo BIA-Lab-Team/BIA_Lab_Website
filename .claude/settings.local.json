@@ -9,7 +9,13 @@
       "Bash(grep -E '\\\\.\\(json|js|html|css|md|txt|yaml|yml|toml|lock|xml|py|ts|jsx|tsx\\)$')",
       "Bash(find \"D:/Work/Claude_Code/BIA_Lab_Website\" -not -path '*/\\\\.claude/*' -type f)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(git revert *)",
+      "Bash(git -C \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" status)",
+      "Bash(git -C \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" diff --stat)",
+      "Bash(git -C \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" log --oneline -5)",
+      "Bash(git -C \"D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website\" add papers.md publications.html CLAUDE.md SUMMARY.md TODO.md)",
+      "Bash(git -C 'D:\\\\Work\\\\Claude_Code\\\\BIA_Lab_Website' commit -m ' *)"
     ]
   }
 }
