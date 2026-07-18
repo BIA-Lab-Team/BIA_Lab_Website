@@ -103,6 +103,9 @@
     .form-group textarea { resize: vertical; min-height: 140px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+    .form-attach-note { background: var(--off-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; font-size: .88rem; }
+    .form-attach-note__label { font-weight: 700; margin-bottom: .4rem; color: var(--navy); }
+    .form-attach-note ul { margin: .5rem 0 0 1.25rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -259,7 +262,7 @@
           <div class="step__num">2</div>
           <div>
             <h4>Prepare your materials</h4>
-            <p>CV, a 1-page cover letter explaining your interest and fit, contact details for 2–3 referees, and a research statement (max 2 pages, excluding references) outlining a research topic you could propose and execute in the BIA Lab and Vanderbilt ecosystem.</p>
+            <p>CV · 1-page cover letter explaining your interest and fit · 1-page personal statement describing your career goals and how training specifically in the BIA Lab will help you achieve them · research statement (max 2 pages, excluding references) outlining a research topic you could propose and execute in the BIA Lab and Vanderbilt ecosystem · contact details for 2–3 referees.</p>
           </div>
         </div>
         <div class="step">
@@ -314,6 +317,18 @@
         <div class="form-group">
           <label for="message">Message</label>
           <textarea id="message" name="message" placeholder="Briefly describe your background, why you're interested in the BIA Lab, and which research area you'd like to work on…"></textarea>
+        </div>
+        <div class="form-attach-note">
+          <div class="form-attach-note__label">📎 Attach to your email</div>
+          <p>When you click Submit, your email client will open addressed to <strong>felix.y.zhou@vanderbilt.edu</strong>. Please attach the following materials before sending:</p>
+          <ul>
+            <li>CV / résumé</li>
+            <li>1-page cover letter</li>
+            <li>1-page personal statement <em>(career goals + why the BIA Lab)</em></li>
+            <li>Research statement (max 2 pages, excluding references)</li>
+            <li>Contact details for 2–3 referees</li>
+            <li>Any other supporting material</li>
+          </ul>
         </div>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message</button>
       </form>

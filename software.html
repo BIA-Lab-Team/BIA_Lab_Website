@@ -111,6 +111,9 @@
     @media (max-width: 600px) {
       .software-card { grid-template-columns: 1fr; }
     }
+    .sw-metrics { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: -.5rem; margin-bottom: 1rem; }
+    .sw-metric { font-size: .75rem; color: var(--muted); display: flex; align-items: center; gap: .25rem; }
+    .sw-metric span { font-weight: 600; color: var(--navy); font-variant-numeric: tabular-nums; }
   </style>
 </head>
 <body>
@@ -171,6 +174,11 @@
               <span class="badge badge-license">Ludwig License</span>
               <span class="badge badge-status">✓ Active</span>
             </div>
+            <div class="sw-metrics" data-github="fyz11/SPOT" data-pypi="SAM-SPOT">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
             <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install SAM-SPOT</div>
             <div class="software-card__links" style="margin-top:1rem;">
               <a href="https://github.com/fyz11/SPOT" class="primary" target="_blank" rel="noopener">GitHub</a>
@@ -201,6 +209,10 @@
               <span class="badge badge-license">Ludwig License</span>
               <span class="badge badge-status">✓ Active</span>
             </div>
+            <div class="sw-metrics" data-github="fyz11/MOSES">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+            </div>
             <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/fyz11/MOSES.git</div>
             <div class="software-card__links" style="margin-top:1rem;">
               <a href="https://github.com/fyz11/MOSES" class="primary" target="_blank" rel="noopener">GitHub</a>
@@ -230,6 +242,11 @@
               <span class="badge badge-license">GPL-3.0</span>
               <span class="badge badge-status">✓ Active</span>
             </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-unwrap" data-pypi="u-Unwrap">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
             <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Unwrap</div>
             <div class="software-card__links" style="margin-top:1rem;">
               <a href="https://github.com/DanuserLab/u-unwrap" class="primary" target="_blank" rel="noopener">GitHub</a>
@@ -258,6 +275,10 @@
               <span class="badge badge-lang">Python</span>
               <span class="badge badge-license">GPL-3.0</span>
               <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-infotrace">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
             </div>
             <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/DanuserLab/u-infotrace.git</div>
             <div class="software-card__links" style="margin-top:1rem;">
@@ -300,6 +321,11 @@
               <span class="badge badge-license">GPL-3.0</span>
               <span class="badge badge-status">✓ Active</span>
             </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-segment3D" data-pypi="u-Segment3D">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
             <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Segment3D</div>
             <div class="software-card__links" style="margin-top:1rem;">
               <a href="https://github.com/DanuserLab/u-segment3D" class="primary" target="_blank" rel="noopener">GitHub</a>
@@ -328,6 +354,11 @@
               <span class="badge badge-lang">Python</span>
               <span class="badge badge-license">GPL-3.0</span>
               <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-unwrap3D" data-pypi="u-Unwrap3D">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
             </div>
             <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Unwrap3D</div>
             <div class="software-card__links" style="margin-top:1rem;">
@@ -761,6 +792,29 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
     btn.closest('.cite-drop__panel').hidden = true;
   });
 });
+
+// Live GitHub + PyPI metrics
+(async () => {
+  await Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
+    const starEl = el.querySelector('[data-m="stars"] span');
+    const forkEl = el.querySelector('[data-m="forks"] span');
+    const pypiEl = el.querySelector('[data-m="pypi"] span');
+
+    const ghRes = await fetch(`https://api.github.com/repos/${el.dataset.github}`);
+    if (ghRes.ok) {
+      const gh = await ghRes.json();
+      if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
+      if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
+    }
+    if (el.dataset.pypi && pypiEl) {
+      const pRes = await fetch(`https://pypistats.org/api/packages/${el.dataset.pypi.toLowerCase()}/recent`);
+      if (pRes.ok) {
+        const p = await pRes.json();
+        pypiEl.textContent = p.data.last_month.toLocaleString();
+      }
+    }
+  }));
+})();
 </script>
 <script src="assets/js/scroll-hint.js" defer></script></body>
 </html>

@@ -181,6 +181,39 @@
       color: var(--muted);
     }
     .placeholder-body p { font-size: .9rem; line-height: 1.6; margin-top: .5rem; }
+
+    /* Citation dropdown (same pattern as software.html) */
+    .cite-drop { position: relative; display: inline-block; }
+    .cite-drop__toggle {
+      font-size: .82rem; font-weight: 600;
+      color: var(--navy); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: .35rem .85rem;
+      background: transparent; cursor: pointer;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+    .cite-drop__toggle:hover { background: var(--navy); color: var(--white); }
+    .cite-drop__panel {
+      position: absolute; bottom: calc(100% + 6px); left: 0;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius); box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column; min-width: 140px; z-index: 20;
+    }
+    .cite-drop__panel[hidden] { display: none; }
+    .cite-drop__panel button {
+      text-align: left; padding: .5rem .9rem;
+      font-size: .82rem; font-weight: 600; color: var(--navy);
+      background: none; border: none; cursor: pointer;
+      transition: background .1s;
+    }
+    .cite-drop__panel button:hover { background: var(--off-white); }
+    .cite-drop__panel button:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+    .cite-drop__panel button:last-child  { border-radius: 0 0 var(--radius) var(--radius); }
+
+    /* Download metrics */
+    .ds-metric { font-size: .72rem; color: var(--muted); white-space: nowrap; }
+    .ds-metric span { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .ds-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -254,6 +287,14 @@
         <div class="dataset-card__links">
           <a href="https://www.tissue-atlas.org/atlas-datasets/yapp-nirmal-2023/" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://www.nature.com/articles/s41592-025-02824-x" target="_blank" rel="noopener">View Paper ↗</a>
+          <div class="cite-drop" data-tool="yapp-natmeth-2025">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -261,7 +302,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">u-segment3D Example Data — High-Resolution Light-Sheet Imaging</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-zenodo="15692302">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper">
           <strong>Zhou FY</strong> et al. · <em>Nature Methods</em> 2025
@@ -279,6 +323,14 @@
           <a href="https://zenodo.org/records/15692302" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://www.nature.com/articles/s41592-025-02887-w" target="_blank" rel="noopener">View Paper ↗</a>
           <a href="https://github.com/DanuserLab/u-segment3D" target="_blank" rel="noopener">u-segment3D Tool ↗</a>
+          <div class="cite-drop" data-tool="usegment3d-natmeth-2025">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -286,7 +338,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">Endoscopy Artefact Detection (EAD) Dataset</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-mendeley="c7fjbxcgj9">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
           <span>Ali S<sup>†</sup>, <strong>Zhou F</strong><sup>†</sup> et al. · <em>Scientific Reports</em> 2020 <span style="font-size:.75rem;font-weight:400;color:var(--muted)">†&thinsp;Joint first authors</span></span>
@@ -305,6 +360,14 @@
           <a href="https://data.mendeley.com/datasets/c7fjbxcgj9/2" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://doi.org/10.1038/s41598-020-59413-5" target="_blank" rel="noopener">Sci Reports 2020 ↗</a>
           <a href="https://arxiv.org/abs/1905.03209" target="_blank" rel="noopener">arXiv 2019 ↗</a>
+          <div class="cite-drop" data-tool="ead-scirep-2020">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -312,7 +375,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">Normal 2-Cell Population Migration Videos</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-mendeley="j8yrmntc7x">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper">
           <strong>Zhou FY</strong>, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X · <em>eLife</em> 2019
@@ -330,6 +396,14 @@
           <a href="https://data.mendeley.com/datasets/j8yrmntc7x/1" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://elifesciences.org/articles/40162" target="_blank" rel="noopener">View Paper ↗</a>
           <a href="https://github.com/fyz11/MOSES" target="_blank" rel="noopener">MOSES Tool ↗</a>
+          <div class="cite-drop" data-tool="moses-elife-2019">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -337,7 +411,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">EGF Addition to EPC2:CP-A Cell Migration Videos</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-mendeley="vrhtsdhprr">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper">
           <strong>Zhou FY</strong>, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X · <em>eLife</em> 2019
@@ -355,6 +432,14 @@
           <a href="https://data.mendeley.com/datasets/vrhtsdhprr/1" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://elifesciences.org/articles/40162" target="_blank" rel="noopener">View Paper ↗</a>
           <a href="https://github.com/fyz11/MOSES" target="_blank" rel="noopener">MOSES Tool ↗</a>
+          <div class="cite-drop" data-tool="moses-egf-elife-2019">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -362,7 +447,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">Synthetic Ground Truth Organoid (SGTO) Datasets</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-zenodo="14265519">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper">
           <strong>Zhou FY</strong>, Jacobs BA, Norton-Steele A et al. · <em>bioRxiv</em> 2025
@@ -380,6 +468,14 @@
           <a href="https://zenodo.org/records/14265519" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691111" target="_blank" rel="noopener">View Paper ↗</a>
           <a href="https://github.com/fyz11/SPOT" target="_blank" rel="noopener">SAM-SPOT Tool ↗</a>
+          <div class="cite-drop" data-tool="sgto-biorxiv-2025">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -387,7 +483,10 @@
       <div class="dataset-card">
         <div class="dataset-card__header">
           <h2 class="dataset-card__title">Filled/Dilated MPEG-7 &amp; Normalized Brodatz Texture Datasets</h2>
-          <span class="access-pill access-pill--open">● Open</span>
+          <div class="ds-header-right">
+            <span class="access-pill access-pill--open">● Open</span>
+            <span class="ds-metric" data-zenodo="20648294">↓ <span>–</span> downloads</span>
+          </div>
         </div>
         <div class="dataset-card__paper">
           Norton-Steele A, <strong>Zhou FY</strong> et al. · <em>bioRxiv</em> 2025
@@ -405,6 +504,14 @@
           <a href="https://zenodo.org/records/20648294" target="_blank" rel="noopener" class="primary">Access Dataset ↗</a>
           <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691105" target="_blank" rel="noopener">View Paper ↗</a>
           <a href="https://github.com/fyz11/SPOT" target="_blank" rel="noopener">SAM-SPOT Tool ↗</a>
+          <div class="cite-drop" data-tool="mpeg7-biorxiv-2025">
+            <button class="cite-drop__toggle" type="button">Cite ▾</button>
+            <div class="cite-drop__panel" hidden>
+              <button data-fmt="bibtex">BibTeX</button>
+              <button data-fmt="ris">RIS</button>
+              <button data-fmt="endnote">EndNote</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -471,5 +578,345 @@
   </div>
 </footer>
 
-<script src="assets/js/scroll-hint.js" defer></script></body>
+<script src="assets/js/scroll-hint.js" defer></script>
+<script>
+const CITATIONS = {
+  'yapp-natmeth-2025': {
+    bibtex: {
+      text: `@article{yapp2025,
+  author  = {Yapp, Clarence and Nirmal, Ajit Johnson and Zhou, Felix and Wong, Ann Yu-Hsin and Tefft, James B and Lu, Yida and Shang, Zhongnan and others},
+  title   = {Highly multiplexed 3{D} profiling of cell states and immune niches in human tumors},
+  journal = {Nature Methods},
+  volume  = {22},
+  number  = {10},
+  pages   = {2180--2193},
+  year    = {2025}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Yapp, Clarence
+AU  - Nirmal, Ajit Johnson
+AU  - Zhou, Felix
+AU  - Wong, Ann Yu-Hsin
+AU  - Tefft, James B
+AU  - Lu, Yida
+AU  - Shang, Zhongnan
+TI  - Highly multiplexed 3D profiling of cell states and immune niches in human tumors
+JO  - Nature Methods
+VL  - 22
+IS  - 10
+SP  - 2180
+EP  - 2193
+PY  - 2025
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%A Yapp, Clarence
+%A Nirmal, Ajit Johnson
+%A Zhou, Felix
+%A Wong, Ann Yu-Hsin
+%A Tefft, James B
+%A Lu, Yida
+%A Shang, Zhongnan
+%T Highly multiplexed 3D profiling of cell states and immune niches in human tumors
+%J Nature Methods
+%V 22
+%N 10
+%P 2180-2193
+%D 2025`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'usegment3d-natmeth-2025': {
+    bibtex: {
+      text: `@article{zhou2025usegment3d,
+  author  = {Zhou, Felix Y and Marin, Zoltan and Yapp, Clarence and Zou, Qiongjie and Nanes, Benjamin A and Daetwyler, Stephan and Jamieson, Andrew R and others},
+  title   = {Universal consensus {3D} segmentation of cells from {2D} segmented stacks ({u-segment3D})},
+  journal = {Nature Methods},
+  year    = {2025}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Zhou, Felix Y
+AU  - Marin, Zoltan
+AU  - Yapp, Clarence
+AU  - Zou, Qiongjie
+AU  - Nanes, Benjamin A
+AU  - Daetwyler, Stephan
+AU  - Jamieson, Andrew R
+TI  - Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)
+JO  - Nature Methods
+PY  - 2025
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%A Zhou, Felix Y
+%A Marin, Zoltan
+%A Yapp, Clarence
+%A Zou, Qiongjie
+%A Nanes, Benjamin A
+%A Daetwyler, Stephan
+%A Jamieson, Andrew R
+%T Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)
+%J Nature Methods
+%D 2025`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'ead-scirep-2020': {
+    bibtex: {
+      text: `@article{ali2020ead,
+  author  = {Ali, Sharib and Zhou, Felix and Braden, Barbara and Bailey, Adam and Yang, Su and others},
+  title   = {An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy},
+  journal = {Scientific Reports},
+  volume  = {10},
+  number  = {1},
+  pages   = {2748},
+  year    = {2020},
+  doi     = {10.1038/s41598-020-59413-5}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Ali, Sharib
+AU  - Zhou, Felix
+AU  - Braden, Barbara
+AU  - Bailey, Adam
+AU  - Yang, Su
+TI  - An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy
+JO  - Scientific Reports
+VL  - 10
+IS  - 1
+SP  - 2748
+PY  - 2020
+DO  - 10.1038/s41598-020-59413-5
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%A Ali, Sharib
+%A Zhou, Felix
+%A Braden, Barbara
+%A Bailey, Adam
+%A Yang, Su
+%T An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy
+%J Scientific Reports
+%V 10
+%N 1
+%P 2748
+%D 2020
+%R 10.1038/s41598-020-59413-5`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'moses-elife-2019': {
+    bibtex: {
+      text: `@article{zhou2019moses,
+  author  = {Zhou, Felix Y and Ruiz-Puig, Carlos and Owen, Richard P and White, Michael J and Rittscher, Jens and Lu, Xin},
+  title   = {Motion sensing superpixels ({MOSES}) --- a systematic computational framework to quantify and discover cellular motion phenotypes},
+  journal = {eLife},
+  volume  = {8},
+  pages   = {e40162},
+  year    = {2019}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Zhou, Felix Y
+AU  - Ruiz-Puig, Carlos
+AU  - Owen, Richard P
+AU  - White, Michael J
+AU  - Rittscher, Jens
+AU  - Lu, Xin
+TI  - Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes
+JO  - eLife
+VL  - 8
+SP  - e40162
+PY  - 2019
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%A Zhou, Felix Y
+%A Ruiz-Puig, Carlos
+%A Owen, Richard P
+%A White, Michael J
+%A Rittscher, Jens
+%A Lu, Xin
+%T Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes
+%J eLife
+%V 8
+%P e40162
+%D 2019`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'moses-egf-elife-2019': {
+    bibtex: {
+      text: `@article{zhou2019moses,
+  author  = {Zhou, Felix Y and Ruiz-Puig, Carlos and Owen, Richard P and White, Michael J and Rittscher, Jens and Lu, Xin},
+  title   = {Motion sensing superpixels ({MOSES}) --- a systematic computational framework to quantify and discover cellular motion phenotypes},
+  journal = {eLife},
+  volume  = {8},
+  pages   = {e40162},
+  year    = {2019}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Zhou, Felix Y
+AU  - Ruiz-Puig, Carlos
+AU  - Owen, Richard P
+AU  - White, Michael J
+AU  - Rittscher, Jens
+AU  - Lu, Xin
+TI  - Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes
+JO  - eLife
+VL  - 8
+SP  - e40162
+PY  - 2019
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Journal Article
+%A Zhou, Felix Y
+%A Ruiz-Puig, Carlos
+%A Owen, Richard P
+%A White, Michael J
+%A Rittscher, Jens
+%A Lu, Xin
+%T Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes
+%J eLife
+%V 8
+%P e40162
+%D 2019`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'sgto-biorxiv-2025': {
+    bibtex: {
+      text: `@article{zhou2025spot2,
+  author  = {Zhou, Felix Y and Jacobs, Bailey A and Norton-Steele, Alex and Han, Xiao and Zhou, Lina and Carroll, Thomas M and others},
+  title   = {Identifying phenotype--genotype--function coupling in {3D} organoid imaging using {SPOT}},
+  journal = {bioRxiv},
+  year    = {2025},
+  note    = {Preprint: 2025.11.28.691111}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Zhou, Felix Y
+AU  - Jacobs, Bailey A
+AU  - Norton-Steele, Alex
+AU  - Han, Xiao
+AU  - Zhou, Lina
+AU  - Carroll, Thomas M
+TI  - Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
+JO  - bioRxiv
+PY  - 2025
+N1  - Preprint: 2025.11.28.691111
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Electronic Source
+%A Zhou, Felix Y
+%A Jacobs, Bailey A
+%A Norton-Steele, Alex
+%A Han, Xiao
+%A Zhou, Lina
+%A Carroll, Thomas M
+%T Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
+%J bioRxiv
+%D 2025
+%Z Preprint: 2025.11.28.691111`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+  'mpeg7-biorxiv-2025': {
+    bibtex: {
+      text: `@article{zhou2025spot1,
+  author  = {Zhou, Felix Y and Norton-Steele, Alex and Marsh, Lucy and Byrne, Helen and Harrington, Heather and Lu, Xin},
+  title   = {Development of a universal imaging 'phenome' using {Shape, Appearance and Motion} ({SAM}) features and the {SAM} Observation Tool ({SPOT})},
+  journal = {bioRxiv},
+  year    = {2025},
+  note    = {Preprint: 2025.11.28.691105}
+}`, ext: 'bib', mime: 'text/plain'
+    },
+    ris: {
+      text: `TY  - JOUR
+AU  - Zhou, Felix Y
+AU  - Norton-Steele, Alex
+AU  - Marsh, Lucy
+AU  - Byrne, Helen
+AU  - Harrington, Heather
+AU  - Lu, Xin
+TI  - Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+JO  - bioRxiv
+PY  - 2025
+N1  - Preprint: 2025.11.28.691105
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Electronic Source
+%A Zhou, Felix Y
+%A Norton-Steele, Alex
+%A Marsh, Lucy
+%A Byrne, Helen
+%A Harrington, Heather
+%A Lu, Xin
+%T Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+%J bioRxiv
+%D 2025
+%Z Preprint: 2025.11.28.691105`, ext: 'enw', mime: 'text/plain'
+    }
+  }
+};
+
+// Cite-drop toggle
+document.querySelectorAll('.cite-drop__toggle').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    document.querySelectorAll('.cite-drop__panel').forEach(p => {
+      if (p !== btn.nextElementSibling) p.hidden = true;
+    });
+    const panel = btn.nextElementSibling;
+    panel.hidden = !panel.hidden;
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.cite-drop__panel').forEach(p => p.hidden = true);
+});
+document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const tool = btn.closest('.cite-drop').dataset.tool;
+    const fmt  = btn.dataset.fmt;
+    const { text, ext, mime } = CITATIONS[tool][fmt];
+    const url = URL.createObjectURL(new Blob([text], { type: mime }));
+    const a = Object.assign(document.createElement('a'), { href: url, download: `${tool}.${ext}` });
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    btn.closest('.cite-drop__panel').hidden = true;
+  });
+});
+
+// Live download metrics
+(async () => {
+  await Promise.allSettled([
+    ...[...document.querySelectorAll('[data-zenodo]')].map(async el => {
+      const res = await fetch(`https://zenodo.org/api/records/${el.dataset.zenodo}`);
+      if (!res.ok) return;
+      const r = await res.json();
+      const n = r.stats?.downloads ?? r.stats?.all_versions?.downloads;
+      if (n != null) el.querySelector('span').textContent = Number(n).toLocaleString();
+    }),
+    ...[...document.querySelectorAll('[data-mendeley]')].map(async el => {
+      const res = await fetch(`https://data.mendeley.com/api/datasets/${el.dataset.mendeley}`);
+      if (!res.ok) return;
+      const r = await res.json();
+      const n = r.metrics?.file_downloads ?? r.metrics?.total_downloads ?? r.total_downloads;
+      if (n != null) el.querySelector('span').textContent = Number(n).toLocaleString();
+    })
+  ]);
+})();
+</script>
+</body>
 </html>
