@@ -793,31 +793,32 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
   });
 });
 
-// Live GitHub stars/forks
-Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
-  try {
-    const r = await fetch(`https://api.github.com/repos/${el.dataset.github}`);
-    if (!r.ok) return;
-    const gh = await r.json();
+// Live GitHub + PyPI metrics — both fetches start in parallel per card
+(async () => {
+  await Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
     const starEl = el.querySelector('[data-m="stars"] span');
     const forkEl = el.querySelector('[data-m="forks"] span');
-    if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
-    if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
-  } catch {}
-}));
-
-// Live PyPI monthly downloads (independent of GitHub fetches)
-Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-pypi]')].map(async el => {
-  try {
     const pypiEl = el.querySelector('[data-m="pypi"] span');
-    if (!pypiEl) return;
-    const r = await fetch(`https://img.shields.io/pypi/dm/${el.dataset.pypi}.json`);
-    if (!r.ok) return;
-    const p = await r.json();
-    // shields.io returns e.g. "85/month"; strip "/month" so it reads "85 /mo PyPI"
-    if (/\d/.test(p.message)) pypiEl.textContent = p.message.replace('/month', '').trim();
-  } catch {}
-}));
+
+    // Fire GitHub and PyPI requests simultaneously
+    const ghFetch   = fetch(`https://api.github.com/repos/${el.dataset.github}`).catch(() => null);
+    const pypiFetch = el.dataset.pypi
+      ? fetch(`https://img.shields.io/pypi/dm/${el.dataset.pypi}.json`).catch(() => null)
+      : Promise.resolve(null);
+
+    const [ghRes, pypiRes] = await Promise.all([ghFetch, pypiFetch]);
+
+    if (ghRes && ghRes.ok) {
+      const gh = await ghRes.json();
+      if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
+      if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
+    }
+    if (pypiRes && pypiRes.ok && pypiEl) {
+      const p = await pypiRes.json();
+      if (/\d/.test(p.message)) pypiEl.textContent = p.message.replace('/month', '').trim();
+    }
+  }));
+})();
 </script>
 <script src="assets/js/scroll-hint.js" defer></script></body>
 </html>
