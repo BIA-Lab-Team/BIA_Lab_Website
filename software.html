@@ -807,10 +807,10 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
       if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
     }
     if (el.dataset.pypi && pypiEl) {
-      const pRes = await fetch(`https://pypistats.org/api/packages/${el.dataset.pypi.toLowerCase()}/recent`);
+      const pRes = await fetch(`https://img.shields.io/pypi/dm/${el.dataset.pypi}.json`);
       if (pRes.ok) {
         const p = await pRes.json();
-        pypiEl.textContent = p.data.last_month.toLocaleString();
+        if (/\d/.test(p.message)) pypiEl.textContent = p.message;
       }
     }
   }));

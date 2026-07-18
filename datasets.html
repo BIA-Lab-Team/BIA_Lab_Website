@@ -213,6 +213,8 @@
     /* Download metrics */
     .ds-metric { font-size: .72rem; color: var(--muted); white-space: nowrap; }
     .ds-metric span { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .ds-stats-link { font-size: .72rem; color: var(--teal-dark); white-space: nowrap; text-decoration: none; }
+    .ds-stats-link:hover { text-decoration: underline; }
     .ds-header-right { display: flex; flex-direction: column; align-items: flex-end; gap: .3rem; flex-shrink: 0; }
   </style>
 </head>
@@ -340,7 +342,7 @@
           <h2 class="dataset-card__title">Endoscopy Artefact Detection (EAD) Dataset</h2>
           <div class="ds-header-right">
             <span class="access-pill access-pill--open">● Open</span>
-            <span class="ds-metric" data-mendeley="c7fjbxcgj9">↓ <span>–</span> downloads</span>
+            <a href="https://data.mendeley.com/datasets/c7fjbxcgj9/2" target="_blank" rel="noopener" class="ds-stats-link">View stats ↗</a>
           </div>
         </div>
         <div class="dataset-card__paper" style="flex-direction:column;align-items:flex-start;gap:.3rem;">
@@ -377,7 +379,7 @@
           <h2 class="dataset-card__title">Normal 2-Cell Population Migration Videos</h2>
           <div class="ds-header-right">
             <span class="access-pill access-pill--open">● Open</span>
-            <span class="ds-metric" data-mendeley="j8yrmntc7x">↓ <span>–</span> downloads</span>
+            <a href="https://data.mendeley.com/datasets/j8yrmntc7x/1" target="_blank" rel="noopener" class="ds-stats-link">View stats ↗</a>
           </div>
         </div>
         <div class="dataset-card__paper">
@@ -413,7 +415,7 @@
           <h2 class="dataset-card__title">EGF Addition to EPC2:CP-A Cell Migration Videos</h2>
           <div class="ds-header-right">
             <span class="access-pill access-pill--open">● Open</span>
-            <span class="ds-metric" data-mendeley="vrhtsdhprr">↓ <span>–</span> downloads</span>
+            <a href="https://data.mendeley.com/datasets/vrhtsdhprr/1" target="_blank" rel="noopener" class="ds-stats-link">View stats ↗</a>
           </div>
         </div>
         <div class="dataset-card__paper">
@@ -900,22 +902,15 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
 
 // Live download metrics
 (async () => {
-  await Promise.allSettled([
-    ...[...document.querySelectorAll('[data-zenodo]')].map(async el => {
+  await Promise.allSettled(
+    [...document.querySelectorAll('[data-zenodo]')].map(async el => {
       const res = await fetch(`https://zenodo.org/api/records/${el.dataset.zenodo}`);
       if (!res.ok) return;
       const r = await res.json();
       const n = r.stats?.downloads ?? r.stats?.all_versions?.downloads;
       if (n != null) el.querySelector('span').textContent = Number(n).toLocaleString();
-    }),
-    ...[...document.querySelectorAll('[data-mendeley]')].map(async el => {
-      const res = await fetch(`https://data.mendeley.com/api/datasets/${el.dataset.mendeley}`);
-      if (!res.ok) return;
-      const r = await res.json();
-      const n = r.metrics?.file_downloads ?? r.metrics?.total_downloads ?? r.total_downloads;
-      if (n != null) el.querySelector('span').textContent = Number(n).toLocaleString();
     })
-  ]);
+  );
 })();
 </script>
 </body>
