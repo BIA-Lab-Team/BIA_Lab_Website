@@ -793,20 +793,22 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
   });
 });
 
-// Live GitHub stars/forks — all cards in parallel
-Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
-  try {
-    const r = await fetch(`https://api.github.com/repos/${el.dataset.github}`);
-    if (!r.ok) return;
-    const gh = await r.json();
-    const starEl = el.querySelector('[data-m="stars"] span');
-    const forkEl = el.querySelector('[data-m="forks"] span');
-    if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
-    if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
-  } catch {}
-}));
+// Live GitHub stars/forks — parallel across cards
+(async () => {
+  await Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
+    try {
+      const r = await fetch(`https://api.github.com/repos/${el.dataset.github}`);
+      if (!r.ok) return;
+      const gh = await r.json();
+      const starEl = el.querySelector('[data-m="stars"] span');
+      const forkEl = el.querySelector('[data-m="forks"] span');
+      if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
+      if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
+    } catch {}
+  }));
+})();
 
-// Live PyPI downloads — sequential to avoid shields.io/pypistats rate-limiting
+// Live PyPI downloads — sequential to avoid rate-limiting shields.io upstream
 (async () => {
   for (const el of document.querySelectorAll('.sw-metrics[data-pypi]')) {
     const pypiEl = el.querySelector('[data-m="pypi"] span');
