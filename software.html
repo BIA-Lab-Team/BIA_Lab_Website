@@ -793,31 +793,31 @@ document.querySelectorAll('.cite-drop__panel button').forEach(btn => {
   });
 });
 
-// Live GitHub + PyPI metrics — both fetches start in parallel per card
-(async () => {
-  await Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
+// Live GitHub stars/forks — all cards in parallel
+Promise.allSettled([...document.querySelectorAll('.sw-metrics[data-github]')].map(async el => {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${el.dataset.github}`);
+    if (!r.ok) return;
+    const gh = await r.json();
     const starEl = el.querySelector('[data-m="stars"] span');
     const forkEl = el.querySelector('[data-m="forks"] span');
+    if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
+    if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
+  } catch {}
+}));
+
+// Live PyPI downloads — sequential to avoid shields.io/pypistats rate-limiting
+(async () => {
+  for (const el of document.querySelectorAll('.sw-metrics[data-pypi]')) {
     const pypiEl = el.querySelector('[data-m="pypi"] span');
-
-    // Fire GitHub and PyPI requests simultaneously
-    const ghFetch   = fetch(`https://api.github.com/repos/${el.dataset.github}`).catch(() => null);
-    const pypiFetch = el.dataset.pypi
-      ? fetch(`https://img.shields.io/pypi/dm/${el.dataset.pypi}.json`).catch(() => null)
-      : Promise.resolve(null);
-
-    const [ghRes, pypiRes] = await Promise.all([ghFetch, pypiFetch]);
-
-    if (ghRes && ghRes.ok) {
-      const gh = await ghRes.json();
-      if (starEl) starEl.textContent = gh.stargazers_count.toLocaleString();
-      if (forkEl) forkEl.textContent = gh.forks_count.toLocaleString();
-    }
-    if (pypiRes && pypiRes.ok && pypiEl) {
-      const p = await pypiRes.json();
+    if (!pypiEl) continue;
+    try {
+      const r = await fetch(`https://img.shields.io/pypi/dm/${el.dataset.pypi}.json`);
+      if (!r.ok) continue;
+      const p = await r.json();
       if (/\d/.test(p.message)) pypiEl.textContent = p.message.replace('/month', '').trim();
-    }
-  }));
+    } catch {}
+  }
 })();
 </script>
 <script src="assets/js/scroll-hint.js" defer></script></body>
