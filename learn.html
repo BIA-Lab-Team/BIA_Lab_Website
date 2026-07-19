@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn — BIA Lab</title>
+  <meta name="description" content="Pedagogical talks and lectures from BIA Lab and collaborators on computational biology, multiplexed imaging, and quantitative cell biology.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    /* Hero */
+    .page-hero {
+      background: var(--navy);
+      padding: 5.5rem 0 4.5rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 75% 40%, rgba(72,120,190,.18) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 {
+      color: var(--white);
+      font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+      line-height: 1.08;
+      margin-bottom: 1rem;
+    }
+    .page-hero__lead {
+      color: rgba(255,255,255,.72);
+      font-size: 1.1rem;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+
+    /* Category header */
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .category-header h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+    .category-count {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .2rem .7rem;
+    }
+
+    /* Talk grid */
+    .talk-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+    @media (max-width: 900px) { .talk-grid { grid-template-columns: 1fr; } }
+
+    /* Talk card */
+    .talk-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+    .talk-card:hover {
+      box-shadow: 0 8px 32px rgba(30,45,79,.13);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive video embed */
+    .talk-card__video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .talk-card__video iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* Card body */
+    .talk-card__body {
+      padding: 1.5rem 1.75rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .talk-card__meta {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .speaker-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .75rem;
+      font-weight: 600;
+      background: rgba(72,120,190,.1);
+      color: var(--teal-dark);
+      border: 1px solid rgba(72,120,190,.2);
+      border-radius: 100px;
+      padding: .25rem .75rem;
+    }
+    .speaker-badge--collab {
+      background: rgba(123,101,178,.08);
+      color: var(--purple);
+      border-color: rgba(123,101,178,.2);
+    }
+    .talk-card__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.4;
+      margin: 0 0 .5rem;
+    }
+    .talk-card__venue {
+      font-size: .8rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .talk-card__desc {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+      margin: 0 0 1.25rem;
+    }
+    .talk-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+    }
+    .talk-tag {
+      font-size: .72rem;
+      font-weight: 600;
+      background: var(--off-white);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .18rem .65rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="challenge.html">The Challenge</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="join.html" class="btn btn-primary btn-sm nav__mobile-cta">Open Positions</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Learn</div>
+    <h1>Talks &amp; Lectures</h1>
+    <p class="page-hero__lead">Pedagogical talks from BIA Lab and collaborators on computational methods, multiplexed imaging, and quantitative cell biology.</p>
+  </div>
+  <a href="#talks" class="scroll-hint" aria-label="Scroll down">
+    <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<!-- Talks -->
+<section class="section" id="talks">
+  <div class="container">
+    <div class="category-header">
+      <h2>Pipeline Talks</h2>
+      <span class="category-count">2 talks</span>
+    </div>
+    <div class="talk-grid">
+
+      <!-- Talk 1: Felix -->
+      <div class="talk-card">
+        <div class="talk-card__video">
+          <iframe
+            src="https://www.youtube.com/embed/sLPX-A9ZOz8"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Computational frameworks to quantitatively interrogate causal relationships between cell morphology and signaling">
+          </iframe>
+        </div>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">Felix Y. Zhou · BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">Computational frameworks to quantitatively interrogate causal relationships between cell morphology and signaling</h3>
+          <p class="talk-card__venue">BioImaging North America · Lattice Light-Sheet User Group</p>
+          <p class="talk-card__desc">Cells change shape. Signals move through them. The question this talk addresses is whether those two things are connected causally, and if so, in which direction. Felix presents the computational pipeline the lab has built to answer this: mapping molecular signals onto 3D cell surfaces at single-cell resolution, parameterising those surfaces into canonical coordinate systems to enable comparison across cells and time points, and applying information-theoretic measures to identify where and when morphology predicts downstream signaling. The talk draws on lattice light-sheet microscopy data and introduces tools including u-segment3D for universal 3D cell segmentation to extract a high-resolution cell surface, u-Unwrap3D for mapping signals onto those surfaces, and u-infotrace for quantifying information flow between signals.</p>
+          <div class="talk-card__tags">
+            <span class="talk-tag">3D surface parameterisation</span>
+            <span class="talk-tag">cell morphology</span>
+            <span class="talk-tag">information theory</span>
+            <span class="talk-tag">light-sheet microscopy</span>
+            <span class="talk-tag">causal inference</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Talk 2: Clarence Yapp -->
+      <div class="talk-card">
+        <div class="talk-card__video">
+          <iframe
+            src="https://www.youtube.com/embed/-hx7Ka8cfr4"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            title="Decoding disease with highly-multiplexed 3D imaging">
+          </iframe>
+        </div>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge speaker-badge--collab">Clarence Yapp · Sorger Lab, HMS</span>
+          </div>
+          <h3 class="talk-card__title">Decoding disease with highly-multiplexed 3D imaging</h3>
+          <p class="talk-card__venue">Laboratory of Systems Pharmacology, Harvard Medical School</p>
+          <p class="talk-card__desc">Standard histology sees a handful of markers. This talk covers what becomes possible when you can measure forty or more proteins in intact tissue at subcellular resolution. Clarence Yapp from the Sorger Lab at Harvard Medical School presents the experimental and computational pipeline behind cyclic immunofluorescence (CyCIF) and volumetric multiplexed imaging: how tissue sections are repeatedly stained and imaged, how u-segment3D is used to identify every single cell in the volumetric tissue, how the resulting image stacks are registered and segmented, and how the spatial proteomics maps that emerge reveal the cell states, immune niches, and signaling architectures that distinguish diseased tissue from healthy tissue. The talk is a practical guide to the full stack, from antibody panel design to neighbourhood analysis.</p>
+          <div class="talk-card__tags">
+            <span class="talk-tag">CyCIF</span>
+            <span class="talk-tag">multiplexed imaging</span>
+            <span class="talk-tag">spatial proteomics</span>
+            <span class="talk-tag">tissue atlases</span>
+            <span class="talk-tag">tumour microenvironment</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html"><img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="footer__logo-img"></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="datasets.html">Datasets</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="learn.html">Learn</a></li><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:felix.y.zhou@vanderbilt.edu">Email</a></li><li><a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 BIA Lab. All rights reserved.</span><span>Built with ♡ for open science · <a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/scroll-hint.js" defer></script>
+</body>
+</html>
