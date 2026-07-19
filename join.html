@@ -10,10 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/main.css">
   <style>
-    /* Hero */
+    /* ── Hero ── */
     .page-hero {
       background: var(--navy);
-      padding: 5.5rem 0 4rem;
+      padding: 5.5rem 0 4.5rem;
       color: var(--white);
       position: relative;
       overflow: hidden;
@@ -25,8 +25,20 @@
       pointer-events: none;
     }
     .page-hero .section-label { color: var(--teal); }
-    .page-hero h1 { color: var(--white); margin-bottom: .75rem; font-size: clamp(2.2rem,5vw,3.4rem); line-height: 1.1; }
-    .page-hero__lead { color: rgba(255,255,255,.75); font-size: 1.15rem; max-width: 640px; line-height: 1.65; margin-bottom: 1.75rem; }
+    .page-hero h1 {
+      color: var(--white);
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 1.25rem;
+      max-width: 700px;
+    }
+    .page-hero__lead {
+      color: rgba(255,255,255,.75);
+      font-size: 1.15rem;
+      max-width: 600px;
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
     .page-hero__tagline {
       display: inline-block;
       color: var(--white);
@@ -34,59 +46,134 @@
       background: rgba(255,255,255,.1);
       border: 1px solid rgba(255,255,255,.2);
       border-radius: var(--radius);
-      padding: .75rem 1.1rem;
-      line-height: 1.6;
+      padding: .85rem 1.25rem;
+      line-height: 1.5;
     }
 
-    /* Founders pitch */
-    .founders-section {
+    /* ── Dark narrative sections ── */
+    .dark-section {
       background: var(--navy-mid);
       color: var(--white);
-      padding: 4rem 0;
+      padding: 4.5rem 0;
     }
-    .founders-grid {
+    .dark-section .section-label { color: var(--teal); }
+    .dark-section h2 { color: var(--white); }
+    .dark-section p  { color: rgba(255,255,255,.7); line-height: 1.75; }
+
+    .gap-statement {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,.85);
+      line-height: 1.75;
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+    .gap-callout {
+      display: inline-block;
+      background: rgba(72,120,190,.18);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.5rem;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.9);
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    /* ── Why Now cards ── */
+    .why-now-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 768px) { .why-now-grid { grid-template-columns: 1fr; } }
+    .why-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+    .why-card__year {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal-dark);
+      margin-bottom: .5rem;
+    }
+    .why-card h3 { font-size: 1rem; margin-bottom: .5rem; }
+    .why-card p  { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── What we've built ── */
+    .built-callout {
+      background: rgba(63,168,106,.08);
+      border: 1px solid rgba(63,168,106,.25);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-top: 2.5rem;
+    }
+    .built-callout h3 { color: var(--navy); margin-bottom: .6rem; }
+    .built-callout p  { color: var(--muted); font-size: .95rem; line-height: 1.7; margin-bottom: .6rem; }
+    .built-callout p:last-child { margin-bottom: 0; }
+    .built-tools {
+      display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem;
+    }
+    .built-tool {
+      font-size: .78rem; font-weight: 600;
+      background: rgba(63,168,106,.12); color: #2a7a4a;
+      border: 1px solid rgba(63,168,106,.3);
+      border-radius: 100px; padding: .25rem .75rem;
+    }
+
+    /* ── Success vision ── */
+    .vision-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
       margin-top: 2.5rem;
     }
-    @media (max-width: 768px) { .founders-grid { grid-template-columns: 1fr; gap: 1.5rem; } }
-    .founders-card {
-      background: rgba(255,255,255,.05);
+    @media (max-width: 700px) { .vision-grid { grid-template-columns: 1fr; } }
+    .vision-card {
+      background: rgba(255,255,255,.06);
       border: 1px solid rgba(255,255,255,.1);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
     }
-    .founders-card__accent {
-      width: 2.5rem; height: 3px;
-      border-radius: 2px;
-      margin-bottom: 1rem;
+    .vision-card__horizon {
+      font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: .6rem;
     }
-    .founders-card h3 { color: var(--white); font-size: 1.05rem; margin-bottom: .5rem; }
-    .founders-card p  { color: rgba(255,255,255,.6); font-size: .9rem; line-height: 1.6; }
+    .vision-card p { color: rgba(255,255,255,.7); font-size: .92rem; line-height: 1.65; }
 
-    /* Traits */
-    .traits-list {
-      display: flex; flex-direction: column; gap: .85rem;
-      margin-top: 1.75rem;
-    }
-    .trait {
-      display: grid; grid-template-columns: 1.75rem 1fr; gap: .85rem; align-items: start;
-    }
+    /* ── Traits ── */
+    .traits-list { display: flex; flex-direction: column; gap: .85rem; margin-top: 1.75rem; }
+    .trait { display: grid; grid-template-columns: 1.75rem 1fr; gap: .85rem; align-items: start; }
     .trait__dot {
-      width: 1.75rem; height: 1.75rem;
-      border-radius: 50%;
-      background: rgba(72,120,190,.15);
-      border: 1.5px solid var(--teal);
-      flex-shrink: 0;
-      margin-top: .1rem;
+      width: 1.75rem; height: 1.75rem; border-radius: 50%;
+      background: rgba(72,120,190,.15); border: 1.5px solid var(--teal);
+      flex-shrink: 0; margin-top: .1rem;
       display: flex; align-items: center; justify-content: center;
     }
     .trait__dot svg { width: .8rem; height: .8rem; }
     .trait p { font-size: .92rem; color: var(--muted); line-height: 1.55; margin: 0; }
     .trait p strong { color: var(--text); }
 
-    /* Position cards */
+    /* ── Not for you ── */
+    .not-for-you {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+    }
+    .not-for-you h3 { font-size: 1.05rem; margin-bottom: 1rem; color: var(--navy); }
+    .not-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .55rem; }
+    .not-list li { display: flex; align-items: flex-start; gap: .6rem; font-size: .9rem; color: var(--muted); line-height: 1.5; }
+    .not-list li::before {
+      content: '✕';
+      font-size: .72rem; font-weight: 700; color: #b05050;
+      flex-shrink: 0; margin-top: .2rem;
+    }
+
+    /* ── Position cards ── */
     .position-card {
       background: var(--white);
       border: 1px solid var(--border);
@@ -105,26 +192,29 @@
       font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
       border-radius: 100px; padding: .25rem .75rem; margin-bottom: .75rem;
     }
-    .badge-open   { background: rgba(40,200,80,.12); color: #1e9e40; border: 1px solid rgba(40,200,80,.3); }
-    .badge-future { background: rgba(0,201,167,.1); color: var(--teal-dark); border: 1px solid rgba(0,201,167,.25); }
-    .position-card h3 { font-size: 1.15rem; margin-bottom: .4rem; }
+    .badge-open { background: rgba(40,200,80,.12); color: #1e9e40; border: 1px solid rgba(40,200,80,.3); }
+    .position-card h3 { font-size: 1.15rem; margin-bottom: .15rem; }
+    .position-card__subtitle { font-size: .85rem; color: var(--teal-dark); font-weight: 600; margin-bottom: .6rem; }
     .position-card p  { color: var(--muted); font-size: .9rem; line-height: 1.6; }
-    .position-card p + p { margin-top: .6rem; }
+    .position-card p + p { margin-top: .55rem; }
     @media (max-width: 600px) { .position-card { grid-template-columns: 1fr; } }
 
-    /* Values */
-    .value-card {
-      padding: 1.75rem;
-      border-radius: var(--radius-lg);
-      background: var(--white);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+    /* ── Crescendo ── */
+    .crescendo {
+      background: var(--navy);
+      padding: 5rem 0;
+      text-align: center;
     }
-    .value-card__icon { font-size: 1.75rem; margin-bottom: .85rem; }
-    .value-card h3 { font-size: 1rem; margin-bottom: .4rem; }
-    .value-card p  { font-size: .88rem; color: var(--muted); }
+    .crescendo__inner { max-width: 680px; margin: 0 auto; }
+    .crescendo p {
+      font-size: 1.2rem; line-height: 1.75;
+      color: rgba(255,255,255,.75);
+      margin-bottom: .85rem;
+    }
+    .crescendo p:last-child { margin-bottom: 0; }
+    .crescendo p strong { color: var(--white); }
 
-    /* How to apply */
+    /* ── How to apply ── */
     .how-to-apply-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -132,7 +222,6 @@
       align-items: start;
     }
     @media (max-width: 768px) { .how-to-apply-grid { grid-template-columns: 1fr; gap: 2rem; } }
-
     .steps { display: flex; flex-direction: column; gap: 1.25rem; }
     .step  { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; align-items: start; }
     .step__num {
@@ -145,7 +234,7 @@
     .step h4 { margin-bottom: .2rem; }
     .step p  { font-size: .9rem; color: var(--muted); }
 
-    /* Contact form */
+    /* ── Contact form ── */
     .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
     .form-group label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: .35rem; }
     .form-group input,
@@ -195,57 +284,112 @@
   </div>
 </nav>
 
+<!-- Hero -->
 <div class="page-hero">
   <div class="container">
     <div class="section-label">Join Us</div>
-    <h1>Build the Lab<br>With Us</h1>
-    <p class="page-hero__lead">The BIA Lab is new. The people who join now aren't just members — they are founders. That means real ownership over the problems we tackle, the tools we build, and the culture we create.</p>
+    <h1>Help Define the Computational Architecture of Life</h1>
+    <p class="page-hero__lead">The BIA Lab is a new kind of computational biology laboratory. The people who join now aren't just members — they are founding scientists of a field that is only now becoming possible.</p>
     <span class="page-hero__tagline">We are looking for people who want to develop the Computational Architecture of Living Systems.</span>
   </div>
-  <a href="#content" class="scroll-hint" aria-label="Scroll down">
+  <a href="#the-gap" class="scroll-hint" aria-label="Scroll down">
     <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 </div>
 
-<!-- Founders pitch -->
-<section class="founders-section" id="content">
+<!-- The Scientific Gap -->
+<section class="dark-section" id="the-gap">
   <div class="container">
-    <div class="section-label" style="color:var(--teal);">Why Now</div>
-    <h2 style="color:var(--white);max-width:560px;">This is a rare kind of opportunity</h2>
-    <div class="founders-grid">
-      <div class="founders-card">
-        <div class="founders-card__accent" style="background:var(--teal);"></div>
-        <h3>Shape the direction</h3>
-        <p>The research agenda is not fixed. Founding members have a genuine voice in which problems we pursue, which collaborations we build, and what our north star looks like in five years.</p>
+    <div class="section-label">The Scientific Gap</div>
+    <h2 style="max-width:560px;margin-bottom:1.5rem;">Biology is where computing was in the 1950s</h2>
+    <p class="gap-statement">We can observe extraordinary phenomena — cells communicating across tissue, organisms self-organising from a single egg, tumours hijacking signalling networks — but we lack the computational abstractions to understand, predict, and engineer these systems at will.</p>
+    <div class="gap-callout">
+      Biology currently has no equivalent of operating systems, programming languages, or information architecture. We don't yet have the right abstractions for what cells actually compute. <strong style="color:var(--white);">BIA Lab exists to build them.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- Why Now -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label">Why Now</div>
+    <h2>This field is only now becoming possible</h2>
+    <p style="color:var(--muted);max-width:580px;">Three revolutions have converged. None of them alone would have been sufficient. Together, they make a new kind of science possible — and make BIA's timing deliberate rather than accidental.</p>
+    <div class="why-now-grid">
+      <div class="why-card">
+        <div class="why-card__year">Revolution 1</div>
+        <h3>AI has transformed what we can see in data</h3>
+        <p>Foundation models, self-supervised learning, and large-scale representation learning have made it possible to extract structure from biological images at a scale and resolution that was simply not achievable before. The bottleneck is no longer seeing — it is knowing what to look for.</p>
       </div>
-      <div class="founders-card">
-        <div class="founders-card__accent" style="background:var(--purple);"></div>
-        <h3>Build from scratch</h3>
-        <p>We are designing the lab's infrastructure, computational frameworks, and culture from the ground up. Everything you contribute here will outlast you — and carry your fingerprints.</p>
+      <div class="why-card">
+        <div class="why-card__year">Revolution 2</div>
+        <h3>Imaging has broken through the resolution barrier</h3>
+        <p>Light-sheet microscopy, expansion microscopy, and live multiplexed imaging now let us observe single cells in full three-dimensional context, over time, at subcellular resolution. Biology is finally visible at the scale where its information processing actually happens.</p>
       </div>
-      <div class="founders-card">
-        <div class="founders-card__accent" style="background:#3fa86a;"></div>
-        <h3>Move fast on hard problems</h3>
-        <p>Early labs are nimble. There are no inherited systems to maintain, no established hierarchies to navigate. If you have a bold idea and the will to execute it, we will find the resources.</p>
+      <div class="why-card">
+        <div class="why-card__year">Revolution 3</div>
+        <h3>Spatial biology has changed what a dataset means</h3>
+        <p>Spatially-resolved transcriptomics, 3D multiplexed tissue profiling, and single-cell phenomics now produce data with genuine biological structure — not just molecular snapshots, but maps of how cells communicate, organise, and decide. The raw material for a computational architecture now exists.</p>
+      </div>
+    </div>
+
+    <div class="built-callout">
+      <h3>We are not starting from zero</h3>
+      <p>We have already built foundational tools that are used by researchers worldwide — for 3D cell segmentation, surface parameterisation, collective motion analysis, and quantitative phenomics. These are the building blocks.</p>
+      <p>What we are now pursuing is the deeper question: <strong>what is the logic that connects them?</strong> What are the computational primitives of biological organisation — the equivalent of data structures, control flow, and information channels — that will let us read and eventually write living systems as fluently as we write software?</p>
+      <div class="built-tools">
+        <span class="built-tool">u-segment3D</span>
+        <span class="built-tool">SAM-SPOT</span>
+        <span class="built-tool">MOSES</span>
+        <span class="built-tool">u-Unwrap3D</span>
+        <span class="built-tool">u-Unwrap</span>
+        <span class="built-tool">u-infotrace</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- What we're looking for -->
-<section class="section section--alt">
+<!-- What Happens If We Succeed -->
+<section class="dark-section">
+  <div class="container">
+    <div class="section-label">If We Succeed</div>
+    <h2 style="max-width:560px;margin-bottom:1rem;">What the world looks like in ten years</h2>
+    <p style="max-width:640px;margin-bottom:2rem;">Most of what follows is not guaranteed. It is the target. The reason it's worth pursuing is precisely because it would matter enormously if it came true.</p>
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-card__horizon">5 years</div>
+        <p>The software you build here becomes a standard toolkit for biological representation learning — used in labs studying development, cancer, immunity, and synthetic biology. The abstractions you develop become part of how computational biologists think about cells.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">10 years</div>
+        <p>A shared computational language for cellular organisation exists — the way TCP/IP exists for networks, or C exists for systems programming. Designing a tissue response in simulation before testing it in biology becomes a real workflow, not a fantasy.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">For biology</div>
+        <p>We move from a science that catalogues what cells do to one that understands what cells compute. Therapeutic design, developmental engineering, and synthetic biology all become more like engineering and less like guesswork.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">For you</div>
+        <p>Your name is on the foundational papers, tools, and ideas of a new discipline — not as a contributor to an established field, but as one of the people who defined how the field thinks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who We're Looking For -->
+<section class="section section--alt" id="content">
   <div class="container">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
       <div>
         <div class="section-label">Who We're Looking For</div>
-        <h2>Drive matters more than background</h2>
-        <p style="color:var(--muted);line-height:1.7;">Background matters less than mindset. What we are looking for is the kind of person who, when told something can't be done, asks <em>why not?</em> — and then goes and figures it out. People who are energised by problems that don't have a solution yet, who don't wait for permission to try, and who treat "we don't know" as an invitation rather than a dead end.</p>
+        <h2>Mindset over background</h2>
+        <p style="color:var(--muted);line-height:1.7;">We welcome people from any quantitative field — biology, physics, mathematics, engineering, computer science. What we are looking for is the kind of person who, when told something can't be done, asks <em>why not?</em> — and then goes and figures it out. People who are energised by problems that don't have a solution yet, who don't wait for permission to try, and who treat "we don't know" as an invitation rather than a dead end.</p>
         <div class="traits-list">
           <div class="trait">
             <div class="trait__dot"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <p><strong>You want to derive, not just apply.</strong> You reach for first principles when a tool doesn't exist yet.</p>
+            <p><strong>You want to invent, not just apply.</strong> You reach for first principles when a tool doesn't exist yet, and find that more interesting than using one that does.</p>
           </div>
           <div class="trait">
             <div class="trait__dot"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -253,35 +397,30 @@
           </div>
           <div class="trait">
             <div class="trait__dot"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <p><strong>You care about biological meaning.</strong> The math is a means — understanding how cells encode and transmit decisions is the end.</p>
+            <p><strong>You care about biological meaning.</strong> The computation is a means — understanding how cells encode and transmit decisions across space and time is the end.</p>
           </div>
           <div class="trait">
             <div class="trait__dot"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="var(--teal)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <p><strong>You finish things.</strong> Ideas are easy; execution is what creates tools that thousands of researchers can use.</p>
+            <p><strong>You finish things.</strong> Ideas are cheap; tools that thousands of researchers use are not. You take satisfaction in making something real and releasable.</p>
           </div>
         </div>
       </div>
       <div>
-        <div class="section-label">Culture</div>
-        <h2>What we're building together</h2>
-        <div style="display:flex;flex-direction:column;gap:1.1rem;margin-top:1.25rem;">
-          <div class="value-card">
-            <h3>Flat hierarchy, high standards</h3>
-            <p>Everyone's ideas get heard. The only currency is quality of thinking and execution. We expect a lot and give a lot back.</p>
-          </div>
-          <div class="value-card">
-            <h3>Open science by default</h3>
-            <p>All code, data, and preprints are public from day one. Science progresses faster when knowledge is shared without friction.</p>
-          </div>
-          <div class="value-card">
-            <h3>Career development with intention</h3>
-            <p>Regular 1-on-1s, a personal development plan tailored to where you want to go — academia, industry, or something entirely new — and warm introductions when you're ready to move.</p>
-          </div>
-          <div class="value-card">
-            <h3>Intellectual courage</h3>
-            <p>We ask unconventional questions and take real intellectual risks. That is the only way transformative science gets done.</p>
-          </div>
+        <div class="section-label">Equally Important</div>
+        <h2>BIA is probably not for you if…</h2>
+        <p style="color:var(--muted);margin-bottom:1.5rem;line-height:1.65;">We'd rather you know this now than six months in. The environment that makes BIA exciting for some people is genuinely wrong for others.</p>
+        <div class="not-for-you">
+          <h3>This is probably not the right fit if you…</h3>
+          <ul class="not-list">
+            <li>Want a narrowly scoped project with a clear, pre-defined outcome</li>
+            <li>Prefer incremental refinement of established methods over inventing new ones</li>
+            <li>Are uncomfortable with ambiguity or frequently changing research directions</li>
+            <li>Are looking for a lab with a large, established team and deep institutional inertia</li>
+            <li>Find open-ended questions more stressful than motivating</li>
+            <li>Prefer applying existing frameworks to novel data rather than questioning the frameworks themselves</li>
+          </ul>
         </div>
+        <p style="color:var(--muted);font-size:.88rem;margin-top:1rem;line-height:1.6;">None of these are flaws. They describe many excellent scientists. They just describe a different kind of scientific environment than we are building.</p>
       </div>
     </div>
   </div>
@@ -292,17 +431,18 @@
   <div class="container">
     <div class="section-header">
       <div class="section-label">Positions</div>
-      <h2>Open Positions</h2>
-      <p>All positions are open now. We review applications on a rolling basis.</p>
+      <h2>Founding Team — Open Now</h2>
+      <p>Every position is a founding role. The people who join in the next two years will shape what this lab becomes.</p>
     </div>
     <div style="display:flex;flex-direction:column;gap:1.25rem;">
 
       <div class="position-card">
         <div>
           <span class="position-card__badge badge-open">● Open Now</span>
-          <h3>Postdoctoral Fellows</h3>
-          <p>As one of the lab's founding postdocs, you will have an outsized hand in shaping what we work on and how we work. We are looking for someone with a research vision — someone who has been quietly frustrated by the limits of existing tools and already has ideas about what to build next.</p>
-          <p>We will give you the independence to pursue that vision, the infrastructure to move fast, and the mentorship to set you up for the career you want.</p>
+          <h3>Founding Postdoctoral Fellow</h3>
+          <p class="position-card__subtitle">Build the computational foundations of biological organisation</p>
+          <p>As one of the lab's founding postdocs, you will have real input into which problems we pursue. We are looking for someone with a research vision — someone who has been frustrated by the limits of existing frameworks and already has ideas about what to build next. We will give you the independence to develop that vision, the infrastructure to move fast, and the mentorship to position you for the career you want.</p>
+          <p>Reach out early. We would rather talk before you apply than after.</p>
         </div>
         <div>
           <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
@@ -312,9 +452,9 @@
       <div class="position-card">
         <div>
           <span class="position-card__badge badge-open">● Open Now</span>
-          <h3>Research Engineers</h3>
-          <p>The lab's software is used by researchers worldwide. As a founding engineer, you won't be maintaining someone else's legacy code — you'll be designing the architecture from scratch, making decisions that will matter for years.</p>
-          <p>We value engineers who think like scientists: people who care about why as much as how, who are willing to read a paper before reaching for a library.</p>
+          <h3>Founding Research Engineer</h3>
+          <p class="position-card__subtitle">Build the software infrastructure of the next generation of computational biology</p>
+          <p>Our tools are used by researchers worldwide. As a founding engineer, you will not be maintaining someone else's legacy codebase — you will be making architectural decisions that will matter for years. We want engineers who think like scientists: people who read papers before reaching for libraries, who care about why as much as how.</p>
         </div>
         <div>
           <a href="#apply" class="btn btn-primary btn-sm">Apply</a>
@@ -324,9 +464,10 @@
       <div class="position-card">
         <div>
           <span class="position-card__badge badge-open">● Open Now</span>
-          <h3>Graduate Students</h3>
-          <p>We are part of the <a href="https://medschool.vanderbilt.edu/igp/igp-program-overview/" target="_blank" rel="noopener">IGP</a> and <a href="https://medschool.vanderbilt.edu/qcb/qcb-program-overview/" target="_blank" rel="noopener">QCB</a> Ph.D. programs at Vanderbilt. If you are already enrolled and thinking about a rotation, reach out to Felix directly — or just drop by and talk to anyone in the lab.</p>
-          <p>Not yet at Vanderbilt but think this is where you want to train? Apply to the program and mention the BIA Lab. We want to meet you early.</p>
+          <h3>Founding PhD Student</h3>
+          <p class="position-card__subtitle">Train at the frontier of a field being defined in real time</p>
+          <p>We are part of the <a href="https://medschool.vanderbilt.edu/igp/igp-program-overview/" target="_blank" rel="noopener">IGP</a> and <a href="https://medschool.vanderbilt.edu/qcb/qcb-program-overview/" target="_blank" rel="noopener">QCB</a> Ph.D. programs at Vanderbilt. If you are already enrolled and thinking about a rotation, reach out to Felix directly — or drop by and talk to anyone in the lab.</p>
+          <p>Not yet at Vanderbilt but think this is where you want to train? Apply to the program and mention the BIA Lab. We want to meet you before you arrive.</p>
         </div>
         <div>
           <a href="mailto:felix.y.zhou@vanderbilt.edu" class="btn btn-primary btn-sm">Contact Felix</a>
@@ -337,7 +478,8 @@
         <div>
           <span class="position-card__badge badge-open">● Open Now</span>
           <h3>Masters &amp; Rotation Students</h3>
-          <p>Rotations are always welcome — no prior connection needed. Come spend time in the lab, pick up a project, and see if it feels like home. We will make sure you leave with something real to show for it.</p>
+          <p class="position-card__subtitle">Come see if this is home</p>
+          <p>Rotations are always welcome — no prior connection needed. Come spend time in the lab, pick up a real project, and see if the environment fits. We will make sure you leave with something substantial to show for it.</p>
         </div>
         <div>
           <a href="mailto:felix.y.zhou@vanderbilt.edu" class="btn btn-primary btn-sm">Contact Felix</a>
@@ -348,40 +490,52 @@
   </div>
 </section>
 
+<!-- Crescendo -->
+<section class="crescendo">
+  <div class="container">
+    <div class="crescendo__inner">
+      <p>Most people join an established laboratory.</p>
+      <p>A few people help build one.</p>
+      <p><strong>Even fewer help create an entirely new way of thinking about living systems.</strong></p>
+      <p style="margin-top:1.5rem;">Those are the people we hope to meet.</p>
+    </div>
+  </div>
+</section>
+
 <!-- How to Apply -->
 <section class="section">
   <div class="container how-to-apply-grid">
     <div>
       <div class="section-label">Process</div>
       <h2>How to apply</h2>
-      <p style="color:var(--muted);margin-bottom:2rem;">We review applications on a rolling basis. Strong candidates are contacted within two weeks.</p>
+      <p style="color:var(--muted);margin-bottom:2rem;">We keep first contact simple. Tell us who you are and what you want to work on — we will ask for more if the fit looks right.</p>
       <div class="steps">
         <div class="step">
           <div class="step__num">1</div>
           <div>
             <h4>Read our papers and imagine what you could build here</h4>
-            <p>Explore our research. Ask yourself: where could you push the needle? How could you help us reach our north star — and how could we help you grow into the scientist you want to become?</p>
+            <p>Explore our research. Ask yourself: where could you push the needle? How could the tools we have already built become the scaffold for something nobody has done yet?</p>
           </div>
         </div>
         <div class="step">
           <div class="step__num">2</div>
           <div>
-            <h4>Prepare your materials</h4>
-            <p>CV · 1-page cover letter explaining your interest and fit · 1-page personal statement describing your career goals and how training specifically in the BIA Lab will help you achieve them · research statement (max 2 pages, excluding references) outlining a research topic you could propose and execute in the BIA Lab and Vanderbilt ecosystem · contact details for 2–3 referees.</p>
+            <h4>Send us two things</h4>
+            <p><strong>CV</strong> and a <strong>1-page research vision</strong> — what you want to work on and why BIA is the right place to do it. That is all we need to start a conversation. We will ask for referees, research statements, and other materials only after an interview.</p>
           </div>
         </div>
         <div class="step">
           <div class="step__num">3</div>
           <div>
-            <h4>Submit below or email us</h4>
-            <p>Use the form, or email <a href="mailto:felix.y.zhou@vanderbilt.edu">felix.y.zhou@vanderbilt.edu</a> with subject line <em>[Position Name] – Application</em>.</p>
+            <h4>Use the form or email directly</h4>
+            <p>Submit below, or email <a href="mailto:felix.y.zhou@vanderbilt.edu">felix.y.zhou@vanderbilt.edu</a> with subject <em>[Position] – Application</em>. Strong candidates are contacted within two weeks.</p>
           </div>
         </div>
         <div class="step">
           <div class="step__num">4</div>
           <div>
-            <h4>Interviews</h4>
-            <p>Shortlisted candidates are invited for a 45-minute video call, followed by an on-site visit for finalists.</p>
+            <h4>Interview</h4>
+            <p>A 45-minute conversation to see if there is genuine mutual fit. Finalists are invited for an on-site visit.</p>
           </div>
         </div>
       </div>
@@ -391,7 +545,7 @@
     <div id="apply">
       <div class="section-label">Contact</div>
       <h2>Get in touch</h2>
-      <p style="color:var(--muted);margin-bottom:1.75rem;">Use this form for inquiries about positions, collaborations, or anything else.</p>
+      <p style="color:var(--muted);margin-bottom:1.75rem;">For position enquiries, collaborations, or anything else.</p>
       <form class="contact-form" action="mailto:felix.y.zhou@vanderbilt.edu" method="get" enctype="text/plain">
         <div class="form-row">
           <div class="form-group">
@@ -411,29 +565,20 @@
           <label for="position">I am interested in</label>
           <select id="position" name="position">
             <option value="">Select a position…</option>
-            <option>Postdoctoral Researcher — Spatial Information Theory</option>
-            <option>PhD Student — Developmental Oscillators</option>
-            <option>Research Software Engineer</option>
-            <option>PhD Student — Network Architecture (2025)</option>
-            <option>Master's / rotation student</option>
+            <option>Founding Postdoctoral Fellow</option>
+            <option>Founding Research Engineer</option>
+            <option>Founding PhD Student</option>
+            <option>Masters / Rotation Student</option>
             <option>Collaboration / other</option>
           </select>
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Briefly describe your background, why you're interested in the BIA Lab, and which research area you'd like to work on…"></textarea>
+          <textarea id="message" name="message" placeholder="Briefly describe your background and what you want to work on…"></textarea>
         </div>
         <div class="form-attach-note">
           <div class="form-attach-note__label">📎 Attach to your email</div>
-          <p>When you click Submit, your email client will open addressed to <strong>felix.y.zhou@vanderbilt.edu</strong>. Please attach the following materials before sending:</p>
-          <ul>
-            <li>CV / résumé</li>
-            <li>1-page cover letter</li>
-            <li>1-page personal statement <em>(career goals + why the BIA Lab)</em></li>
-            <li>Research statement (max 2 pages, excluding references)</li>
-            <li>Contact details for 2–3 referees</li>
-            <li>Any other supporting material</li>
-          </ul>
+          <p>When you click Submit, your email client will open. Please attach your <strong>CV</strong> and a <strong>1-page research vision</strong> before sending.</p>
         </div>
         <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message</button>
       </form>
