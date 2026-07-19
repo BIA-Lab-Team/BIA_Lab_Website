@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Grand Challenge — BIA Lab</title>
+  <meta name="description" content="Why the Biological Information Architecture Lab exists — the scientific gap, why now, and what success looks like.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <style>
+    /* Hero */
+    .page-hero {
+      background: var(--navy);
+      padding: 5.5rem 0 4.5rem;
+      color: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 75% 40%, rgba(72,120,190,.2) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .page-hero .section-label { color: var(--teal); }
+    .page-hero h1 {
+      color: var(--white);
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 1.25rem;
+      max-width: 720px;
+    }
+    .page-hero__lead {
+      color: rgba(255,255,255,.75);
+      font-size: 1.15rem;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* Dark narrative */
+    .dark-section { background: var(--navy-mid); color: var(--white); padding: 4.5rem 0; }
+    .dark-section .section-label { color: var(--teal); }
+    .dark-section h2 { color: var(--white); margin-bottom: 1.5rem; }
+    .dark-section p  { color: rgba(255,255,255,.72); line-height: 1.8; }
+
+    .gap-statement {
+      font-size: 1.15rem; color: rgba(255,255,255,.85);
+      line-height: 1.8; max-width: 720px; margin-bottom: 2rem;
+    }
+    .gap-callout {
+      background: rgba(72,120,190,.15);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.1rem 1.5rem;
+      font-size: 1.05rem; color: rgba(255,255,255,.9);
+      line-height: 1.7; max-width: 680px;
+    }
+
+    /* Why Now cards */
+    .why-now-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem;
+    }
+    @media (max-width: 768px) { .why-now-grid { grid-template-columns: 1fr; } }
+    .why-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 1.75rem; box-shadow: var(--shadow);
+    }
+    .why-card__label { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: .5rem; }
+    .why-card h3 { font-size: 1rem; margin-bottom: .5rem; }
+    .why-card p  { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* What we've built */
+    .built-callout {
+      background: rgba(63,168,106,.08); border: 1px solid rgba(63,168,106,.25);
+      border-radius: var(--radius-lg); padding: 2rem 2.25rem; margin-top: 2.5rem;
+    }
+    .built-callout h3 { color: var(--navy); margin-bottom: .6rem; }
+    .built-callout p  { color: var(--muted); font-size: .95rem; line-height: 1.7; margin-bottom: .6rem; }
+    .built-callout p:last-of-type { margin-bottom: .75rem; }
+    .built-tools { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .built-tool {
+      font-size: .78rem; font-weight: 600;
+      background: rgba(63,168,106,.12); color: #2a7a4a;
+      border: 1px solid rgba(63,168,106,.3);
+      border-radius: 100px; padding: .25rem .75rem;
+    }
+
+    /* Vision grid */
+    .vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2.5rem; }
+    @media (max-width: 700px) { .vision-grid { grid-template-columns: 1fr; } }
+    .vision-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius-lg); padding: 1.75rem;
+    }
+    .vision-card__horizon { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
+    .vision-card p { color: rgba(255,255,255,.7); font-size: .92rem; line-height: 1.65; }
+
+    /* CTA */
+    .challenge-cta { background: var(--navy); padding: 4rem 0; text-align: center; }
+    .challenge-cta h2 { color: var(--white); margin-bottom: .75rem; }
+    .challenge-cta p  { color: rgba(255,255,255,.65); margin-bottom: 1.75rem; font-size: 1rem; }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="challenge.html">The Challenge</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="join.html" class="btn btn-primary btn-sm nav__mobile-cta">Open Positions</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">The Grand Challenge</div>
+    <h1>Biology is where computing was in the 1950s</h1>
+    <p class="page-hero__lead">We can observe extraordinary phenomena. We cannot yet read them, predict them, or engineer them at will. That is the gap BIA Lab exists to close.</p>
+  </div>
+  <a href="#gap" class="scroll-hint" aria-label="Scroll down">
+    <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polyline points="5,10 14,19 23,10" stroke="var(--teal)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</div>
+
+<!-- The Scientific Gap -->
+<section class="dark-section" id="gap">
+  <div class="container">
+    <div class="section-label">The Scientific Gap</div>
+    <h2>We are missing the abstractions</h2>
+    <p class="gap-statement">Cells communicate across tissue. Organisms self-organise from a single egg. Tumours hijack signalling networks with remarkable precision. We can observe all of this — but we lack the computational abstractions to understand, predict, or engineer these systems at will.</p>
+    <div class="gap-callout">
+      Biology currently has no equivalent of operating systems, programming languages, or information architecture. We don't yet have the right abstractions for what cells actually compute. <strong style="color:var(--white);">BIA Lab exists to build them.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- Why Now -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-label">Why Now</div>
+    <h2>This field is only now becoming possible</h2>
+    <p style="color:var(--muted);max-width:580px;">Three revolutions have converged. None alone would have been sufficient. Together, they make a new kind of science possible — and make BIA's timing deliberate rather than accidental.</p>
+    <div class="why-now-grid">
+      <div class="why-card">
+        <div class="why-card__label">Revolution 1</div>
+        <h3>AI has transformed what we can see in data</h3>
+        <p>Foundation models and self-supervised learning now extract biological structure from images at a scale impossible before. The bottleneck is no longer seeing — it is knowing what to look for.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__label">Revolution 2</div>
+        <h3>Imaging has broken through the resolution barrier</h3>
+        <p>Light-sheet microscopy, expansion microscopy, and live multiplexed imaging let us observe single cells in full 3D context, over time, at subcellular resolution — at the scale where biological information processing actually happens.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-card__label">Revolution 3</div>
+        <h3>Spatial biology has changed what a dataset means</h3>
+        <p>Spatially-resolved transcriptomics and 3D multiplexed tissue profiling produce data with genuine biological structure — maps of how cells communicate, organise, and decide. The raw material now exists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What we've built -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Our Foundation</div>
+    <h2>We are not starting from zero</h2>
+    <p style="color:var(--muted);max-width:640px;line-height:1.7;">We have already built foundational tools used by researchers worldwide — for 3D cell segmentation, surface parameterisation, collective motion analysis, and quantitative phenomics. These are the building blocks.</p>
+    <div class="built-callout">
+      <h3>From tools to theory</h3>
+      <p>The tools exist. What we are now pursuing is the deeper question: <strong>what is the logic that connects them?</strong> What are the computational primitives of biological organisation — the equivalent of data structures, control flow, and information channels — that will let us read, and eventually write, living systems as fluently as we write software?</p>
+      <p>That is the transition from tool-building to theory-building. From describing what cells do to understanding what cells compute.</p>
+      <div class="built-tools">
+        <span class="built-tool">u-segment3D</span>
+        <span class="built-tool">SAM-SPOT</span>
+        <span class="built-tool">MOSES</span>
+        <span class="built-tool">u-Unwrap3D</span>
+        <span class="built-tool">u-Unwrap</span>
+        <span class="built-tool">u-infotrace</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- What success looks like -->
+<section class="dark-section">
+  <div class="container">
+    <div class="section-label">If We Succeed</div>
+    <h2 style="max-width:520px;margin-bottom:1rem;">What the world looks like in ten years</h2>
+    <p style="max-width:600px;margin-bottom:2rem;">This is the target. The reason it is worth pursuing is precisely because it would matter enormously if it came true.</p>
+    <div class="vision-grid">
+      <div class="vision-card">
+        <div class="vision-card__horizon">5 years</div>
+        <p>The software built here becomes a standard toolkit for biological representation learning — used in labs studying development, cancer, immunity, and synthetic biology. The abstractions become part of how computational biologists think about cells.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">10 years</div>
+        <p>A shared computational language for cellular organisation exists — the way TCP/IP exists for networks. Designing a tissue response in simulation before testing in biology becomes a real workflow, not a thought experiment.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">For biology</div>
+        <p>We move from a science that catalogues what cells do to one that understands what cells compute. Therapeutic design, developmental engineering, and synthetic biology become more like engineering and less like guesswork.</p>
+      </div>
+      <div class="vision-card">
+        <div class="vision-card__horizon">For the field</div>
+        <p>A new discipline exists at the intersection of information theory, dynamical systems, and cell biology. The people who built it are remembered the way early computer scientists are — as the ones who found the right abstractions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="challenge-cta">
+  <div class="container">
+    <h2>Want to help build this?</h2>
+    <p>We are looking for founding members — researchers and engineers who want to work on this problem from the ground up.</p>
+    <a href="join.html" class="btn btn-primary">See Open Positions</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="index.html"><img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="footer__logo-img"></a>
+        <p>Biological Information Architecture Lab · Decoding the logic of cellular signaling.</p>
+      </div>
+      <div><h4>Research</h4><ul><li><a href="research.html">Projects</a></li><li><a href="publications.html">Publications</a></li><li><a href="datasets.html">Datasets</a></li><li><a href="software.html">Software</a></li></ul></div>
+      <div><h4>Lab</h4><ul><li><a href="challenge.html">The Challenge</a></li>
+      <li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li><li><a href="join.html">Join Us</a></li></ul></div>
+      <div><h4>Connect</h4><ul><li><a href="mailto:felix.y.zhou@vanderbilt.edu">Email</a></li><li><a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></li><li><a href="https://scholar.google.com/citations?user=iRTxWEMAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span>© 2026 BIA Lab. All rights reserved.</span><span>Built with ♡ for open science · <a href="https://github.com/BIA-Lab-Team" target="_blank" rel="noopener">GitHub</a></span></div>
+  </div>
+</footer>
+
+<script src="assets/js/nav.js"></script>
+<script src="assets/js/scroll-hint.js" defer></script>
+</body>
+</html>
