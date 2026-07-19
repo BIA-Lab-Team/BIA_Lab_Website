@@ -1,8 +1,8 @@
 # Bibliography — Felix Y. Zhou
 
 > Sources: Google Scholar (`iRTxWEMAAAAJ`) · OpenAlex (`A5030230235`). Last updated: 2026-07-17.
-> Affiliation: UT Southwestern Medical Center / Ludwig Cancer Research.
-> h-index: 20 · Citations: ~1,722 · Total publications: 43.
+> Affiliation: Vanderbilt University.
+> h-index: 20 · Citations: ~1,722 · Total publications: 44.
 
 ---
 
@@ -43,7 +43,7 @@
 | 17 | An integrated approach identifies the molecular underpinnings of murine anterior visceral endoderm migration | Thowfeequ S, Fiorentino J, Hu D, Solovey M, Ruane S, Whitehead M, **Zhou F** et al. | *Developmental Cell* 59(17):2347–2363, 2024 | — | 16 |
 | 18 | Projective light-sheet microscopy with flexible parameter selection | Chen B, Chang B-J, Daetwyler S, **Zhou F**, Sharma S, Lee DM, Nayak A et al. | *Nature Communications* 15(1):2755, 2024 | — | 12 |
 | 19 | RhoU forms homo-oligomers to regulate cellular responses | Clayton NS, Hodge RG, Infante E, Alibhai D, **Zhou F**, Ridley AJ | *Journal of Cell Science* 137(2):jcs261645, 2024 | — | 7 |
-| 20 | Methods and systems for characterizing morphodynamic profiles of objects | **Zhou FY**, Lu X | *WO Patent* WO2024100225A1, 2024 [patent] | — | — |
+| 20 | Methods and systems for characterizing morphodynamic profiles of objects | **Zhou FY**, Lu X | *WO Patent* WO2024100225A1, 2024 [patent, pending] | — | — |
 | 21 | Anchorage-independent cell proliferation promoted by fascin's F-actin bundling | Isogai T, Murali VS, **Zhou F**, Wang X, Rajendran D, Perez-Castro L et al. | *bioRxiv* 2024.05.04.592404 [preprint] | — | — |
 
 ---
@@ -57,6 +57,7 @@
 | 24 | Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D | **Zhou FY**, Wimalasena VK, Zou Q, Weems A, Gihana GM, Jenkins E et al. | *bioRxiv* 2023.04.12.536640 [preprint] | — | 16 |
 | 25 | Single-cell phenomics reveals behavioural and mechanical heterogeneities underpinning collective migration during mouse anterior patterning | Stower M†, **Zhou F**†, Hathrell H, Yeung J, Thowfeequ S, Godwin J et al. | *bioRxiv* 2023.03.31.534937 [preprint] | — | 8 |
 | 26 | Methods and systems for analyzing time ordered image data | **Zhou F**, Lu X, Ruiz-Puig C, Rittscher J | *US Patent* 11,748,885, 2023 [patent] | — | 9 |
+| 27 | Quality assessment in video endoscopy | Rittscher J, Ali S, Bailey A, East JE, Braden B, **Zhou F**, Lu X | *US Patent* 12,249,065, 2025 [patent] (assignee: Oxford University Innovation Ltd) | [Google Patents](https://patents.google.com/patent/US12249065B2/en) | — |
 
 ---
 
@@ -64,14 +65,14 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 27 | Resolution doubling in light-sheet microscopy via oblique plane structured illumination | Chen B, Chang B-J, Roudot P, **Zhou F**, Sapoznik E, Marlar-Pavey M et al. | *Nature Methods* 2022 | — | 87 |
-| 28 | Human ZBP1 induces cell death-independent inflammatory signaling via RIPK3 and RIPK1 | Peng R, Wang C-K, Wang-Kan X, Idorn M, Kjær M, **Zhou FY**, Fiil BK et al. | *EMBO Reports* 23(12):e55839, 2022 | — | 91 |
-| 29 | Centrioles generate a local pulse of Polo/PLK1 activity to initiate mitotic centrosome assembly | Wong SS, Wilmott ZM, Saurya S, Alvarez-Rodrigo I, **Zhou FY**, Chau KY et al. | *EMBO Journal* 41(11):e110891, 2022 | — | 33 |
-| 30 | ASPP2 maintains the integrity of mechanically stressed pseudostratified epithelia during morphogenesis | Royer C, Sandham E, Slee E, Schneider F, Lagerholm CB, Godwin J, **Zhou F** et al. | *Nature Communications* 13(1):941, 2022 | — | 17 |
-| 31 | Increasing the field-of-view in oblique plane microscopy via optical tiling | Chen B, Chang B-J, **Zhou FY**, Daetwyler S, Sapoznik E, Nanes BA et al. | *Biomedical Optics Express* 13(11):5616–5627, 2022 | — | 26 |
-| 32 | Centriole distal-end proteins CP110 and Cep97 influence centriole cartwheel growth at the proximal end | Aydogan MG, Hankins LE, Steinacker TL, Mofatteh M, Saurya S, **Zhou FY** et al. | *Journal of Cell Science* 135(14):jcs260015, 2022 | — | 17 |
-| 33 | Enhanced cholesterol biosynthesis promotes breast cancer metastasis via modulating CCDC25 expression and neutrophil extracellular traps | Tang Q, Liang B, Zhang L, Li X, Li H, Jing W, Jiang Y, **Zhou F** et al. | *Scientific Reports* 12(1):17350, 2022 | — | 38 |
-| 34 | Multiscale Pixel Spatiotemporal Information Flows (u-infotrace) | **Zhou FY**, Ravishankar R | *NeurIPS 2022 Workshop on Causality for Dynamical Systems* | — | — |
+| 28 | Resolution doubling in light-sheet microscopy via oblique plane structured illumination | Chen B, Chang B-J, Roudot P, **Zhou F**, Sapoznik E, Marlar-Pavey M et al. | *Nature Methods* 2022 | — | 87 |
+| 29 | Human ZBP1 induces cell death-independent inflammatory signaling via RIPK3 and RIPK1 | Peng R, Wang C-K, Wang-Kan X, Idorn M, Kjær M, **Zhou FY**, Fiil BK et al. | *EMBO Reports* 23(12):e55839, 2022 | — | 91 |
+| 30 | Centrioles generate a local pulse of Polo/PLK1 activity to initiate mitotic centrosome assembly | Wong SS, Wilmott ZM, Saurya S, Alvarez-Rodrigo I, **Zhou FY**, Chau KY et al. | *EMBO Journal* 41(11):e110891, 2022 | — | 33 |
+| 31 | ASPP2 maintains the integrity of mechanically stressed pseudostratified epithelia during morphogenesis | Royer C, Sandham E, Slee E, Schneider F, Lagerholm CB, Godwin J, **Zhou F** et al. | *Nature Communications* 13(1):941, 2022 | — | 17 |
+| 32 | Increasing the field-of-view in oblique plane microscopy via optical tiling | Chen B, Chang B-J, **Zhou FY**, Daetwyler S, Sapoznik E, Nanes BA et al. | *Biomedical Optics Express* 13(11):5616–5627, 2022 | — | 26 |
+| 33 | Centriole distal-end proteins CP110 and Cep97 influence centriole cartwheel growth at the proximal end | Aydogan MG, Hankins LE, Steinacker TL, Mofatteh M, Saurya S, **Zhou FY** et al. | *Journal of Cell Science* 135(14):jcs260015, 2022 | — | 17 |
+| 34 | Enhanced cholesterol biosynthesis promotes breast cancer metastasis via modulating CCDC25 expression and neutrophil extracellular traps | Tang Q, Liang B, Zhang L, Li X, Li H, Jing W, Jiang Y, **Zhou F** et al. | *Scientific Reports* 12(1):17350, 2022 | — | 38 |
+| 35 | Multiscale Pixel Spatiotemporal Information Flows (u-infotrace) | **Zhou FY**, Ravishankar R | *NeurIPS 2022 Workshop on Causality for Dynamical Systems* | — | — |
 
 ---
 
@@ -79,7 +80,7 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 35 | A deep learning framework for quality assessment and restoration in video endoscopy | Ali S, **Zhou F**, Bailey A, Braden B, East JE, Lu X, Rittscher J | *Medical Image Analysis* 68:101900, 2021 | 10.1016/j.media.2020.101900 | 187 |
+| 36 | A deep learning framework for quality assessment and restoration in video endoscopy | Ali S, **Zhou F**, Bailey A, Braden B, East JE, Lu X, Rittscher J | *Medical Image Analysis* 68:101900, 2021 | 10.1016/j.media.2020.101900 | 187 |
 
 ---
 
@@ -87,9 +88,9 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 36 | An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy | Ali S†, **Zhou F**†, Braden B, Bailey A, Yang S et al. | *Scientific Reports* 10(1):2748, 2020 | — | 152 |
-| 37 | Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones | Chauveau A, Pirgova G, Cheng HW, De Martin A, **Zhou FY**, Wideman S et al. | *Immunity* 52(5):794–807, 2020 | — | 82 |
-| 38 | An autonomous oscillation times and executes centriole biogenesis | Aydogan MG, Steinacker TL, Mofatteh M, Wilmott ZM, **Zhou FY** et al. | *Cell* 181(7):1566–1581, 2020 | — | 56 |
+| 37 | An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy | Ali S†, **Zhou F**†, Braden B, Bailey A, Yang S et al. | *Scientific Reports* 10(1):2748, 2020 | — | 152 |
+| 38 | Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones | Chauveau A, Pirgova G, Cheng HW, De Martin A, **Zhou FY**, Wideman S et al. | *Immunity* 52(5):794–807, 2020 | — | 82 |
+| 39 | An autonomous oscillation times and executes centriole biogenesis | Aydogan MG, Steinacker TL, Mofatteh M, Wilmott ZM, **Zhou FY** et al. | *Cell* 181(7):1566–1581, 2020 | — | 56 |
 
 ---
 
@@ -97,10 +98,10 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 39 | Diverse and robust molecular algorithms using reprogrammable DNA self-assembly | Woods D, Doty D, Myhrvold C, Hui J, **Zhou F**, Yin P, Winfree E | *Nature* 567(7748):366, 2019 | 10.1038/s41586-019-1014-9 | 365 |
-| 40 | Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes | **Zhou FY**, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X | *eLife* 8:e40162, 2019 | — | 24 |
-| 41 | Endoscopy artifact detection (EAD 2019) challenge dataset | Ali S, **Zhou F**, Daul C, Braden B, Bailey A, Realdon S, East J et al. | *arXiv*:1905.03209, 2019 [preprint] | — | 112 |
-| 42 | Characterization of Biological Motion Using Motion Sensing Superpixels | **Zhou FY**, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X | *Bio-protocol* 9(18):e3365, 2019 | — | 4 |
+| 40 | Diverse and robust molecular algorithms using reprogrammable DNA self-assembly | Woods D, Doty D, Myhrvold C, Hui J, **Zhou F**, Yin P, Winfree E | *Nature* 567(7748):366, 2019 | 10.1038/s41586-019-1014-9 | 365 |
+| 41 | Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes | **Zhou FY**, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X | *eLife* 8:e40162, 2019 | — | 24 |
+| 42 | Endoscopy artifact detection (EAD 2019) challenge dataset | Ali S, **Zhou F**, Daul C, Braden B, Bailey A, Realdon S, East J et al. | *arXiv*:1905.03209, 2019 [preprint] | — | 112 |
+| 43 | Characterization of Biological Motion Using Motion Sensing Superpixels | **Zhou FY**, Ruiz-Puig C, Owen RP, White MJ, Rittscher J, Lu X | *Bio-protocol* 9(18):e3365, 2019 | — | 4 |
 
 ---
 
@@ -108,11 +109,11 @@
 
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
-| 43 | Cell autonomous role of iASPP deficiency in causing cardiocutaneous disorders | Dedeić Z, Sutendra G, Hu Y, Chung K, Slee EA, White MJ, **Zhou FY** et al. | *Cell Death & Differentiation* 25(7):1289, 2018 | — | 21 |
+| 44 | Cell autonomous role of iASPP deficiency in causing cardiocutaneous disorders | Dedeić Z, Sutendra G, Hu Y, Chung K, Slee EA, White MJ, **Zhou FY** et al. | *Cell Death & Differentiation* 25(7):1289, 2018 | — | 21 |
 
 ---
 
-*Bold = Felix Y. Zhou. [preprint] = not yet peer reviewed. [patent] = patent filing.*
+*Bold = Felix Y. Zhou. [preprint] = not yet peer reviewed. [patent] = patent filing. [patent, pending] = application filed, not yet granted.*
 
 ---
 
