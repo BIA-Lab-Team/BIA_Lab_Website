@@ -29,17 +29,15 @@ canvas {
   border-radius: 6px;
 }
 .controls {
-  display: none;
+  display: flex;
   align-items: center;
   gap: .7rem;
   width: 100%;
   max-width: 760px;
 }
-/* Show chrome only in fullscreen */
+/* Show eyebrow only in fullscreen */
 :fullscreen .eyebrow,
-:-webkit-full-screen .eyebrow,
-:fullscreen .controls,
-:-webkit-full-screen .controls { display: flex; }
+:-webkit-full-screen .eyebrow { display: flex; }
 :fullscreen canvas,
 :-webkit-full-screen canvas { border-radius: 10px; box-shadow: 0 16px 56px rgba(0,0,0,.6); }
 .btn {
@@ -802,7 +800,8 @@ render(0);
 
 // ── Fit canvas to viewport ────────────────────────────
 function fitCanvas(){
-  const s=Math.min(window.innerWidth/W, window.innerHeight/H);
+  const ctrlH=document.querySelector('.controls').offsetHeight+8;
+  const s=Math.min(window.innerWidth/W,(window.innerHeight-ctrlH)/H);
   cv.style.width=Math.round(W*s)+'px';
   cv.style.height=Math.round(H*s)+'px';
 }
