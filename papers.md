@@ -1,8 +1,8 @@
 # Bibliography — Felix Y. Zhou
 
-> Sources: Google Scholar (`iRTxWEMAAAAJ`) · OpenAlex (`A5030230235`). Last updated: 2026-07-17.
+> Sources: Google Scholar (`iRTxWEMAAAAJ`) · OpenAlex (`A5030230235`). Last updated: 2026-07-20.
 > Affiliation: Vanderbilt University.
-> h-index: 20 · Citations: ~1,722 · Total publications: 44.
+> h-index: 20 · Citations: ~1,722 · Total publications: 46.
 
 ---
 
@@ -15,6 +15,8 @@
 | 3 | Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy | Gałecki S, Chang B-J, **Zhou FY**, Shen Q, Stoddard D, Chen B, Nicastro D et al. | *bioRxiv* 2026.01.01.697161 [preprint] | — | — |
 | 4 | Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue | Wong AYH, Lu YD, Zhao Z, **Zhou F**, Park H, Maliga Z, Anang Y et al. | *bioRxiv* 2026.05.17.725158 [preprint] | — | — |
 | 5 | Advanced Tissue Clearing and Axially Swept Light-Sheet Microscopy for High-Resolution Imaging of Neural Systems | Borges HM, Haug J, Lin J, Calvache S, **Zhou FY**, Luo X, Pop IV, Zhong Z et al. | *Light Sheet Microscopy* pp. 23–47, 2026 [book chapter] | — | — |
+| 45 | Deciphering the Multiscale Morphology of Somatic Oncogenic Alterations in Hepatocellular Carcinoma | Shen Q, Ngo T, Mazloom-Farsibaf H, Wong K, Li L, Bhatt K, **Zhou FY**, Chang B-J, Wang X, Shang Z, Haug J, Borges HM, Fiolka R, Zhu H, Dean KM | *bioRxiv* 2026 [preprint] | — | — |
+| 46 | Learning the Geometry of Data: A Mathematical Review of Shape Space Analysis | Choi GPT†, Dao Duc K†, Faigenbaum-Golovin S†, Habermann K†, Hartman E†, von Tycowicz C†, Zhang C†, Zhao W†, **Zhou F**† | *arXiv* 2606.17022, 2026 [preprint] | https://arxiv.org/abs/2606.17022 | — |
 
 ---
 
