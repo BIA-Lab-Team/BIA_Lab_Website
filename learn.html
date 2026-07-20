@@ -179,6 +179,25 @@
       width: 100%; height: 100%;
       background: var(--navy);
     }
+
+    /* Fullscreen overlay button */
+    .video-fs-btn {
+      position: absolute;
+      bottom: .6rem;
+      right: .6rem;
+      z-index: 10;
+      background: rgba(0,0,0,.55);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: .3rem .5rem;
+      font-size: .8rem;
+      cursor: pointer;
+      line-height: 1;
+      opacity: 0;
+      transition: opacity .15s ease;
+    }
+    .talk-card__video:hover .video-fs-btn { opacity: 1; }
   </style>
 </head>
 <body>
@@ -340,10 +359,12 @@
       <div class="talk-card">
         <div class="talk-card__video">
           <iframe
+            id="samspot-iframe"
             src="assets/explainers/samspot-explainer.html"
             title="SAM-SPOT pipeline overview"
             allowfullscreen>
           </iframe>
+          <button class="video-fs-btn" onclick="document.getElementById('samspot-iframe').requestFullscreen()">⛶ Fullscreen</button>
         </div>
         <div class="talk-card__body">
           <div class="talk-card__meta">

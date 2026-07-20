@@ -3,16 +3,18 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   background: #0e1825;
-  min-height: 100vh;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem 1rem;
   gap: .85rem;
   font-family: system-ui, -apple-system, sans-serif;
 }
 .eyebrow {
+  display: none;
   color: rgba(255,255,255,.38);
   font-size: .7rem;
   font-weight: 600;
@@ -24,18 +26,22 @@ body {
 }
 canvas {
   display: block;
-  width: 100%;
-  max-width: 760px;
-  border-radius: 10px;
-  box-shadow: 0 16px 56px rgba(0,0,0,.6);
+  border-radius: 6px;
 }
 .controls {
-  display: flex;
+  display: none;
   align-items: center;
   gap: .7rem;
   width: 100%;
   max-width: 760px;
 }
+/* Show chrome only in fullscreen */
+:fullscreen .eyebrow,
+:-webkit-full-screen .eyebrow,
+:fullscreen .controls,
+:-webkit-full-screen .controls { display: flex; }
+:fullscreen canvas,
+:-webkit-full-screen canvas { border-radius: 10px; box-shadow: 0 16px 56px rgba(0,0,0,.6); }
 .btn {
   background: #4878be;
   color: #fff;
@@ -793,4 +799,15 @@ document.getElementById('playBtn').addEventListener('click',()=>playing?pause():
 document.getElementById('restBtn').addEventListener('click',()=>{pause();offsetTime=0;render(0);});
 document.getElementById('pt').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();offsetTime=((e.clientX-r.left)/r.width)*TOTAL;if(playing)startWall=performance.now();else render(offsetTime);});
 render(0);
+
+// ── Fit canvas to viewport ────────────────────────────
+function fitCanvas(){
+  const s=Math.min(window.innerWidth/W, window.innerHeight/H);
+  cv.style.width=Math.round(W*s)+'px';
+  cv.style.height=Math.round(H*s)+'px';
+}
+window.addEventListener('resize',fitCanvas);
+document.addEventListener('fullscreenchange',fitCanvas);
+document.addEventListener('webkitfullscreenchange',fitCanvas);
+fitCanvas();
 </script>
