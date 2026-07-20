@@ -1,0 +1,595 @@
+<title>u-Unwrap3D: How It Works</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #f5f2ec;
+  overflow: hidden;
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: .85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.eyebrow {
+  display: none;
+  color: rgba(26,26,46,.38);
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase;
+  align-self: flex-start; max-width: 760px; width: 100%;
+}
+canvas { display: block; border-radius: 6px; }
+.controls {
+  display: flex; align-items: center; gap: .7rem;
+  width: 100%; max-width: 760px;
+}
+.btn {
+  background: #4878be; color: #fff; border: none; border-radius: 7px;
+  padding: .42rem 1rem; font: 600 .82rem system-ui; cursor: pointer;
+  flex-shrink: 0; white-space: nowrap;
+}
+.btn:hover { background: #3464a8; }
+.btn-ico { padding: .42rem .72rem; }
+.ptrack {
+  flex: 1; height: 5px; background: rgba(26,26,46,.1);
+  border-radius: 100px; cursor: pointer;
+}
+.pfill { height: 100%; background: #4878be; border-radius: 100px; pointer-events: none; }
+.tinfo { color: rgba(26,26,46,.32); font-size: .72rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+:fullscreen .eyebrow, :-webkit-full-screen .eyebrow { display: flex; }
+:fullscreen .controls, :-webkit-full-screen .controls { display: flex; }
+:fullscreen canvas, :-webkit-full-screen canvas { border-radius: 10px; box-shadow: 0 16px 56px rgba(0,0,0,.3); }
+</style>
+
+<div class="eyebrow">u-Unwrap3D · Pipeline Explainer</div>
+<canvas id="cv" width="760" height="427"></canvas>
+<div class="controls">
+  <button class="btn" id="playBtn">▶ Play</button>
+  <button class="btn btn-ico" id="restBtn">↺</button>
+  <div class="ptrack" id="pt"><div class="pfill" id="pf" style="width:0%"></div></div>
+  <span class="tinfo" id="ti">0:00 / 0:44</span>
+</div>
+
+<script>
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const W = 760, H = 427;
+const TOTAL = 44;
+
+// ── Palette ───────────────────────────────────────────
+const C = {
+  paper: '#f5f2ec', ink: '#1a1a2e', muted: '#7e7e96',
+  border: '#cac5bb', faint: '#e8e4dc',
+  blue: '#4878be', purp: '#7b65b2', grn: '#3fa86a',
+  amber: '#c97c2a', red: '#c04040',
+  dark: '#0e1520',
+};
+
+// ── Math ──────────────────────────────────────────────
+const clamp = (v, lo=0, hi=1) => Math.min(hi, Math.max(lo, v));
+const lerp = (a, b, t) => a + (b-a)*t;
+const eOut = t => 1 - (1-clamp(t))**3;
+const sp   = (t, s, e, ease=eOut) => ease(clamp((t-s)/(e-s)));
+const fin  = (t, s, dur=.45) => eOut(clamp((t-s)/dur));
+
+// ── PRNG ──────────────────────────────────────────────
+function mkRng(seed) {
+  let s = ((seed*1013904223+1664525)>>>0);
+  return () => { s=((s*1664525+1013904223)>>>0); return s/0x100000000; };
+}
+
+// ── Rough line primitives ────────────────────────────
+function roughPts(x1, y1, x2, y2, amp=2.2) {
+  const rng = mkRng(Math.round(x1*17+y1*13+x2*11+y2*7));
+  const n = Math.max(3, Math.ceil(Math.hypot(x2-x1,y2-y1)/13));
+  const pts = [[x1,y1]];
+  for (let i=1; i<n; i++) {
+    const t = i/n;
+    pts.push([lerp(x1,x2,t)+(rng()-.5)*amp*2, lerp(y1,y2,t)+(rng()-.5)*amp*2]);
+  }
+  pts.push([x2,y2]); return pts;
+}
+function strokePts(pts, color, lw, prog=1, alpha=1) {
+  if (pts.length<2||prog<=0||alpha<=0) return;
+  const tot = pts.length-1, drawTo = prog*tot, full = Math.floor(drawTo), frac = drawTo-full;
+  ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.globalAlpha = alpha;
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i=1; i<=Math.min(full,tot); i++) ctx.lineTo(pts[i][0], pts[i][1]);
+  if (full<tot&&frac>0) ctx.lineTo(lerp(pts[full][0],pts[full+1][0],frac), lerp(pts[full][1],pts[full+1][1],frac));
+  ctx.stroke(); ctx.restore();
+}
+function rl(x1, y1, x2, y2, color, lw, prog=1, amp=2.2, alpha=1) {
+  strokePts(roughPts(x1,y1,x2,y2,amp), color, lw, prog, alpha);
+}
+function roughRect(x, y, w, h, color, lw, prog=1, alpha=1) {
+  if (prog<=0||alpha<=0) return;
+  const sides = [
+    {pts:roughPts(x,y,x+w,y),len:w},
+    {pts:roughPts(x+w,y,x+w,y+h),len:h},
+    {pts:roughPts(x+w,y+h,x,y+h),len:w},
+    {pts:roughPts(x,y+h,x,y),len:h},
+  ];
+  let rem = clamp(prog)*2*(w+h);
+  for (const s of sides) {
+    if (rem<=0) break;
+    strokePts(s.pts, color, lw, clamp(rem/s.len), alpha);
+    rem -= s.len;
+  }
+}
+
+// ── Text helpers ──────────────────────────────────────
+function txt(str, x, y, font, color, align='left', alpha=1) {
+  if (alpha<=0) return;
+  ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=color; ctx.font=font;
+  ctx.textAlign=align; ctx.textBaseline='middle'; ctx.fillText(str,x,y); ctx.restore();
+}
+function txtP(str, x, y, font, color, align='left', alpha=1) {
+  if (alpha<=0) return;
+  ctx.save(); ctx.font=font;
+  const tw = ctx.measureText(str).width;
+  const pad=5, ph=15;
+  const px = align==='center'?x-tw/2-pad : align==='right'?x-tw-pad : x-pad;
+  ctx.globalAlpha=alpha*.88; ctx.fillStyle=C.paper;
+  ctx.beginPath(); ctx.roundRect(px, y-ph/2, tw+pad*2, ph, 3); ctx.fill();
+  ctx.globalAlpha=alpha; ctx.fillStyle=color;
+  ctx.textAlign=align; ctx.textBaseline='middle'; ctx.fillText(str,x,y);
+  ctx.restore();
+}
+function badge(n, label, alpha=1) {
+  if (alpha<=0) return;
+  const lbl = `${String(n).padStart(2,'0')} · ${label.toUpperCase()}`;
+  ctx.save(); ctx.font='bold 11px system-ui';
+  const tw = ctx.measureText(lbl).width;
+  ctx.globalAlpha=alpha*.07; ctx.fillStyle=C.ink;
+  ctx.beginPath(); ctx.roundRect(14,12,tw+20,23,5); ctx.fill();
+  ctx.globalAlpha=alpha; ctx.fillStyle=C.ink; ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillText(lbl, 24, 24); ctx.restore();
+}
+function heading(line1, line2, alpha) {
+  txt(line1, W/2, 52, 'bold 15px system-ui', C.ink, 'center', alpha);
+  if (line2) txt(line2, W/2, 70, '11px system-ui', C.muted, 'center', alpha);
+}
+function bg() { ctx.fillStyle=C.paper; ctx.fillRect(0,0,W,H); }
+
+// ── Arrow helpers ─────────────────────────────────────
+function arrowHead(x2, y2, ang, color, sz=7, alpha=1) {
+  ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=color;
+  ctx.beginPath(); ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-sz*Math.cos(ang-.38), y2-sz*Math.sin(ang-.38));
+  ctx.lineTo(x2-sz*Math.cos(ang+.38), y2-sz*Math.sin(ang+.38));
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function arrow(x1, y1, x2, y2, color, lw=1.5, sz=7, alpha=1, prog=1) {
+  if (alpha<=0||prog<=0) return;
+  rl(x1,y1,x2,y2,color,lw,prog,2.2,alpha);
+  if (prog>0.92) arrowHead(x2,y2,Math.atan2(y2-y1,x2-x1),color,sz,alpha);
+}
+
+// ── Figure card ───────────────────────────────────────
+// Draws a dark card with a cropped region of a figure image
+function drawFigCard(img, sx, sy, sw, sh, dx, dy, dw, dh, color, alpha, prog=1) {
+  if (alpha<=0||!img) return;
+  ctx.save();
+  // Dark card background
+  ctx.globalAlpha = alpha;
+  ctx.fillStyle = C.dark;
+  ctx.beginPath(); ctx.roundRect(dx-2, dy-2, dw+4, dh+4, 6); ctx.fill();
+  // Clip and draw figure
+  ctx.beginPath(); ctx.roundRect(dx, dy, dw, dh, 4); ctx.clip();
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh);
+  ctx.restore();
+  // Border
+  roughRect(dx, dy, dw, dh, color, 1.8, prog, alpha);
+}
+
+// ── Highlight box (colored overlay) ──────────────────
+function highlight(x, y, w, h, color, alpha, prog=1) {
+  if (alpha<=0) return;
+  ctx.save(); ctx.globalAlpha=alpha*.2; ctx.fillStyle=color;
+  ctx.fillRect(x, y, w, h); ctx.restore();
+  roughRect(x, y, w, h, color, 2, prog, alpha);
+}
+
+// ── Image loading ─────────────────────────────────────
+const IMGS = {};
+let imgsLoaded = false;
+const IMG_SRCS = {
+  fig1:  'unwrap3d-figs/fig1.png',
+  fig2:  'unwrap3d-figs/fig2.png',
+  fig3:  'unwrap3d-figs/fig3.png',
+  fig4:  'unwrap3d-figs/fig4.png',
+  fig67: 'unwrap3d-figs/fig67.png',
+};
+Promise.all(Object.entries(IMG_SRCS).map(([k, src]) =>
+  new Promise(res => {
+    const i = new Image();
+    i.onload = () => { IMGS[k] = i; res(); };
+    i.onerror = () => res();  // fail silently
+    i.src = src;
+  })
+)).then(() => { imgsLoaded = true; if (!playing) render(offsetTime); });
+
+// ── Loading screen ────────────────────────────────────
+function drawLoading() {
+  bg();
+  txt('Loading figure panels…', W/2, H/2, '13px system-ui', C.muted, 'center', .7);
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 1 (0–5.5s): The Challenge — fig2 gallery
+// Shows 3 rows of colorful segmented cell types
+// ─────────────────────────────────────────────────────
+function drawProblem(t) {
+  bg();
+  const a1 = fin(t, 0, .5);
+  badge(1, 'The Challenge', a1);
+  heading('Cell surfaces are 3D, complex, and unique', 'Signals live on them — but how do we compare, track, and measure them?', a1);
+
+  // fig2 gallery rows (y≈420-1100 in resized image, 3 rows of diverse cells)
+  // Card fills most of the scene
+  const CX=22, CY=85, CW=716, CH=300;
+  const ca = fin(t, .3, .8);
+  drawFigCard(IMGS.fig2, 0, 420, 1200, 700, CX, CY, CW, CH, C.blue, ca, sp(t,.3,1.2));
+
+  // Three label arrows pointing into the card
+  const labels = [
+    { x: CX+CW*.18, lbl: 'Different shapes', dy: 8 },
+    { x: CX+CW*.50, lbl: 'No shared coordinates', dy: 8 },
+    { x: CX+CW*.82, lbl: 'Protrusions & blebs', dy: 8 },
+  ];
+  labels.forEach((l, i) => {
+    const la = fin(t, 2.2+i*.4, .55);
+    txtP(l.lbl, l.x, CY+CH+22, '9px system-ui', C.blue, 'center', la);
+    arrow(l.x, CY+CH+14, l.x, CY+CH+3, C.blue, 1, 5, la);
+  });
+
+  txt('How do we compare signals across cells, timepoints, and conditions?', W/2, H-16, 'italic 11px system-ui', C.muted, 'center', fin(t,4,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 2 (5.5–11s): Reference Surface — fig1 orange box
+// ─────────────────────────────────────────────────────
+function drawInputMesh(t) {
+  bg();
+  const tl = t - 5.5;
+  const a1 = fin(tl, 0, .5);
+  badge(2, 'Step 1 · Reference Surface', a1);
+  heading('Input: 3D surface mesh S(x,y,z)', 'Curvature-minimising flow (cMCF) erases protrusions → genus-0 ref surface', a1);
+
+  // fig1 orange box: y≈130–730, full width → height 600px
+  const CX=22, CY=83, CW=716, CH=296;
+  const ca = fin(tl, .2, .8);
+  drawFigCard(IMGS.fig1, 0, 130, 1200, 595, CX, CY, CW, CH, C.amber, ca, sp(tl,.2,1.2));
+
+  // Three sequential highlight boxes
+  // Left third: input cell S(x,y,z)
+  const h1a = fin(tl, 1.2, .6);
+  highlight(CX+4, CY+4, CW*.26, CH-8, C.blue, h1a, sp(tl,1.2,2));
+  txtP('S(x,y,z)', CX+CW*.13, CY+CH+18, 'bold 10px system-ui', C.blue, 'center', h1a);
+
+  // Middle: cMCF flow sequence
+  const h2a = fin(tl, 2.2, .6);
+  highlight(CX+CW*.27, CY+4, CW*.46, CH-8, C.amber, h2a, sp(tl,2.2,3));
+  txtP('cMCF flow →', CX+CW*.5, CY+CH+18, 'bold 10px system-ui', C.amber, 'center', h2a);
+
+  // Right: ref surface
+  const h3a = fin(tl, 3.4, .6);
+  highlight(CX+CW*.74, CY+4, CW*.22, CH-8, C.grn, h3a, sp(tl,3.4,4.2));
+  txtP('ref(x,y,z)', CX+CW*.85, CY+CH+18, 'bold 10px system-ui', C.grn, 'center', h3a);
+
+  txt('Protrusion-free genus-0 ref surface — ready for spherical mapping', W/2, H-14, '10px system-ui', C.muted, 'center', fin(tl,4.5,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 3 (11–17s): Sphere Mapping — fig1 green box
+// ─────────────────────────────────────────────────────
+function drawSphereMap(t) {
+  bg();
+  const tl = t - 11;
+  const a1 = fin(tl, 0, .5);
+  badge(3, 'Steps 2–3 · Spherical Parameterization', a1);
+  heading('Map ref surface onto the unit sphere', 'Conformal mapping → equiareal relaxation → uniform sampling', a1);
+
+  // fig1 green box: y≈730–1080, full width → height 350px
+  const CX=22, CY=83, CW=716, CH=296;
+  const ca = fin(tl, .2, .8);
+  drawFigCard(IMGS.fig1, 0, 730, 1200, 350, CX, CY, CW, CH, C.grn, ca, sp(tl,.2,1.2));
+
+  // Left highlight: ref surface
+  const h1a = fin(tl, 1.2, .6);
+  highlight(CX+4, CY+4, CW*.16, CH-8, C.grn, h1a, sp(tl,1.2,2));
+  txtP('ref(x,y,z)', CX+CW*.08, CY+CH+18, 'bold 10px system-ui', C.grn, 'center', h1a);
+
+  // Middle: conformal sphere sequence (the diagonal row of spheres)
+  const h2a = fin(tl, 2.2, .6);
+  highlight(CX+CW*.17, CY+4, CW*.6, CH-8, C.blue, h2a, sp(tl,2.2,3.2));
+  txtP('conformal → equiareal', CX+CW*.47, CY+CH+18, 'bold 10px system-ui', C.blue, 'center', h2a);
+
+  // Right: final sphere
+  const h3a = fin(tl, 3.4, .6);
+  highlight(CX+CW*.78, CY+4, CW*.18, CH-8, C.purp, h3a, sp(tl,3.4,4.2));
+  txtP('ref(θ,φ)', CX+CW*.87, CY+CH+18, 'bold 10px system-ui', C.purp, 'center', h3a);
+
+  txt('Equal-area sampling — protrusions never underrepresented on the sphere', W/2, H-14, '10px system-ui', C.muted, 'center', fin(tl,4.5,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 4 (17–23s): UV Unwrap — fig1 bottom-left teal panel
+// ─────────────────────────────────────────────────────
+function drawUVUnwrap(t) {
+  bg();
+  const tl = t - 17;
+  const a1 = fin(tl, 0, .5);
+  badge(4, 'Step 4 · UV Unwrap', a1);
+  heading('Equirectangular projection: sphere → 2D image', 'Every surface point gets (u,v) pixel coordinates', a1);
+
+  // fig1 bottom-left (UV panel): x=0–600, y=1080–1667 → 600×587
+  // Show as a wide landscape card
+  const CX=80, CY=85, CW=600, CH=290;
+  const ca = fin(tl, .3, .8);
+  drawFigCard(IMGS.fig1, 0, 1080, 600, 587, CX, CY, CW, CH, C.purp, ca, sp(tl,.3,1.3));
+
+  // Left label: UV rect / ref(u,v)
+  const h1a = fin(tl, 1.5, .6);
+  highlight(CX+4, CY+4, CW*.36, CH-8, C.purp, h1a, sp(tl,1.5,2.3));
+  txtP('ref(u,v)', CX+CW*.18, CY+CH+18, 'bold 10px system-ui', C.purp, 'center', h1a);
+
+  // Right label: 3D topo view
+  const h2a = fin(tl, 2.8, .6);
+  highlight(CX+CW*.38, CY+4, CW*.59, CH-8, C.blue, h2a, sp(tl,2.8,3.6));
+  txtP('S(d,u,v) — topo view', CX+CW*.67, CY+CH+18, 'bold 10px system-ui', C.blue, 'center', h2a);
+
+  // Axis labels outside card
+  const aa = fin(tl, 1.8, .6);
+  arrow(CX-8, CY+CH/2, CX-30, CY+CH/2, C.ink, 1, 5, aa);
+  txtP('v', CX-38, CY+CH/2, 'bold 10px system-ui', C.ink, 'center', aa);
+  arrow(CX+CW*.18, CY+CH+32, CX+CW*.18, CY+CH+44, C.ink, 1, 5, aa);
+  txtP('u', CX+CW*.18, CY+CH+52, 'bold 9px system-ui', C.ink, 'center', aa);
+
+  txt('Surface signals → 2D images → standard image analysis pipelines', W/2, H-14, '10px system-ui', C.muted, 'center', fin(tl,4.5,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 5 (23–29s): Topographic Map — fig1 bottom-right panel
+// ─────────────────────────────────────────────────────
+function drawTopoScene(t) {
+  bg();
+  const tl = t - 23;
+  const a1 = fin(tl, 0, .5);
+  badge(5, 'Steps 5–6 · Topographic Map', a1);
+  heading('Propagate ref inward & outward → T(d,u,v)', 'Protrusions stand up relative to the reference plane', a1);
+
+  // fig1 bottom-right (topo panel): x=600–1200, y=1080–1667 → 600×587
+  const CX=80, CY=85, CW=600, CH=290;
+  const ca = fin(tl, .3, .8);
+  drawFigCard(IMGS.fig1, 600, 1080, 600, 587, CX, CY, CW, CH, C.blue, ca, sp(tl,.3,1.3));
+
+  // Highlight the topo 3D view (left sub-panel)
+  const h1a = fin(tl, 1.5, .6);
+  highlight(CX+4, CY+4, CW*.5-4, CH*.5-4, C.amber, h1a, sp(tl,1.5,2.3));
+  txtP('S(d,u,v) — topographic volume', CX+CW*.25, CY+CH*.5+14, 'bold 9px system-ui', C.amber, 'center', h1a);
+
+  // Highlight signal map (right sub-panel)
+  const h2a = fin(tl, 2.8, .6);
+  highlight(CX+CW*.5, CY+4, CW*.46, CH*.5-4, C.red, h2a, sp(tl,2.8,3.6));
+  txtP('F(S(d,u,v)) — signal', CX+CW*.73, CY+CH*.5+14, 'bold 9px system-ui', C.red, 'center', h2a);
+
+  // Axis label
+  const aa = fin(tl, 1.8, .6);
+  txtP('d = normal distance from ref', CX+CW/2, CY-12, '9px system-ui', C.grn, 'center', aa);
+  roughRect(CX+CW/2-92, CY-20, 184, 16, C.grn, 1, 1, aa*.5);
+
+  txt('Protrusion height = curvilinear distance from ref surface', W/2, H-14, '10px system-ui', C.muted, 'center', fin(tl,4.5,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 6 (29–35s): Timelapse — fig3 full panel
+// ─────────────────────────────────────────────────────
+function drawTimelapse(t) {
+  bg();
+  const tl = t - 29;
+  const a1 = fin(tl, 0, .5);
+  badge(6, 'Timelapse · Spatiotemporal Correspondence', a1);
+  heading('Apply pipeline to every timepoint → automatic correspondence', 'One shared sphere & UV space — signals directly comparable across t', a1);
+
+  // fig3: show top section (cells+refs+spheres+UV = y: 0–900), full width
+  const CX=22, CY=83, CW=716, CH=302;
+  const ca = fin(tl, .2, .8);
+  drawFigCard(IMGS.fig3, 0, 0, 1200, 890, CX, CY, CW, CH, C.grn, ca, sp(tl,.2,1.2));
+
+  // Row labels (left side, outside card)
+  const rowLabels = [
+    { y: CY + CH*.09,  lbl: 'S(x,y,z,t)',  color: C.blue  },
+    { y: CY + CH*.26,  lbl: 'ref(x,y,z,t)', color: C.grn   },
+    { y: CY + CH*.46,  lbl: 'sphere',        color: C.purp  },
+    { y: CY + CH*.64,  lbl: 'ref(u,v,t)',   color: C.amber },
+    { y: CY + CH*.84,  lbl: 'T(d,u,v,t)',   color: C.blue  },
+  ];
+  rowLabels.forEach((r, i) => {
+    const la = fin(tl, 1.0 + i*.25, .5);
+    txtP(r.lbl, CX-6, r.y, 'bold 8px system-ui', r.color, 'right', la);
+    rl(CX-4, r.y, CX+4, r.y, r.color, 1, 1, 1.5, la);
+  });
+
+  // Animate column highlights (6 timepoints) scanning left→right
+  const nCols = 6;
+  for (let i = 0; i < nCols; i++) {
+    const cha = fin(tl, 2.2 + i*.45, .4);
+    if (cha <= 0) continue;
+    const colX = CX + (i/nCols)*CW + 4;
+    const colW = CW/nCols - 8;
+    highlight(colX, CY+4, colW, CH-8, C.amber, cha*.7);
+    // Star marker at UV row
+    if (cha > .5) {
+      const sx = colX + colW/2, sy = CY + CH*.64;
+      ctx.save(); ctx.globalAlpha=cha*.9; ctx.fillStyle=C.amber;
+      // 5-pointed star
+      ctx.beginPath();
+      for (let p=0; p<5; p++) {
+        const a1=-Math.PI/2+(p/5)*Math.PI*2, a2=a1+Math.PI/5;
+        const ox=sx+6*Math.cos(a1), oy=sy+6*Math.sin(a1);
+        const ix=sx+2.5*Math.cos(a2), iy=sy+2.5*Math.sin(a2);
+        p===0?ctx.moveTo(ox,oy):ctx.lineTo(ox,oy); ctx.lineTo(ix,iy);
+      }
+      ctx.closePath(); ctx.fill(); ctx.restore();
+    }
+  }
+
+  txt('★ Same surface feature tracked across all timepoints in shared coordinates', W/2, H-14, '10px system-ui', C.amber, 'center', fin(tl,5,.7));
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 7 (35–41s): Case Studies — 4 panels from fig4+fig67
+// ─────────────────────────────────────────────────────
+function drawCaseStudies(t) {
+  bg();
+  const tl = t - 35;
+  const a1 = fin(tl, 0, .5);
+  badge(7, 'Case Studies', a1);
+  heading('Four biological questions answered', null, a1);
+
+  const CW = 170, CH = 235, CY = 88;
+  const cases = [
+    {
+      x: 16,
+      img: 'fig4', sx: 620, sy: 330, sw: 580, sh: 250,
+      color: C.blue,
+      title: 'NK → Cancer',
+      sub: 'Retrograde protrusion flow\nat immunological synapse',
+      hilite: null,
+    },
+    {
+      x: 198,
+      img: 'fig4', sx: 0, sy: 820, sw: 730, sh: 240,
+      color: C.amber,
+      title: 'K14 Organoid',
+      sub: 'K14⁺ cells drive invasion;\nbranch length mapped on UV',
+      hilite: null,
+    },
+    {
+      x: 385,
+      img: 'fig67', sx: 0, sy: 385, sw: 620, sh: 185,
+      color: C.purp,
+      title: 'Ruffles',
+      sub: 'Actin ruffles tracked across\nUV space — bounding boxes',
+      hilite: null,
+    },
+    {
+      x: 572,
+      img: 'fig67', sx: 0, sy: 820, sw: 780, sh: 260,
+      color: C.grn,
+      title: 'Septin/Blebs',
+      sub: 'Septin co-recruited with blebs;\ncurvature ↔ signal timing',
+      hilite: null,
+    },
+  ];
+
+  cases.forEach((c, i) => {
+    const ca = fin(tl, .3 + i*.5, .7);
+    drawFigCard(IMGS[c.img], c.sx, c.sy, c.sw, c.sh, c.x, CY, CW, CH, c.color, ca, sp(tl,.4+i*.5,1.1+i*.5));
+    txtP(c.title, c.x+CW/2, CY+CH+14, 'bold 9px system-ui', c.color, 'center', ca);
+    c.sub.split('\n').forEach((line, li) => {
+      txt(line, c.x+CW/2, CY+CH+28+li*12, '8px system-ui', C.muted, 'center', ca*.85);
+    });
+  });
+}
+
+// ─────────────────────────────────────────────────────
+// SCENE 8 (41–44s): Summary Hub — fig2 top panel
+// ─────────────────────────────────────────────────────
+function drawSummary(t) {
+  bg();
+  const tl = t - 41;
+  const a1 = fin(tl, 0, .5);
+  badge(8, 'u-Unwrap3D', a1);
+  heading('Bidirectional surface-guided computing', 'Any representation ↔ any other — optimised for each analytical task', a1);
+
+  // fig2 top: hub pipeline y=0–420, full width
+  const CX=22, CY=83, CW=716, CH=295;
+  const ca = fin(tl, .2, .8);
+  drawFigCard(IMGS.fig2, 0, 0, 1200, 415, CX, CY, CW, CH, C.purp, ca, sp(tl,.2,1.2));
+
+  // Label the 5 representations with highlight boxes
+  const reprs = [
+    { fx:.07, fy:.25, fw:.14, fh:.55, lbl:'S(x,y,z)',   color:C.blue,  delay:1.5 },
+    { fx:.22, fy:.22, fw:.12, fh:.58, lbl:'ref(x,y,z)', color:C.grn,   delay:2.0 },
+    { fx:.36, fy:.25, fw:.10, fh:.52, lbl:'ref(θ,φ)',  color:C.purp,  delay:2.5 },
+    { fx:.48, fy:.22, fw:.14, fh:.58, lbl:'ref(u,v)',  color:C.amber, delay:3.0 },
+    { fx:.63, fy:.22, fw:.34, fh:.58, lbl:'T(d,u,v)',  color:C.blue,  delay:3.5 },
+  ];
+
+  reprs.forEach(r => {
+    const ra = fin(tl, r.delay, .55);
+    const rx=CX+r.fx*CW, ry=CY+r.fy*CH, rw=r.fw*CW, rh=r.fh*CH;
+    highlight(rx, ry, rw, rh, r.color, ra*.8, sp(tl, r.delay, r.delay+.55));
+    txtP(r.lbl, rx+rw/2, ry-10, 'bold 8px system-ui', r.color, 'center', ra);
+  });
+
+  const ga = fin(tl, 2.8, .7);
+  txtP('github.com/DanuserLab/u-unwrap3D', W/2, H-14, '10px system-ui', C.muted, 'center', ga);
+}
+
+// ── Main render ───────────────────────────────────────
+function render(t) {
+  if (!imgsLoaded) { drawLoading(); return; }
+
+  if (t < 5.5)      drawProblem(t);
+  else if (t < 11)  drawInputMesh(t);
+  else if (t < 17)  drawSphereMap(t);
+  else if (t < 23)  drawUVUnwrap(t);
+  else if (t < 29)  drawTopoScene(t);
+  else if (t < 35)  drawTimelapse(t);
+  else if (t < 41)  drawCaseStudies(t);
+  else              drawSummary(t);
+
+  const pct = Math.min(t/TOTAL,1)*100;
+  document.getElementById('pf').style.width = pct+'%';
+  const mm=Math.floor(t/60), ss=Math.floor(t%60);
+  const tm=Math.floor(TOTAL/60), ts=Math.floor(TOTAL%60);
+  document.getElementById('ti').textContent=`${mm}:${String(ss).padStart(2,'0')} / ${tm}:${String(ts).padStart(2,'0')}`;
+}
+
+// ── Playback ──────────────────────────────────────────
+let playing=false, startWall=null, offsetTime=0, raf=null;
+const curT=()=>playing?offsetTime+(performance.now()-startWall)/1000:offsetTime;
+function tick() {
+  const t=curT(); render(t);
+  if (t>=TOTAL){playing=false;offsetTime=TOTAL;document.getElementById('playBtn').textContent='▶ Play';return;}
+  raf=requestAnimationFrame(tick);
+}
+function play() {
+  if(playing)return;
+  if(offsetTime>=TOTAL)offsetTime=0;
+  startWall=performance.now();playing=true;
+  document.getElementById('playBtn').textContent='⏸ Pause';
+  raf=requestAnimationFrame(tick);
+}
+function pause() {
+  if(!playing)return;
+  offsetTime=curT();playing=false;cancelAnimationFrame(raf);
+  document.getElementById('playBtn').textContent='▶ Play';
+}
+document.getElementById('playBtn').addEventListener('click',()=>playing?pause():play());
+document.getElementById('restBtn').addEventListener('click',()=>{pause();offsetTime=0;render(0);});
+document.getElementById('pt').addEventListener('click',e=>{
+  const r=e.currentTarget.getBoundingClientRect();
+  offsetTime=((e.clientX-r.left)/r.width)*TOTAL;
+  if(playing)startWall=performance.now();else render(offsetTime);
+});
+
+// Show loading state immediately, images trigger re-render when ready
+render(0);
+
+// ── Fit canvas to viewport ────────────────────────────
+function fitCanvas() {
+  const ctrlH=document.querySelector('.controls').offsetHeight+8;
+  const s=Math.min(window.innerWidth/W,(window.innerHeight-ctrlH)/H);
+  cv.style.width=Math.round(W*s)+'px';
+  cv.style.height=Math.round(H*s)+'px';
+}
+window.addEventListener('resize',fitCanvas);
+document.addEventListener('fullscreenchange',fitCanvas);
+document.addEventListener('webkitfullscreenchange',fitCanvas);
+fitCanvas();
+</script>

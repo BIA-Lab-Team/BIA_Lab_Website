@@ -351,7 +351,7 @@
   <div class="container">
     <div class="category-header">
       <h2>Visual Explainers</h2>
-      <span class="category-count">1 explainer</span>
+      <span class="category-count">2 explainers</span>
     </div>
     <div class="talk-grid">
 
@@ -379,6 +379,34 @@
             <span class="talk-tag">UMAP</span>
             <span class="talk-tag">cell dynamics</span>
             <span class="talk-tag">Markov transitions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Explainer 2: u-Unwrap3D pipeline -->
+      <div class="talk-card">
+        <div class="talk-card__video">
+          <iframe
+            id="unwrap3d-iframe"
+            src="assets/explainers/unwrap3d-explainer.html"
+            title="u-Unwrap3D pipeline overview"
+            allowfullscreen>
+          </iframe>
+          <button class="video-fs-btn" onclick="document.getElementById('unwrap3d-iframe').requestFullscreen()">⛶ Fullscreen</button>
+        </div>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">u-Unwrap3D: mapping 3D cell surfaces to canonical coordinates</h3>
+          <p class="talk-card__venue">BIA Lab · Pipeline Schematic</p>
+          <p class="talk-card__desc">An animated walkthrough of the u-Unwrap3D pipeline, illustrated with actual figures from the paper. Starting from the problem that 3D cell surfaces have no shared coordinate system, the explainer covers how curvature-minimising flow (cMCF) converts any genus-0 surface to a protrusion-free reference, how conformal then equiareal mapping places the reference on a unit sphere, how equirectangular projection gives every surface point (u,v) pixel coordinates, and how a topographic volume T(d,u,v) encodes normal distance from the reference. A timelapse scene shows how applying the pipeline to every timepoint creates automatic spatiotemporal correspondence. The final scenes illustrate four biological applications — NK-cell immunological synapse, K14⁺ organoid invasion, actin ruffles, and septin/bleb co-recruitment.</p>
+          <div class="talk-card__tags">
+            <span class="talk-tag">u-Unwrap3D</span>
+            <span class="talk-tag">surface parameterisation</span>
+            <span class="talk-tag">3D cell morphology</span>
+            <span class="talk-tag">UV mapping</span>
+            <span class="talk-tag">spatiotemporal analysis</span>
           </div>
         </div>
       </div>
