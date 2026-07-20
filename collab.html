@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborations — BIA Lab</title>
+  <meta name="description" content="Global collaboration network of the Biological Information Architecture Lab — explore partner institutions and shared publications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/nav.js" defer></script>
+  <style>
+    body { overflow: hidden; }
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(6,13,26,.92);
+      border-bottom: 1px solid rgba(72,120,190,.18);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    }
+    .nav__logo-img { filter: none; }
+    .nav__links a { color: rgba(184,204,222,.8); }
+    .nav__links a:hover, .nav__links a.active { color: #fff; }
+    .nav__links a.active::after { background: #4878be; }
+    .nav__burger span { background: rgba(184,204,222,.8); }
+
+    :root {
+      --nav-h: 62px;
+      --bg0: #060d1a;
+      --surface: rgba(8,18,36,.93);
+      --border: rgba(72,120,190,.15);
+      --accent: #4878be;
+      --text: #b8ccde;
+      --muted: #5a7898;
+      --text-strong: #d4e4f4;
+      --gold: #f0b429;
+    }
+
+    #cv {
+      display: block; position: fixed;
+      top: var(--nav-h); left: 0; right: 0; bottom: 0;
+      cursor: crosshair;
+    }
+
+    /* ── Panels ── */
+    .panel {
+      position: fixed;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    #lp {
+      top: calc(var(--nav-h) + 14px); left: 14px;
+      width: 230px;
+      max-height: calc(100vh - var(--nav-h) - 28px);
+      overflow-y: auto; overflow-x: hidden;
+      padding: 14px;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    #lp::-webkit-scrollbar { width: 4px; }
+    #lp::-webkit-scrollbar-track { background: transparent; }
+    #lp::-webkit-scrollbar-thumb { background: rgba(72,120,190,.3); border-radius: 2px; }
+
+    #rp {
+      top: calc(var(--nav-h) + 14px); right: 14px;
+      width: 320px;
+      max-height: calc(100vh - var(--nav-h) - 28px);
+      overflow-y: auto;
+      padding: 16px;
+      display: none;
+    }
+    #rp.open { display: block; }
+    #rp::-webkit-scrollbar { width: 4px; }
+    #rp::-webkit-scrollbar-track { background: transparent; }
+    #rp::-webkit-scrollbar-thumb { background: rgba(72,120,190,.3); border-radius: 2px; }
+
+    /* Panel label */
+    .plabel {
+      font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 10px;
+    }
+
+    /* Stats row */
+    .stats-row {
+      display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stat { text-align: center; flex: 1; }
+    .stat__n { font-size: 18px; font-weight: 800; color: var(--text-strong); line-height: 1; }
+    .stat__l { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    /* Institution rows */
+    .inst-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 7px 6px; border-radius: 6px; cursor: pointer;
+      transition: background .12s;
+      border: 1px solid transparent;
+      margin-bottom: 2px;
+    }
+    .inst-row:hover { background: rgba(72,120,190,.1); }
+    .inst-row.active {
+      background: rgba(72,120,190,.15);
+      border-color: rgba(72,120,190,.3);
+    }
+    .inst-row.home-row .inst-name { color: var(--gold); }
+    .inst-flag { font-size: 15px; line-height: 1; flex-shrink: 0; }
+    .inst-name {
+      font-size: 12px; font-weight: 600; color: var(--text-strong);
+      flex: 1; min-width: 0;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .inst-count {
+      font-size: 10px; font-weight: 700;
+      background: rgba(72,120,190,.18); color: var(--accent);
+      border-radius: 100px; padding: 2px 6px; flex-shrink: 0;
+    }
+    .inst-row.home-row .inst-count {
+      background: rgba(240,180,41,.18); color: var(--gold);
+    }
+
+    /* Right panel */
+    .rp-header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .rp-title {
+      font-size: 14px; font-weight: 700; color: var(--text-strong);
+      line-height: 1.35; flex: 1; margin-right: 10px;
+    }
+    .rp-close {
+      background: rgba(255,255,255,.07); border: 1px solid var(--border);
+      color: var(--muted); border-radius: 5px; padding: 3px 8px;
+      cursor: pointer; font-size: 13px; font-family: inherit;
+      flex-shrink: 0;
+    }
+    .rp-close:hover { background: rgba(255,255,255,.12); color: var(--text); }
+    .rp-meta {
+      font-size: 12px; color: var(--muted); margin-bottom: 4px;
+    }
+    .rp-collab {
+      font-size: 12px; color: var(--accent); margin-bottom: 12px;
+      font-style: italic;
+    }
+    .rp-divider {
+      border: none; border-top: 1px solid var(--border);
+      margin: 10px 0;
+    }
+    .paper-row {
+      padding: 8px 0; border-bottom: 1px solid rgba(72,120,190,.08);
+      cursor: default;
+    }
+    .paper-row:last-child { border-bottom: none; }
+    .paper-row__top {
+      display: flex; align-items: center; gap: 7px; margin-bottom: 3px;
+    }
+    .year-badge {
+      font-size: 10px; font-weight: 700; color: var(--muted);
+      background: rgba(255,255,255,.06); border-radius: 4px;
+      padding: 2px 5px; flex-shrink: 0;
+    }
+    .cat-chip {
+      font-size: 10px; font-weight: 600; border-radius: 100px;
+      padding: 1px 6px; flex-shrink: 0;
+    }
+    .paper-row__title {
+      font-size: 11.5px; color: var(--text); line-height: 1.5;
+    }
+
+    /* Tooltip */
+    #tt {
+      position: fixed; pointer-events: none;
+      background: rgba(8,18,36,.97);
+      border: 1px solid var(--border);
+      border-radius: 8px; padding: 8px 12px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 12px; color: var(--text-strong);
+      display: none; z-index: 500;
+      max-width: 220px; line-height: 1.4;
+    }
+    #tt .tt-city { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    #tt .tt-count { font-size: 11px; color: var(--accent); margin-top: 3px; }
+
+    /* Mobile */
+    @media (max-width: 700px) {
+      #lp { width: calc(100vw - 28px); top: calc(var(--nav-h) + 8px); left: 14px; max-height: 38vh; }
+      #rp { width: calc(100vw - 28px); right: 14px; left: 14px; top: auto; bottom: 8px; max-height: 45vh; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="assets/img/bia_lab_logo.png" alt="BIA Lab" class="nav__logo-img"></a>
+    <ul class="nav__links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="datasets.html">Datasets</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="challenge.html">The Challenge</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="join.html">Join Us</a></li>
+    </ul>
+    <a href="join.html" class="btn btn-primary btn-sm nav__cta">Open Positions</a>
+    <button class="nav__burger" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <a href="join.html" class="btn btn-primary btn-sm nav__mobile-cta">Open Positions</a>
+  </div>
+</nav>
+
+<canvas id="cv"></canvas>
+
+<!-- Left panel -->
+<div class="panel" id="lp">
+  <div class="plabel">Collaboration Network</div>
+  <div class="stats-row" id="stats-row"></div>
+  <div id="inst-list"></div>
+</div>
+
+<!-- Right panel -->
+<div class="panel" id="rp">
+  <div id="rp-content"></div>
+</div>
+
+<!-- Tooltip -->
+<div id="tt"><span id="tt-name"></span><div class="tt-city" id="tt-city"></div><div class="tt-count" id="tt-count"></div></div>
+
+<script>
+// ── Paper data (from publications list) ────────────────────────────────────
+const PAPERS = {
+  1:  {f:'Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions',y:2026,c:'signaling'},
+  2:  {f:'Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration during anterior patterning',y:2026,c:'development'},
+  3:  {f:'Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy',y:2026,c:'profiling'},
+  4:  {f:'Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue',y:2026,c:'profiling'},
+  5:  {f:'Advanced Tissue Clearing and Axially Swept Light-Sheet Microscopy for High-Resolution Imaging of Neural Systems',y:2026,c:'microscopy'},
+  6:  {f:'Highly multiplexed 3D profiling of cell states and immune niches in human tumors',y:2025,c:'profiling'},
+  7:  {f:'Universal consensus 3D segmentation of cells from 2D segmented stacks (u-segment3D)',y:2025,c:'profiling'},
+  8:  {f:'Imaging of cellular dynamics from whole organism to subcellular scale with self-driving multiscale microscopy',y:2025,c:'microscopy'},
+  9:  {f:'Development of a universal imaging phenome using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)',y:2025,c:'phenomics'},
+  10: {f:'Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT',y:2025,c:'phenomics'},
+  11: {f:'Calcium signaling is required for anterior patterning in the mouse embryo',y:2025,c:'development'},
+  12: {f:'Multi-immersion Oblique Plane Microscope (miOPM): A reconfigurable platform for Light-Sheet Fluorescence Microscopy',y:2025,c:'microscopy'},
+  13: {f:'Mapping Cell Morphology to a Standard Coordinate System for Analyzing Dynamic Cell Signaling',y:2025,c:'phenomics'},
+  14: {f:'Caveolin-1 regulates context-dependent signaling and survival in Ewing sarcoma',y:2025,c:'signaling'},
+  15: {f:'Proteolysis-free amoeboid migration of melanoma cells through crowded environments via bleb-driven worrying',y:2024,c:'signaling'},
+  16: {f:'Detecting temporal shape changes with the Euler characteristic transform',y:2024,c:'phenomics'},
+  17: {f:'An integrated approach identifies the molecular underpinnings of murine anterior visceral endoderm migration',y:2024,c:'development'},
+  18: {f:'Projective light-sheet microscopy with flexible parameter selection',y:2024,c:'microscopy'},
+  19: {f:'RhoU forms homo-oligomers to regulate cellular responses',y:2024,c:'signaling'},
+  20: {f:'Methods and systems for characterizing morphodynamic profiles of objects (WO Patent)',y:2024,c:'phenomics'},
+  21: {f:'Anchorage-independent cell proliferation promoted by fascin F-actin bundling',y:2024,c:'signaling'},
+  22: {f:'Blebs promote cell survival by assembling oncogenic signalling hubs',y:2023,c:'signaling'},
+  23: {f:'Mesoscopic oblique plane microscopy via light-sheet mirroring',y:2023,c:'microscopy'},
+  24: {f:'Surface-guided computing to quantify dynamic interactions between cell morphology and molecular signals in 3D (u-unwrap3D)',y:2023,c:'profiling'},
+  25: {f:'Single-cell phenomics reveals behavioural and mechanical heterogeneities underpinning collective migration during mouse anterior patterning',y:2023,c:'development'},
+  26: {f:'Methods and systems for analyzing time ordered image data (US Patent)',y:2023,c:'phenomics'},
+  27: {f:'Resolution doubling in light-sheet microscopy via oblique plane structured illumination',y:2022,c:'microscopy'},
+  28: {f:'Human ZBP1 induces cell death-independent inflammatory signaling via RIPK3 and RIPK1',y:2022,c:'signaling'},
+  29: {f:'Centrioles generate a local pulse of Polo/PLK1 activity to initiate mitotic centrosome assembly',y:2022,c:'centriole'},
+  30: {f:'ASPP2 maintains the integrity of mechanically stressed pseudostratified epithelia during morphogenesis',y:2022,c:'development'},
+  31: {f:'Increasing the field-of-view in oblique plane microscopy via optical tiling',y:2022,c:'microscopy'},
+  32: {f:'Centriole distal-end proteins CP110 and Cep97 influence centriole cartwheel growth at the proximal end',y:2022,c:'centriole'},
+  33: {f:'Enhanced cholesterol biosynthesis promotes breast cancer metastasis via modulating CCDC25 expression and neutrophil extracellular traps',y:2022,c:'signaling'},
+  34: {f:'Multiscale Pixel Spatiotemporal Information Flows (u-infotrace)',y:2022,c:'phenomics'},
+  35: {f:'A deep learning framework for quality assessment and restoration in video endoscopy',y:2021,c:'medical'},
+  36: {f:'An objective comparison of detection and segmentation algorithms for artefacts in clinical endoscopy',y:2020,c:'medical'},
+  37: {f:'Visualization of T cell migration in the spleen reveals a network of perivascular pathways that guide entry into T zones',y:2020,c:'other'},
+  38: {f:'An autonomous oscillation times and executes centriole biogenesis',y:2020,c:'centriole'},
+  39: {f:'Diverse and robust molecular algorithms using reprogrammable DNA self-assembly',y:2019,c:'other'},
+  40: {f:'Motion sensing superpixels (MOSES) — a systematic computational framework to quantify and discover cellular motion phenotypes',y:2019,c:'phenomics'},
+  41: {f:'Endoscopy artifact detection (EAD 2019) challenge dataset',y:2019,c:'medical'},
+  42: {f:'Characterization of Biological Motion Using Motion Sensing Superpixels (MOSES Protocol)',y:2019,c:'phenomics'},
+  43: {f:'Cell autonomous role of iASPP deficiency in causing cardiocutaneous disorders',y:2018,c:'centriole'},
+};
+
+const CAT_COL = {
+  phenomics:'#4878be', microscopy:'#5bb8f0', profiling:'#2dbeaa',
+  signaling:'#e8655a', development:'#f0ac38', centriole:'#9f80ea',
+  medical:'#45c48a', other:'#7a9ab2'
+};
+
+// ── Institution data ────────────────────────────────────────────────────────
+const INSTITUTIONS = [
+  {
+    id:'vanderbilt', home:true,
+    name:'Vanderbilt University', abbr:'BIA Lab · Vanderbilt',
+    city:'Nashville, TN', country:'USA', flag:'🇺🇸',
+    lat:36.14, lon:-86.80,
+    papers:[9,10,24,34],
+    collab:'Home institution'
+  },
+  {
+    id:'utsw',
+    name:'UT Southwestern Medical Center', abbr:'UT Southwestern',
+    city:'Dallas, TX', country:'USA', flag:'🇺🇸',
+    lat:32.81, lon:-96.84,
+    papers:[1,3,5,7,8,12,13,14,15,18,21,22,23,24,27,31],
+    collab:'Danuser Lab · Fiolka Lab'
+  },
+  {
+    id:'oxford',
+    name:'University of Oxford', abbr:'Oxford',
+    city:'Oxford, UK', country:'UK', flag:'🇬🇧',
+    lat:51.76, lon:-1.26,
+    papers:[2,9,11,16,17,20,25,26,29,30,32,35,36,38,40,41,42,43],
+    collab:'Rittscher · Lu · Jordan · Bhatt Labs'
+  },
+  {
+    id:'hms',
+    name:'Harvard Medical School', abbr:'Harvard (HMS)',
+    city:'Boston, MA', country:'USA', flag:'🇺🇸',
+    lat:42.34, lon:-71.10,
+    papers:[4,6,7],
+    collab:'Sorger Lab'
+  },
+  {
+    id:'kcl',
+    name:"King's College London", abbr:"King's College London",
+    city:'London, UK', country:'UK', flag:'🇬🇧',
+    lat:51.51, lon:-0.12,
+    papers:[19],
+    collab:'Ridley Lab'
+  },
+  {
+    id:'cambridge',
+    name:'Wellcome Sanger Institute', abbr:'Cambridge / Sanger',
+    city:'Cambridge, UK', country:'UK', flag:'🇬🇧',
+    lat:52.07, lon:0.19,
+    papers:[11],
+    collab:'Tyser group'
+  },
+  {
+    id:'copenhagen',
+    name:'University of Copenhagen', abbr:'Copenhagen',
+    city:'Copenhagen, Denmark', country:'Denmark', flag:'🇩🇰',
+    lat:55.68, lon:12.57,
+    papers:[28],
+    collab:'Fiil Lab'
+  },
+  {
+    id:'strasbourg',
+    name:'University of Strasbourg', abbr:'Strasbourg',
+    city:'Strasbourg, France', country:'France', flag:'🇫🇷',
+    lat:48.58, lon:7.75,
+    papers:[41],
+    collab:'Daul group'
+  },
+  {
+    id:'basel',
+    name:'University of Basel', abbr:'Basel',
+    city:'Basel, Switzerland', country:'Switzerland', flag:'🇨🇭',
+    lat:47.56, lon:7.59,
+    papers:[37],
+    collab:'Ludewig Lab'
+  },
+  {
+    id:'caltech',
+    name:'Caltech / Harvard University', abbr:'Caltech / Harvard',
+    city:'Pasadena, CA', country:'USA', flag:'🇺🇸',
+    lat:34.14, lon:-118.13,
+    papers:[39],
+    collab:'Winfree & Yin Labs'
+  },
+  {
+    id:'china',
+    name:'Southern Medical University', abbr:'S. Medical Univ.',
+    city:'Guangzhou, China', country:'China', flag:'🇨🇳',
+    lat:23.13, lon:113.26,
+    papers:[33],
+    collab:''
+  },
+];
+
+// ── Compact continent/land polygons [lon, lat] ──────────────────────────────
+// Simplified outlines; equirectangular projection
+const LAND = [
+  // North America
+  [[-168,71],[-140,60],[-124,49],[-123,37],[-117,32],[-97,26],[-87,16],[-83,10],[-77,8],[-82,10],[-87,15],[-97,20],[-110,22],[-117,29],[-120,34],[-124,38],[-124,49],[-130,54],[-140,59],[-155,59],[-165,63],[-168,71]],
+  // Greenland
+  [[-45,83],[-20,83],[-17,76],[-18,70],[-44,59],[-54,69],[-45,83]],
+  // Central America / Caribbean (rough blob)
+  [[-77,8],[-83,10],[-87,15],[-90,16],[-92,16],[-97,19],[-87,16],[-83,10],[-77,8]],
+  // South America
+  [[-78,10],[-62,11],[-51,4],[-35,-5],[-35,-10],[-38,-14],[-42,-22],[-44,-23],[-48,-27],[-52,-32],[-57,-38],[-62,-46],[-65,-55],[-68,-54],[-70,-52],[-74,-45],[-72,-38],[-70,-30],[-70,-18],[-77,-8],[-80,-2],[-78,5],[-78,10]],
+  // Europe mainland
+  [[-9,36],[3,36],[11,37],[15,38],[20,38],[28,37],[30,41],[28,44],[22,41],[28,44],[36,47],[28,50],[22,54],[25,58],[28,71],[17,70],[12,65],[6,58],[3,52],[-3,53],[-6,48],[-2,43],[-9,43],[-9,36]],
+  // Great Britain
+  [[-6,50],[0,51],[2,52],[2,55],[0,58],[-3,58],[-5,60],[-5,57],[-3,54],[-4,52],[-6,50]],
+  // Ireland
+  [[-10,52],[-6,52],[-6,54],[-8,55],[-10,54],[-10,52]],
+  // Scandinavia peninsula
+  [[5,57],[12,56],[18,55],[22,56],[25,58],[28,71],[17,70],[12,65],[5,58],[5,57]],
+  // Africa
+  [[-17,14],[2,6],[8,4],[12,3],[15,-5],[34,-8],[40,-11],[44,-12],[43,12],[51,12],[43,12],[37,12],[34,0],[39,-8],[44,-12],[32,-28],[27,-35],[18,-35],[13,-17],[9,-2],[8,4],[2,6],[-2,5],[-7,5],[-17,14]],
+  // Madagascar
+  [[44,-12],[50,-12],[50,-25],[44,-25],[44,-12]],
+  // Asia mainland (rough, excludes SE Asia peninsulas)
+  [[26,72],[40,72],[60,73],[80,72],[105,72],[130,72],[141,47],[132,43],[122,30],[113,22],[100,5],[98,5],[95,18],[90,22],[80,9],[77,8],[60,23],[50,30],[36,37],[28,41],[30,47],[36,47],[60,47],[80,50],[95,55],[105,60],[130,60],[141,47],[140,72],[105,72],[80,72],[60,73],[40,72],[26,72]],
+  // Indian subcontinent
+  [[60,23],[77,8],[80,9],[68,22],[60,23]],
+  // SE Asia peninsula (Indochina)
+  [[98,5],[100,5],[102,2],[104,1],[103,3],[100,5],[98,5]],
+  // Japan
+  [[130,31],[133,33],[136,35],[141,44],[145,44],[141,44],[136,35],[133,33],[130,31]],
+  // Australia
+  [[114,-22],[114,-33],[117,-35],[124,-34],[130,-34],[138,-35],[145,-38],[149,-38],[154,-26],[152,-24],[145,-17],[138,-14],[132,-12],[128,-14],[123,-17],[114,-22]],
+  // New Zealand
+  [[172,-37],[175,-37],[178,-38],[175,-41],[172,-40],[172,-37]],
+];
+
+// ── Projection (equirectangular, clipped view) ──────────────────────────────
+const VIEW = { minLon:-168, maxLon:175, minLat:-57, maxLat:83 };
+const LP_W = 258; // left panel width + margins — map starts here
+
+function project(lon, lat, W, H) {
+  const effW = W - LP_W - 8;
+  const x = LP_W + (lon - VIEW.minLon) / (VIEW.maxLon - VIEW.minLon) * effW;
+  const y = (VIEW.maxLat - lat) / (VIEW.maxLat - VIEW.minLat) * H;
+  return [x, y];
+}
+
+// ── Canvas setup ────────────────────────────────────────────────────────────
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
+const NAV_H = 62;
+
+function mapW() { return window.innerWidth; }
+function mapH() { return window.innerHeight - NAV_H; }
+
+function resize() {
+  const w = mapW(), h = mapH();
+  cv.style.width  = w + 'px';
+  cv.style.height = h + 'px';
+  cv.width  = w * dpr;
+  cv.height = h * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  computeNodes(w, h);
+  draw();
+}
+window.addEventListener('resize', resize);
+
+// ── Institution nodes ────────────────────────────────────────────────────────
+let iNodes = [];
+
+function computeNodes(W, H) {
+  const nonHome = INSTITUTIONS.filter(i => !i.home);
+  const maxP = Math.max(...nonHome.map(i => i.papers.length));
+  iNodes = INSTITUTIONS.map(inst => {
+    const [x, y] = project(inst.lon, inst.lat, W, H);
+    const r = inst.home ? 14 : 7 + (inst.papers.length / maxP) * 8;
+    return { ...inst, x, y, r };
+  });
+}
+
+// ── Animation state ──────────────────────────────────────────────────────────
+let animT    = 0;   // 0→1 intro progress (2s)
+let lastTs   = null;
+let rafId    = null;
+let hoveredId  = null;
+let selectedId = null;
+let pulsePh  = 0;   // for home node ring pulse
+
+function startAnim() {
+  if (rafId) return;
+  lastTs = null;
+  rafId = requestAnimationFrame(loop);
+}
+
+function loop(ts) {
+  if (lastTs === null) lastTs = ts;
+  const dt = (ts - lastTs) / 1000;
+  lastTs = ts;
+  animT = Math.min(1, animT + dt / 2.0);
+  pulsePh += dt * 1.8;
+  draw();
+  // Keep looping for pulse; stop intro after animT=1 only if no hovered
+  rafId = requestAnimationFrame(loop);
+}
+
+// ── Arc progress (staggered intro) ──────────────────────────────────────────
+function arcAlpha(instIdx) {
+  const collabs = INSTITUTIONS.filter(i => !i.home);
+  const n = collabs.length;
+  const step = 0.9 / n;
+  const start = instIdx * step * 0.6;
+  const end   = start + 0.4;
+  return Math.max(0, Math.min(1, (animT - start) / Math.max(end - start, 0.01)));
+}
+
+// ── Draw ─────────────────────────────────────────────────────────────────────
+function draw() {
+  const W = mapW(), H = mapH();
+  ctx.clearRect(0, 0, W, H);
+
+  // Ocean background gradient
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, '#080f1e');
+  bg.addColorStop(1, '#060d1a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Graticule (faint grid, every 30° lon, 20° lat)
+  ctx.strokeStyle = 'rgba(72,120,190,0.055)';
+  ctx.lineWidth = 0.5;
+  for (let lon = -150; lon <= 180; lon += 30) {
+    const [x0] = project(lon, VIEW.maxLat, W, H);
+    const [x1, y1] = project(lon, VIEW.minLat, W, H);
+    ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x1, y1); ctx.stroke();
+  }
+  for (let lat = -40; lat <= 80; lat += 20) {
+    const [x0, y0] = project(VIEW.minLon, lat, W, H);
+    const [x1, y1] = project(VIEW.maxLon, lat, W, H);
+    ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
+  }
+
+  // Continent fills
+  for (const ring of LAND) {
+    ctx.beginPath();
+    for (let i = 0; i < ring.length; i++) {
+      const [x, y] = project(ring[i][0], ring[i][1], W, H);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = '#0f1c33';
+    ctx.fill();
+    ctx.strokeStyle = '#1a2f50';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+
+  // Home node
+  const home = iNodes.find(n => n.home);
+
+  // Connection arcs from home to each collaborator
+  let collabIdx = 0;
+  for (const n of iNodes) {
+    if (n.home) continue;
+    const alpha = arcAlpha(collabIdx++);
+    if (alpha <= 0) continue;
+
+    const isHov = n.id === hoveredId;
+    const isSel = n.id === selectedId;
+    const fade  = (hoveredId || selectedId) ? (isHov || isSel ? 1 : 0.2) : 1;
+
+    drawArc(home.x, home.y, n.x, n.y, alpha * 0.5 * fade, isHov || isSel);
+  }
+
+  // Collaborator nodes
+  collabIdx = 0;
+  for (const n of iNodes) {
+    if (n.home) continue;
+    const alpha = arcAlpha(collabIdx++);
+    if (alpha <= 0) continue;
+    const isHov = n.id === hoveredId;
+    const isSel = n.id === selectedId;
+    const fade  = (hoveredId || selectedId) ? (isHov || isSel ? 1 : 0.35) : 1;
+    drawNode(n, alpha * fade, isHov, isSel);
+  }
+
+  // Home node (drawn last, always on top)
+  if (home) drawHomeNode(home);
+}
+
+function drawArc(x1, y1, x2, y2, alpha, highlight) {
+  const mx = (x1 + x2) / 2;
+  const my = (y1 + y2) / 2;
+  const dx = x2 - x1, dy = y2 - y1;
+  const d  = Math.sqrt(dx * dx + dy * dy);
+  const lift = Math.min(d * 0.35, 90);
+  const cpX = mx + dy * 0.05;
+  const cpY = my - lift;
+
+  // Glow for highlighted
+  if (highlight) {
+    ctx.save();
+    ctx.globalAlpha = alpha * 0.4;
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+    ctx.strokeStyle = '#6fa3d4';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.beginPath();
+  ctx.moveTo(x1, y1);
+  ctx.quadraticCurveTo(cpX, cpY, x2, y2);
+  ctx.strokeStyle = highlight ? 'rgba(111,163,212,0.9)' : 'rgba(72,120,190,0.7)';
+  ctx.lineWidth = highlight ? 1.8 : 1.2;
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawNode(n, alpha, hov, sel) {
+  const col = sel ? '#7ec8f0' : hov ? '#88d4f5' : '#4878be';
+  const r = n.r;
+
+  // Glow
+  if (hov || sel) {
+    const g = ctx.createRadialGradient(n.x, n.y, r * 0.3, n.x, n.y, r * 3.5);
+    g.addColorStop(0, `rgba(72,163,222,${0.22 * alpha})`);
+    g.addColorStop(1, 'rgba(72,120,190,0)');
+    ctx.save(); ctx.globalAlpha = 1;
+    ctx.beginPath(); ctx.arc(n.x, n.y, r * 3.5, 0, Math.PI * 2);
+    ctx.fillStyle = g; ctx.fill(); ctx.restore();
+  }
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  const fg = ctx.createRadialGradient(n.x - r * 0.3, n.y - r * 0.3, r * 0.05, n.x, n.y, r);
+  fg.addColorStop(0, col); fg.addColorStop(1, '#2a5090');
+  ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = fg; ctx.fill();
+  ctx.strokeStyle = hov || sel ? 'rgba(111,163,212,0.9)' : 'rgba(72,120,190,0.6)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.restore();
+
+  // Label
+  if (hov || sel || n.papers.length >= 3) {
+    ctx.save();
+    ctx.globalAlpha = alpha * (hov || sel ? 1 : 0.7);
+    ctx.font = `${hov || sel ? 600 : 500} 10px Inter, system-ui, sans-serif`;
+    ctx.fillStyle = hov || sel ? '#d4e4f4' : '#7a9ab8';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'top';
+    ctx.fillText(n.abbr, n.x, n.y + r + 4);
+    ctx.restore();
+  }
+}
+
+function drawHomeNode(n) {
+  const pulse = Math.sin(pulsePh) * 0.5 + 0.5;
+  const r = n.r;
+
+  // Outer pulsing ring
+  const ringR = r + 8 + pulse * 6;
+  ctx.save();
+  ctx.globalAlpha = 0.25 * (1 - pulse * 0.5);
+  ctx.beginPath(); ctx.arc(n.x, n.y, ringR, 0, Math.PI * 2);
+  ctx.strokeStyle = '#f0b429'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.restore();
+
+  // Glow halo
+  const g = ctx.createRadialGradient(n.x, n.y, r * 0.2, n.x, n.y, r * 3.5);
+  g.addColorStop(0, 'rgba(240,180,41,0.3)');
+  g.addColorStop(1, 'rgba(240,180,41,0)');
+  ctx.beginPath(); ctx.arc(n.x, n.y, r * 3.5, 0, Math.PI * 2);
+  ctx.fillStyle = g; ctx.fill();
+
+  // Node fill
+  const fg = ctx.createRadialGradient(n.x - r * 0.3, n.y - r * 0.3, r * 0.1, n.x, n.y, r);
+  fg.addColorStop(0, '#ffd166');
+  fg.addColorStop(1, '#c07a00');
+  ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+  ctx.fillStyle = fg; ctx.fill();
+  ctx.strokeStyle = 'rgba(240,180,41,0.8)'; ctx.lineWidth = 2; ctx.stroke();
+
+  // Label
+  ctx.font = '600 10px Inter, system-ui, sans-serif';
+  ctx.fillStyle = '#f0b429';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
+  ctx.fillText('BIA Lab', n.x, n.y + r + 5);
+}
+
+// ── Mouse interaction ────────────────────────────────────────────────────────
+const tt    = document.getElementById('tt');
+const ttName = document.getElementById('tt-name');
+const ttCity = document.getElementById('tt-city');
+const ttCnt  = document.getElementById('tt-count');
+
+cv.addEventListener('mousemove', e => {
+  const rect = cv.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  let hit = null;
+  for (const n of iNodes) {
+    const dx = mx - n.x, dy = my - n.y;
+    if (Math.sqrt(dx*dx + dy*dy) <= Math.max(n.r + 8, 18)) { hit = n; break; }
+  }
+  const newHov = hit ? hit.id : null;
+  if (newHov !== hoveredId) {
+    hoveredId = newHov;
+    updateInstList();
+  }
+  if (hit && !hit.home) {
+    ttName.textContent = hit.name;
+    ttCity.textContent = `${hit.flag}  ${hit.city}, ${hit.country}`;
+    ttCnt.textContent  = `${hit.papers.length} shared paper${hit.papers.length !== 1 ? 's' : ''}`;
+    tt.style.display = 'block';
+    const ttW = 220, ttH = 80;
+    tt.style.left = Math.min(e.clientX + 14, window.innerWidth - ttW - 10) + 'px';
+    tt.style.top  = Math.min(e.clientY - 10, window.innerHeight - ttH - 10) + 'px';
+    cv.style.cursor = 'pointer';
+  } else {
+    tt.style.display = 'none';
+    cv.style.cursor = hit ? 'default' : 'crosshair';
+  }
+});
+
+cv.addEventListener('mouseleave', () => {
+  tt.style.display = 'none';
+  hoveredId = null;
+  updateInstList();
+});
+
+cv.addEventListener('click', e => {
+  const rect = cv.getBoundingClientRect();
+  const mx = e.clientX - rect.left;
+  const my = e.clientY - rect.top;
+  let hit = null;
+  for (const n of iNodes) {
+    const dx = mx - n.x, dy = my - n.y;
+    if (Math.sqrt(dx*dx + dy*dy) <= Math.max(n.r + 8, 18) && !n.home) { hit = n; break; }
+  }
+  selectInst(hit ? hit.id : null);
+});
+
+function selectInst(id) {
+  selectedId = id;
+  updateInstList();
+  renderRightPanel();
+}
+
+// ── Left panel ───────────────────────────────────────────────────────────────
+function buildUI() {
+  // Stats
+  const countries = new Set(INSTITUTIONS.map(i => i.country)).size;
+  const totalPapers = new Set(INSTITUTIONS.flatMap(i => i.papers)).size;
+  const collabInsts = INSTITUTIONS.filter(i => !i.home).length;
+  document.getElementById('stats-row').innerHTML = `
+    <div class="stat"><div class="stat__n">${collabInsts}</div><div class="stat__l">institutions</div></div>
+    <div class="stat"><div class="stat__n">${countries}</div><div class="stat__l">countries</div></div>
+    <div class="stat"><div class="stat__n">${totalPapers}</div><div class="stat__l">papers</div></div>
+  `;
+  buildInstList();
+}
+
+const SORTED_INSTS = [...INSTITUTIONS].sort((a, b) => {
+  if (a.home) return -1; if (b.home) return 1;
+  return b.papers.length - a.papers.length;
+});
+
+function buildInstList() {
+  document.getElementById('inst-list').innerHTML = SORTED_INSTS.map(inst => `
+    <div class="inst-row ${inst.home ? 'home-row' : ''}"
+         data-id="${inst.id}">
+      <span class="inst-flag">${inst.flag}</span>
+      <span class="inst-name">${inst.home ? 'BIA Lab · Vanderbilt' : inst.abbr}</span>
+      <span class="inst-count">${inst.papers.length}</span>
+    </div>`).join('');
+
+  const list = document.getElementById('inst-list');
+  list.addEventListener('click', e => {
+    const row = e.target.closest('.inst-row');
+    if (!row || row.dataset.id === 'vanderbilt') return;
+    selectInst(selectedId === row.dataset.id ? null : row.dataset.id);
+  });
+  list.addEventListener('mouseover', e => {
+    const row = e.target.closest('.inst-row');
+    if (!row || row.dataset.id === 'vanderbilt') return;
+    hoveredId = row.dataset.id;
+    syncInstClasses();
+  });
+  list.addEventListener('mouseleave', () => {
+    hoveredId = null;
+    syncInstClasses();
+  });
+}
+
+function syncInstClasses() {
+  document.querySelectorAll('.inst-row').forEach(row => {
+    row.classList.toggle('active', row.dataset.id === selectedId);
+  });
+}
+
+function updateInstList() { syncInstClasses(); }
+
+// ── Right panel ───────────────────────────────────────────────────────────────
+const rp = document.getElementById('rp');
+
+function renderRightPanel() {
+  if (!selectedId) { rp.classList.remove('open'); return; }
+  const inst = INSTITUTIONS.find(i => i.id === selectedId);
+  if (!inst) { rp.classList.remove('open'); return; }
+
+  const paperRows = inst.papers.map(pid => {
+    const p = PAPERS[pid];
+    if (!p) return '';
+    const col = CAT_COL[p.c] || '#7a9ab2';
+    return `
+      <div class="paper-row">
+        <div class="paper-row__top">
+          <span class="year-badge">${p.y}</span>
+          <span class="cat-chip" style="background:${col}22;color:${col}">${p.c}</span>
+        </div>
+        <div class="paper-row__title">${p.f}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('rp-content').innerHTML = `
+    <div class="rp-header">
+      <div class="rp-title">${inst.name}</div>
+      <button class="rp-close" onclick="selectInst(null)">✕</button>
+    </div>
+    <div class="rp-meta">${inst.flag} &thinsp;${inst.city} · ${inst.country}</div>
+    ${inst.collab ? `<div class="rp-collab">${inst.collab}</div>` : ''}
+    <hr class="rp-divider">
+    <div class="plabel" style="margin-bottom:8px">${inst.papers.length} paper${inst.papers.length!==1?'s':''}</div>
+    ${paperRows}
+  `;
+  rp.classList.add('open');
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+buildUI();
+resize();
+startAnim();
+</script>
+</body>
+</html>
