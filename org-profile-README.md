@@ -9,6 +9,7 @@
 ![patents](https://img.shields.io/badge/patents-2_granted_%C2%B7_1_pending-7b65b2?style=flat-square)
 ![tools](https://img.shields.io/badge/tools-6_open--source-3fa86a?style=flat-square)
 ![PyPI](https://img.shields.io/badge/PyPI-4_packages-0075ca?style=flat-square)
+[![Join Us](https://img.shields.io/badge/Join_Us-we're_hiring-e05c2a?style=flat-square)](https://bia-lab-team.github.io/BIA_Lab_Website/join.html)
 
 ---
 

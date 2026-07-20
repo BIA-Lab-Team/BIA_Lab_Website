@@ -166,12 +166,13 @@
       padding: .18rem .65rem;
     }
 
-    /* Tutorial grid — single column, wider cards */
+    /* Tutorial grid — matches talk grid */
     .tutorial-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 2.5rem;
     }
+    @media (max-width: 900px) { .tutorial-grid { grid-template-columns: 1fr; } }
     .talk-card__video video {
       position: absolute;
       top: 0; left: 0;
@@ -318,6 +319,45 @@
             <span class="talk-tag">phenotype analysis</span>
             <span class="talk-tag">time-lapse imaging</span>
             <span class="talk-tag">unsupervised clustering</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Visual Explainers -->
+<section class="section" id="explainers">
+  <div class="container">
+    <div class="category-header">
+      <h2>Visual Explainers</h2>
+      <span class="category-count">1 explainer</span>
+    </div>
+    <div class="talk-grid">
+
+      <!-- Explainer 1: SAM-SPOT pipeline -->
+      <div class="talk-card">
+        <div class="talk-card__video">
+          <iframe
+            src="assets/explainers/samspot-explainer.html"
+            title="SAM-SPOT pipeline overview"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">SAM-SPOT: from raw imaging to phenotype landscapes</h3>
+          <p class="talk-card__venue">BIA Lab · Pipeline Schematic</p>
+          <p class="talk-card__desc">An animated schematic of the full SAM-SPOT pipeline. Starting from the observation that cell state has three complementary axes — shape, appearance, and motion — the explainer walks through how 2185-dimensional SAM feature vectors are computed for every cell, how UMAP embeds all cells from all timepoints and timelapses into a single phenomic landscape, and how that landscape is then split into two analytical paths: discrete phenotype clustering with stacked-bar dynamics and Markov transition analysis, and continuous trajectory inference. The final scene shows how grouping SAM features into interpretable modules reveals which aspects of cell biology drive each phenotype cluster.</p>
+          <div class="talk-card__tags">
+            <span class="talk-tag">SAM-SPOT</span>
+            <span class="talk-tag">phenomics</span>
+            <span class="talk-tag">UMAP</span>
+            <span class="talk-tag">cell dynamics</span>
+            <span class="talk-tag">Markov transitions</span>
           </div>
         </div>
       </div>

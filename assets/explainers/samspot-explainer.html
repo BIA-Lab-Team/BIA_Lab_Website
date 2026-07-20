@@ -1,0 +1,796 @@
+<title>SAM-SPOT: How It Works</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #0e1825;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  gap: .85rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+.eyebrow {
+  color: rgba(255,255,255,.38);
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  align-self: flex-start;
+  max-width: 760px;
+  width: 100%;
+}
+canvas {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  border-radius: 10px;
+  box-shadow: 0 16px 56px rgba(0,0,0,.6);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  width: 100%;
+  max-width: 760px;
+}
+.btn {
+  background: #4878be;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: .42rem 1rem;
+  font: 600 .82rem system-ui;
+  cursor: pointer;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.btn:hover { background: #3464a8; }
+.btn-ico { padding: .42rem .72rem; }
+.ptrack {
+  flex: 1;
+  height: 5px;
+  background: rgba(255,255,255,.1);
+  border-radius: 100px;
+  cursor: pointer;
+}
+.pfill {
+  height: 100%;
+  background: #4878be;
+  border-radius: 100px;
+  pointer-events: none;
+}
+.tinfo {
+  color: rgba(255,255,255,.32);
+  font-size: .72rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+</style>
+
+<div class="eyebrow">SAM-SPOT · Pipeline Explainer</div>
+<canvas id="cv" width="760" height="427"></canvas>
+<div class="controls">
+  <button class="btn" id="playBtn">▶ Play</button>
+  <button class="btn btn-ico" id="restBtn">↺</button>
+  <div class="ptrack" id="pt"><div class="pfill" id="pf" style="width:0%"></div></div>
+  <span class="tinfo" id="ti">0:00 / 0:37</span>
+</div>
+
+<script>
+// ── Setup ─────────────────────────────────────────────
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const W = 760, H = 427;
+const TOTAL = 37;
+
+// ── Palette ───────────────────────────────────────────
+const C = {
+  paper: '#f5f2ec', ink: '#1a1a2e', muted: '#7e7e96',
+  border: '#cac5bb', faint: '#e8e4dc',
+  blue: '#4878be', purp: '#7b65b2', grn: '#3fa86a', amber: '#c97c2a',
+  red: '#c04040',
+};
+const rgba = (hex, a) => {
+  const r = parseInt(hex.slice(1,3),16), g = parseInt(hex.slice(3,5),16), b = parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+};
+
+// ── Math ──────────────────────────────────────────────
+const clamp = (v,lo=0,hi=1) => Math.min(hi,Math.max(lo,v));
+const lerp   = (a,b,t) => a+(b-a)*t;
+const eOut   = t => 1-(1-clamp(t))**3;
+const eIO    = t => { t=clamp(t); return t<.5?4*t*t*t:1-(-2*t+2)**3/2; };
+const sp     = (t,s,e,ease=eOut) => ease(clamp((t-s)/(e-s)));
+const fin    = (t,s,dur=.45) => eOut(clamp((t-s)/dur));
+
+// ── PRNG ─────────────────────────────────────────────
+function mkRng(seed) {
+  let s=((seed*1013904223+1664525)>>>0);
+  return ()=>{ s=((s*1664525+1013904223)>>>0); return s/0x100000000; };
+}
+
+// ── Rough line utils ──────────────────────────────────
+function roughPts(x1,y1,x2,y2,amp=2.2) {
+  const rng=mkRng(Math.round(x1*17+y1*13+x2*11+y2*7));
+  const n=Math.max(3,Math.ceil(Math.hypot(x2-x1,y2-y1)/13));
+  const pts=[[x1,y1]];
+  for (let i=1;i<n;i++){const t=i/n;pts.push([lerp(x1,x2,t)+(rng()-.5)*amp*2,lerp(y1,y2,t)+(rng()-.5)*amp*2]);}
+  pts.push([x2,y2]); return pts;
+}
+function strokePts(pts,color,lw,prog=1) {
+  if(pts.length<2||prog<=0) return;
+  const tot=pts.length-1, drawTo=prog*tot, full=Math.floor(drawTo), frac=drawTo-full;
+  ctx.save(); ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.beginPath(); ctx.moveTo(pts[0][0],pts[0][1]);
+  for(let i=1;i<=Math.min(full,tot);i++) ctx.lineTo(pts[i][0],pts[i][1]);
+  if(full<tot&&frac>0) ctx.lineTo(lerp(pts[full][0],pts[full+1][0],frac),lerp(pts[full][1],pts[full+1][1],frac));
+  ctx.stroke(); ctx.restore();
+}
+function rl(x1,y1,x2,y2,color,lw,prog=1,amp=2.2) { strokePts(roughPts(x1,y1,x2,y2,amp),color,lw,prog); }
+function roughRect(x,y,w,h,color,lw,prog=1) {
+  if(prog<=0) return;
+  const sides=[{pts:roughPts(x,y,x+w,y),len:w},{pts:roughPts(x+w,y,x+w,y+h),len:h},
+    {pts:roughPts(x+w,y+h,x,y+h),len:w},{pts:roughPts(x,y+h,x,y),len:h}];
+  let rem=clamp(prog)*2*(w+h);
+  for(const s of sides){if(rem<=0)break;strokePts(s.pts,color,lw,clamp(rem/s.len));rem-=s.len;}
+}
+
+// ── Cell shape ────────────────────────────────────────
+function makeCell(cx,cy,rx,ry,angle,seed) {
+  const rng=mkRng(seed*7+3),N=10,pts=[];
+  for(let i=0;i<N;i++){const a=(i/N)*Math.PI*2,r=1+0.14*(rng()-.5)*2+0.07*Math.sin(i*2.3+seed);pts.push([rx*r*Math.cos(a),ry*r*Math.sin(a)]);}
+  const segs=[];
+  for(let i=0;i<N;i++){const p0=pts[(i-1+N)%N],p1=pts[i],p2=pts[(i+1)%N],p3=pts[(i+2)%N];
+    segs.push({p1,cp1:[p1[0]+(p2[0]-p0[0])/6,p1[1]+(p2[1]-p0[1])/6],cp2:[p2[0]-(p3[0]-p1[0])/6,p2[1]-(p3[1]-p1[1])/6],p2});}
+  const rng2=mkRng(seed*13+5);
+  return {cx,cy,rx,ry,angle,segs,nuc:{dx:(rng2()-.5)*rx*.45,dy:(rng2()-.5)*ry*.45,rx:rx*.28,ry:ry*.22,a:rng2()*Math.PI}};
+}
+function drawCell(cell,color,fillA=.15,strokeA=1,scale=1,ox=0,oy=0) {
+  ctx.save(); ctx.translate(cell.cx+ox,cell.cy+oy); ctx.rotate(cell.angle);
+  ctx.beginPath();
+  ctx.moveTo(cell.segs[0].p1[0]*scale,cell.segs[0].p1[1]*scale);
+  for(const seg of cell.segs) ctx.bezierCurveTo(seg.cp1[0]*scale,seg.cp1[1]*scale,seg.cp2[0]*scale,seg.cp2[1]*scale,seg.p2[0]*scale,seg.p2[1]*scale);
+  ctx.closePath();
+  ctx.globalAlpha=fillA; ctx.fillStyle=color; ctx.fill();
+  ctx.globalAlpha=strokeA; ctx.strokeStyle=color; ctx.lineWidth=1.8; ctx.stroke();
+  ctx.globalAlpha=strokeA*.28; ctx.fillStyle=color;
+  ctx.beginPath(); ctx.ellipse(cell.nuc.dx*scale,cell.nuc.dy*scale,cell.nuc.rx*scale,cell.nuc.ry*scale,cell.nuc.a,0,Math.PI*2); ctx.fill();
+  ctx.globalAlpha=1; ctx.restore();
+}
+
+// ── Text / helpers ────────────────────────────────────
+function txt(str,x,y,font,color,align='left',alpha=1,baseline='middle') {
+  if(alpha<=0) return;
+  ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=color; ctx.font=font;
+  ctx.textAlign=align; ctx.textBaseline=baseline; ctx.fillText(str,x,y); ctx.restore();
+}
+// Text with a semi-transparent paper-coloured pill behind it — use where text crosses graphics
+function txtP(str,x,y,font,color,align='left',alpha=1) {
+  if(alpha<=0) return;
+  ctx.save(); ctx.font=font;
+  const tw=ctx.measureText(str).width;
+  const pad=5, ph=14;
+  const px=align==='center'?x-tw/2-pad:align==='right'?x-tw-pad:x-pad;
+  ctx.globalAlpha=alpha*.8; ctx.fillStyle=C.paper;
+  ctx.beginPath(); ctx.roundRect(px,y-ph/2,tw+pad*2,ph,3); ctx.fill();
+  ctx.globalAlpha=alpha; ctx.fillStyle=color;
+  ctx.textAlign=align; ctx.textBaseline='middle'; ctx.fillText(str,x,y);
+  ctx.restore();
+}
+function badge(n,label,alpha=1) {
+  if(alpha<=0) return;
+  const lbl=`${String(n).padStart(2,'0')} · ${label.toUpperCase()}`;
+  ctx.save(); ctx.font='bold 11px system-ui';
+  const tw=ctx.measureText(lbl).width;
+  ctx.globalAlpha=alpha*.07; ctx.fillStyle=C.ink;
+  ctx.beginPath(); ctx.roundRect(14,12,tw+20,23,5); ctx.fill();
+  ctx.globalAlpha=alpha; ctx.fillStyle=C.ink; ctx.textAlign='left'; ctx.textBaseline='middle';
+  ctx.fillText(lbl,24,24); ctx.restore();
+}
+function bg() { ctx.fillStyle=C.paper; ctx.fillRect(0,0,W,H); }
+function arrowHead(x2,y2,ang,color,sz=7,alpha=1) {
+  ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle=color;
+  ctx.beginPath(); ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-sz*Math.cos(ang-.38),y2-sz*Math.sin(ang-.38));
+  ctx.lineTo(x2-sz*Math.cos(ang+.38),y2-sz*Math.sin(ang+.38));
+  ctx.closePath(); ctx.fill(); ctx.restore();
+}
+function arrow(x1,y1,x2,y2,color,lw=1.5,sz=7,alpha=1,prog=1) {
+  if(alpha<=0||prog<=0) return;
+  rl(x1,y1,x2,y2,color,lw,prog);
+  if(prog>0.92) arrowHead(x2,y2,Math.atan2(y2-y1,x2-x1),color,sz,alpha);
+}
+
+// ── Pre-computed cells ────────────────────────────────
+const CELLS=[
+  makeCell(200,168,43,32, 0.3, 0),
+  makeCell(312,230,38,29,-0.2, 1),
+  makeCell(158,292,45,34, 0.8, 2),
+  makeCell(362,150,34,29,-0.5, 3),
+  makeCell(272,338,41,28, 0.4, 4),
+  makeCell(398,300,37,31,-0.1, 5),
+];
+const VEL=CELLS.map((_,i)=>{const r=mkRng(i*99+42);return{vx:(r()-.5)*.5,vy:(r()-.5)*.45};});
+const FOV={x:86,y:58,w:428,h:328};
+
+// U-shaped UMAP manifold — all points land on one continuous arc, then get partitioned
+// Arc: (170,120) left arm → (380,351) bottom → (590,120) right arm
+const uShapeFn = tt => ({
+  x: 380 + 210 * Math.cos(Math.PI + tt * Math.PI),
+  y: 120 + 231 * (-Math.sin(Math.PI + tt * Math.PI)),
+});
+const UMAP_CLUST = [
+  { tMin:0.03, tMax:0.35, color:C.blue,  label:'Elongated\nMigrators',  lx:140, ly:220 },
+  { tMin:0.33, tMax:0.67, color:C.purp,  label:'Compact\nOscillators',  lx:380, ly:310 },
+  { tMin:0.65, tMax:0.97, color:C.grn,   label:'Branched\nExplorers',   lx:618, ly:220 },
+];
+const UMAP_PTS=(()=>{
+  const rng=mkRng(54321), pts=[];
+  for(let ci=0;ci<3;ci++){
+    const cl=UMAP_CLUST[ci];
+    for(let i=0;i<24;i++){
+      const tp=cl.tMin+rng()*(cl.tMax-cl.tMin);
+      const pos=uShapeFn(tp);
+      pts.push({
+        sx:100+rng()*560, sy:70+rng()*290,
+        ex:pos.x+(rng()-.5)*34, ey:pos.y+(rng()-.5)*26,
+        ci, color:cl.color,
+      });
+    }
+  }
+  return pts;
+})();
+
+// ── SCENE 0 · Title  0–3s ─────────────────────────────
+function drawTitle(t) {
+  bg();
+  // faint grid
+  ctx.save(); ctx.strokeStyle=C.ink; ctx.lineWidth=.6; ctx.globalAlpha=.04*fin(t,.1,.8);
+  for(let x=0;x<W;x+=38){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=38){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  ctx.restore();
+  for(const c of CELLS) drawCell(c,C.blue,.06*fin(t,.1),.08*fin(t,.1));
+  txt('How SAM-SPOT Works',W/2,H/2-30,'bold 48px system-ui',C.ink,'center',fin(t,.2,.7));
+  txt('Shape · Appearance · Motion  →  Cell Phenotype Landscape',W/2,H/2+18,'17px system-ui',C.muted,'center',fin(t,.7,.6));
+  txt('BIA Lab · Zhou et al., 2025',W/2,H/2+54,'11px system-ui',C.muted,'center',fin(t,.9,.5)*.5);
+}
+
+// ── SCENE 1 · The Question  3–9s ─────────────────────
+function drawQuestion(t) {
+  bg();
+  // Central cell
+  const ca=fin(t,3,.5);
+  const CELL={...CELLS[0],cx:W/2,cy:H/2+10};
+  drawCell(CELL,C.ink,.18*ca,ca,1.8);
+
+  // Title question
+  txt('How do we describe the instantaneous state of an imaged cell?',W/2,28,'bold 13px system-ui',C.ink,'center',fin(t,3.2,.5));
+
+  // Three radiating panels
+  const panels=[
+    {label:'S  Shape',    sub:['Silhouette, size,','aspect ratio, curvature'],      color:C.blue,  dx:-270, dy:-80,  delay:3.8},
+    {label:'A  Appearance',sub:['Intensity, texture,','channel distribution'],      color:C.purp,  dx: 270, dy:-80,  delay:4.8},
+    {label:'M  Motion',   sub:['Velocity, displacement,','trajectory direction'],   color:C.amber, dx:   0, dy: 155, delay:5.8},
+  ];
+  const PW=185, PH=68;
+  for(const p of panels) {
+    const pa=fin(t,p.delay,.55);
+    if(pa<=0) continue;
+    const px=W/2+p.dx-PW/2, py=H/2+10+p.dy-PH/2;
+    // connector line from cell
+    const cx2=px+(p.dx<0?PW:0), cy2=py+PH/2;
+    rl(W/2+Math.sign(p.dx)*60,H/2+10+Math.sign(p.dy)*30,cx2,cy2,p.color,1.2,pa,1.5);
+    roughRect(px,py,PW,PH,p.color,1.5,sp(t,p.delay,p.delay+.55));
+    txt(p.label,px+10,py+18,'bold 13px system-ui',p.color,'left',pa);
+    p.sub.forEach((line,li)=>txt(line,px+10,py+38+li*14,'10px system-ui',C.muted,'left',pa));
+    // small visual icon
+    drawSAMIcon(p.color,px+PW-34,py+PH/2,pa);
+  }
+  // Prominent central label
+  const la=fin(t,6.8,.55);
+  if(la>0){
+    ctx.save();
+    ctx.font='bold 14px system-ui';
+    const str='Distinct · Complementary · Sufficient';
+    const tw=ctx.measureText(str).width;
+    const bx=W/2-tw/2-22, by=H-56, bw=tw+44, bh=34;
+    ctx.globalAlpha=la; ctx.fillStyle=C.ink;
+    ctx.beginPath(); ctx.roundRect(bx,by,bw,bh,8); ctx.fill();
+    ctx.fillStyle='#ffffff'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText(str,W/2,by+bh/2);
+    ctx.restore();
+  }
+  badge(1,'The Question',fin(t,3,.3));
+}
+function drawSAMIcon(color,cx,cy,alpha) {
+  ctx.save(); ctx.globalAlpha=alpha;
+  if(color===C.blue){
+    ctx.strokeStyle=color; ctx.lineWidth=1.3; ctx.fillStyle=color;
+    ctx.globalAlpha=alpha*.12; ctx.beginPath(); ctx.ellipse(cx,cy,18,13,0,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=alpha; ctx.beginPath(); ctx.ellipse(cx,cy,18,13,0,0,Math.PI*2); ctx.stroke();
+  } else if(color===C.purp){
+    const g=ctx.createRadialGradient(cx,cy,1,cx,cy,18);
+    g.addColorStop(0,color); g.addColorStop(1,'transparent');
+    ctx.globalAlpha=alpha*.5; ctx.fillStyle=g; ctx.beginPath(); ctx.ellipse(cx,cy,18,14,0,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=alpha; ctx.strokeStyle=color; ctx.lineWidth=1.3; ctx.beginPath(); ctx.ellipse(cx,cy,18,14,0,0,Math.PI*2); ctx.stroke();
+  } else {
+    ctx.globalAlpha=alpha*.12; ctx.fillStyle=color; ctx.beginPath(); ctx.ellipse(cx-6,cy,14,10,0,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=alpha; ctx.strokeStyle=color; ctx.lineWidth=1.3; ctx.beginPath(); ctx.ellipse(cx-6,cy,14,10,0,0,Math.PI*2); ctx.stroke();
+    ctx.restore(); arrowHead(cx+14,cy-8,Math.atan2(-8,20),color,6,alpha); return;
+  }
+  ctx.restore();
+}
+
+// ── SCENE 2 · The Phenome  9–15s ─────────────────────
+function drawPhenome(t) {
+  bg();
+  txt('A standardized SAM phenome: 2,185 features',W/2,30,'bold 13px system-ui',C.ink,'center',fin(t,9,.4));
+  txt('Pixel · Regional · Global scales — agnostic of cell type and condition',W/2,50,'11px system-ui',C.muted,'center',fin(t,9.5,.4));
+
+  // 3×3 grid: cols = S/A/M, rows = Global/Regional/Distribution
+  const cols=[{label:'S  Shape',color:C.blue},{label:'A  Appearance',color:C.purp},{label:'M  Motion',color:C.amber}];
+  const rows=[{label:'Global'},   {label:'Regional'},  {label:'Distribution'}];
+  // Feature counts (approximate from paper)
+  const counts=[
+    [22,  18,  14],   // Global
+    [198, 160, 120],  // Regional
+    [800, 650, 203],  // Distribution
+  ];
+  const GX=110, GY=85, CW=185, CH=86;
+  // Column headers
+  cols.forEach((col,ci)=>{
+    const ha=fin(t,9.3,.4);
+    txt(col.label,GX+ci*CW+CW/2,GY-18,'bold 12px system-ui',col.color,'center',ha);
+    rl(GX+ci*CW+8,GY-8,GX+ci*CW+CW-8,GY-8,col.color,1.5,ha);
+  });
+  // Row labels
+  rows.forEach((row,ri)=>{
+    txt(row.label,GX-8,GY+ri*CH+CH/2,'11px system-ui',C.muted,'right',fin(t,9.4,.4));
+    rl(GX-4,GY+ri*CH,GX-4,GY+ri*CH+CH,C.border,1,fin(t,9.4,.4));
+  });
+  // Cells
+  rows.forEach((row,ri)=>cols.forEach((col,ci)=>{
+    const delay=9.4+ri*.55+ci*.18;
+    const pa=fin(t,delay,.4);
+    if(pa<=0) return;
+    const cx2=GX+ci*CW, cy2=GY+ri*CH;
+    roughRect(cx2,cy2,CW,CH,col.color,1.2,sp(t,delay,delay+.45));
+    // Fill bar
+    const fillProg=sp(t,delay+.2,delay+.7,eIO);
+    const fillW=(CW-16)*fillProg;
+    ctx.save(); ctx.globalAlpha=pa*.14; ctx.fillStyle=col.color;
+    ctx.fillRect(cx2+8,cy2+CH-24,CW-16,14); ctx.restore();
+    ctx.save(); ctx.globalAlpha=pa*.55; ctx.fillStyle=col.color;
+    ctx.fillRect(cx2+8,cy2+CH-24,fillW,14); ctx.restore();
+    // Count — ink directly on paper bg (fill bar is below the number zone)
+    const displayed=Math.floor(counts[ri][ci]*fillProg);
+    txt(String(displayed),cx2+CW/2,cy2+32,'bold 24px system-ui',col.color,'center',pa);
+    txt('features',cx2+CW/2,cy2+54,'10px system-ui',C.muted,'center',pa*.9);
+  }));
+  // Total
+  const ta=fin(t,13,.6);
+  txt('= 2,185 features total',W/2,GY+3*CH+28,'bold 14px system-ui',C.ink,'center',ta);
+  txt('"image-transcriptome" — one vector per cell, per frame',W/2,GY+3*CH+48,'11px system-ui',C.muted,'center',ta*.8);
+  badge(2,'The Phenome',fin(t,9,.3));
+}
+
+// ── SCENE 3 · Observe & Segment  15–20s ─────────────
+function drawObsSeg(t) {
+  bg();
+  const dt=t-15;
+  // FOV
+  ctx.save(); ctx.setLineDash([7,4]);
+  roughRect(FOV.x,FOV.y,FOV.w,FOV.h,C.muted,1.5,sp(t,15,16.2));
+  ctx.restore();
+  txt('Timelapse bright-field microscopy',FOV.x+4,FOV.y-12,'11px system-ui',C.muted,'left',fin(t,15.5,.4));
+  // Time counter
+  const tc=fin(t,16,.4);
+  const hrs=Math.floor(sp(t,16,18.5)*12);
+  txt(`t = ${hrs}h`,FOV.x+FOV.w-8,FOV.y+FOV.h-10,'bold 11px monospace',C.blue,'right',tc);
+  // Drifting cells
+  for(let i=0;i<CELLS.length;i++){
+    const ca=fin(t,15.2+i*.22,.3);
+    if(ca<=0) continue;
+    const ox=VEL[i].vx*dt*7, oy=VEL[i].vy*dt*7;
+    drawCell(CELLS[i],C.blue,.14*ca,ca,1,ox,oy);
+  }
+  // Segmentation outlines
+  for(let i=0;i<CELLS.length;i++){
+    const ts=16.8+i*.62;
+    const prog=sp(t,ts,ts+.55);
+    if(prog<=0) continue;
+    const cell=CELLS[i], ox=VEL[i].vx*dt*7, oy=VEL[i].vy*dt*7;
+    ctx.save(); ctx.translate(cell.cx+ox,cell.cy+oy); ctx.rotate(cell.angle);
+    ctx.globalAlpha=prog; ctx.strokeStyle=C.amber; ctx.lineWidth=2.2; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(cell.segs[0].p1[0]*1.13,cell.segs[0].p1[1]*1.13);
+    for(const s of cell.segs) ctx.bezierCurveTo(s.cp1[0]*1.13,s.cp1[1]*1.13,s.cp2[0]*1.13,s.cp2[1]*1.13,s.p2[0]*1.13,s.p2[1]*1.13);
+    ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+  }
+  // Label — bottom of FOV, no callout box
+  const ca2=fin(t,18.2,.5);
+  txtP('Segment cells',FOV.x+FOV.w/2,FOV.y+FOV.h-16,'bold 12px system-ui',C.amber,'center',ca2);
+  badge(3,'Observe & Segment',1);
+}
+
+// ── SCENE 4 · Compute SAM Phenome  20–24s ─────────────
+function drawCompute(t) {
+  bg();
+  txt('Computing the SAM phenome for each cell, each frame',W/2,30,'bold 13px system-ui',C.ink,'center',fin(t,20,.4));
+
+  // Left: cell at 3 time points (strip)
+  const strip=[{t:0,label:'t=0h'},{t:.5,label:'t=6h'},{t:1,label:'t=12h'}];
+  const STRIP_X=68, STRIP_Y=H/2-10;
+  const stripA=fin(t,20.3,.4);
+  rl(STRIP_X,STRIP_Y-55,STRIP_X,STRIP_Y+115,C.border,1.2,stripA);
+  strip.forEach(({t:ft,label},i)=>{
+    const cy2=STRIP_Y-40+i*70;
+    const cell2={...CELLS[0],cx:STRIP_X+42,cy:cy2,rx:28,ry:22};
+    const ox=ft*VEL[0].vx*5*7, oy=ft*VEL[0].vy*5*7;
+    drawCell({...cell2,cx:cell2.cx+ox,cy:cell2.cy+oy},C.blue,.18*stripA,stripA,.8);
+    // Labels pinned LEFT of the timeline ruler — drawn last so they sit on top
+    txtP(label,STRIP_X-8,cy2,'9px monospace',C.muted,'right',stripA*.9);
+  });
+  // Drawn after cells so nothing can cover it
+  txtP('n cells × frames',STRIP_X+42,STRIP_Y+138,'10px system-ui',C.muted,'center',stripA*.7);
+
+  // Arrow from cells to phenome (drawn after cells so label stays on top)
+  const ap=fin(t,21,.4);
+  arrow(STRIP_X+88,STRIP_Y,242,STRIP_Y,C.ink,1.5,8,ap,ap);
+  txtP('SAM',(STRIP_X+88+242)/2,STRIP_Y-14,'bold 10px system-ui',C.ink,'center',ap);
+
+  // Right: dense feature bar raster (2185 bars)
+  const barA=fin(t,21.2,.4);
+  const BAR_X=248, BAR_Y=H/2-100, BAR_W_TOTAL=462, BAR_H=200;
+  // Draw dense raster of colored bars
+  const rng=mkRng(42);
+  const N_BARS=80;  // visual representation (not all 2185)
+  const bw=(BAR_W_TOTAL-2)/N_BARS;
+  // Color blocks: first 18% S (blue), next 37% A (purp), rest M (amber)
+  const colFn=fi=>(fi/N_BARS<.18?C.blue:fi/N_BARS<.55?C.purp:C.amber);
+  const barProg=sp(t,21.4,23.5,eIO);
+  for(let i=0;i<N_BARS;i++){
+    const v=.2+rng()*.75;
+    const bh=v*BAR_H*barProg;
+    const bx=BAR_X+i*bw+1;
+    const color=colFn(i);
+    ctx.save();
+    ctx.globalAlpha=barA*.18; ctx.fillStyle=color;
+    ctx.fillRect(bx,BAR_Y,bw-.5,BAR_H);
+    ctx.globalAlpha=barA*.75; ctx.fillStyle=color;
+    ctx.fillRect(bx,BAR_Y+BAR_H-bh,bw-.5,bh);
+    ctx.restore();
+  }
+  roughRect(BAR_X,BAR_Y,BAR_W_TOTAL,BAR_H,C.border,1,barA);
+  // Legend
+  [{c:C.blue,l:'S'},{c:C.purp,l:'A'},{c:C.amber,l:'M'}].forEach(({c,l},i)=>{
+    txt(l,BAR_X+10+i*32,BAR_Y+BAR_H+16,'bold 11px system-ui',c,'left',barA);
+  });
+  txt('2,185D per cell·frame',BAR_X+BAR_W_TOTAL/2,BAR_Y+BAR_H+16,'bold 11px system-ui',C.ink,'center',barA);
+  badge(4,'Compute SAM',fin(t,20,.3));
+}
+
+// ── SCENE 5 · UMAP  24–28s ───────────────────────────
+function drawUMAP(t) {
+  bg();
+  txt('UMAP: 2,185D → 2D phenome landscape',W/2,30,'bold 13px system-ui',C.ink,'center',fin(t,24,.4));
+
+  const AX=62,AY=388,AW=630,AH=330;
+  const axA=fin(t,24,.4);
+  rl(AX,AY,AX+AW,AY,C.border,1.5,axA);
+  rl(AX,AY,AX,AY-AH,C.border,1.5,axA);
+  txt('UMAP 1',AX+AW/2,AY+16,'10px system-ui',C.muted,'center',axA);
+  ctx.save(); ctx.globalAlpha=axA; ctx.translate(AX-18,AY-AH/2); ctx.rotate(-Math.PI/2);
+  ctx.fillStyle=C.muted; ctx.font='10px system-ui'; ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('UMAP 2',0,0); ctx.restore();
+
+  // Points scatter → converge onto same blob shape used in slide 6 (BLOB_PTS, scaled up)
+  const mig = eIO(sp(t, 24.7, 26.5));
+  const BLX=380, BLY=215, BLSC=3.0; // centre on axes, scale ±50 blob to fill ~±150px
+
+  const ptA = fin(t, 24.8, .5);
+  if (ptA > 0) {
+    const rng5=mkRng(11111); // deterministic scatter-start positions
+    for (const p of BLOB_PTS) {
+      const sx=100+rng5()*560, sy=70+rng5()*290;
+      const tx=BLX+p.x*BLSC, ty=BLY+p.y*BLSC;
+      const x=lerp(sx,tx,mig), y=lerp(sy,ty,mig);
+      ctx.save();
+      ctx.globalAlpha = ptA * (mig > 0.04 ? 1 : mig / 0.04);
+      ctx.fillStyle = '#9a97a8';
+      ctx.beginPath(); ctx.arc(x, y, 4.5, 0, Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Annotations
+  const ann1 = fin(t, 25.8, .5);
+  txtP('Every cell · every timepoint · every timelapse — in one landscape', W/2, H-36, 'bold 12px system-ui', C.ink, 'center', ann1);
+  txtP('Each point = one cell at one timepoint', W/2, H-18, '10px system-ui', C.muted, 'center', ann1);
+
+  badge(5,'UMAP',fin(t,24,.3));
+}
+
+// ── Pre-computed data for scene 6 ─────────────────────
+// Amorphous blob: points distributed in irregular ellipse, ci = angular sector
+const BLOB_PTS=(()=>{
+  const rng=mkRng(88888),pts=[];
+  for(let i=0;i<90;i++){
+    const a=rng()*Math.PI*2;
+    const r=Math.sqrt(rng())*50;
+    const lump=1+0.2*Math.sin(a*3+.5)+0.12*Math.sin(a*7);
+    pts.push({x:r*lump*Math.cos(a),y:r*lump*Math.sin(a)*.82,ci:Math.floor(((a+Math.PI)/(Math.PI*2))*5)%5});
+  }
+  return pts;
+})();
+const C5=[C.blue,C.purp,C.grn,C.amber,'#c04040'];
+// Stacked bar time-series: 5 clusters × 8 time points, values sum to 1
+const TSTACK=[
+  [.52,.18,.12,.11,.07],[.44,.20,.16,.12,.08],[.36,.22,.21,.13,.08],
+  [.28,.24,.26,.14,.08],[.22,.24,.30,.15,.09],[.18,.22,.33,.17,.10],
+  [.15,.21,.36,.18,.10],[.14,.19,.38,.19,.10],
+];
+
+// ── SCENE 6 · Two Paths  28–33s ──────────────────────
+function drawTwoPaths(t) {
+  bg();
+  txt('Two complementary analyses from the phenome landscape',W/2,22,'bold 13px system-ui',C.ink,'center',fin(t,28,.4));
+
+  // Layout constants
+  const LCX=167, RCX=566, TY=108, BR=50;   // blob centres + radius
+  const BTY=295;                             // bottom-row y
+  const sc=1; // BLOB_PTS are already in ±50 scale matching BR
+
+  // ── TOP-LEFT: gray blob  "ii · Phenomic Landscape" ──
+  const bla=fin(t,28,.38);
+  BLOB_PTS.forEach(p=>{
+    ctx.save(); ctx.globalAlpha=bla*.55; ctx.fillStyle='#9a97a8';
+    ctx.beginPath(); ctx.arc(LCX+p.x*sc,TY+p.y*sc,3,0,Math.PI*2); ctx.fill(); ctx.restore();
+  });
+  txtP('ii · Phenomic Landscape',LCX,TY-BR-10,'bold 9px system-ui',C.muted,'center',bla*.9);
+
+  // ── HORIZONTAL ARROW: automatic clustering ──
+  const ha=fin(t,28.5,.42);
+  arrow(LCX+BR+8,TY,RCX-BR-8,TY,C.ink,1.5,8,ha,ha);
+  txtP('automatic clustering',(LCX+RCX)/2,TY-14,'10px system-ui',C.ink,'center',ha);
+
+  // ── TOP-RIGHT: colored cluster blob  "iv · Phenotype Clusters" ──
+  const cla=fin(t,28.8,.42);
+  BLOB_PTS.forEach(p=>{
+    ctx.save(); ctx.globalAlpha=cla*.85; ctx.fillStyle=C5[p.ci];
+    ctx.beginPath(); ctx.arc(RCX+p.x*sc,TY+p.y*sc,3.5,0,Math.PI*2); ctx.fill(); ctx.restore();
+  });
+  txtP('iv · Phenotype Clusters',RCX,TY-BR-10,'bold 9px system-ui',C.muted,'center',cla*.9);
+
+  // ── DOWN-LEFT ARROW: dynamic position ──
+  const dla=fin(t,29.1,.38);
+  arrow(LCX,TY+BR+6,LCX,BTY-BR-10,C.ink,1.4,7,dla,dla);
+  const dmidY=(TY+BR+6+BTY-BR-10)/2;
+  txt('dynamic',LCX+7,dmidY-7,'9px system-ui',C.muted,'left',dla);
+  txt('position',LCX+7,dmidY+6,'9px system-ui',C.muted,'left',dla);
+
+  // ── BOTTOM-LEFT: Phenotype Trajectory  "iii" ──
+  const tra=fin(t,29.5,.42);
+  txtP('iii · Phenotype Trajectory',LCX,BTY-BR-14,'bold 10px system-ui',C.muted,'center',tra);
+  // Gray blob
+  BLOB_PTS.forEach(p=>{
+    ctx.save(); ctx.globalAlpha=tra*.32; ctx.fillStyle='#9a97a8';
+    ctx.beginPath(); ctx.arc(LCX+p.x*sc,BTY+p.y*sc,3,0,Math.PI*2); ctx.fill(); ctx.restore();
+  });
+  // Initial representative position
+  const IPX=LCX-21, IPY=BTY+26;
+  ctx.save(); ctx.globalAlpha=tra; ctx.fillStyle=C.red;
+  ctx.beginPath(); ctx.arc(IPX,IPY,5,0,Math.PI*2); ctx.fill(); ctx.restore();
+  txtP('Initial position',IPX+8,IPY-12,'7.5px system-ui','#666','left',tra*.7);
+  // Red trajectory: S-curve through blob
+  const tprog=sp(t,30.0,32.2,eOut);
+  if(tra>0&&tprog>0){
+    const TP=[[IPX,IPY],[LCX-16,BTY+6],[LCX+2,BTY-18],[LCX+22,BTY-28],[LCX+34,BTY-10]];
+    const drawTo=tprog*(TP.length-1), full=Math.floor(drawTo), frac=drawTo-full;
+    ctx.save(); ctx.globalAlpha=tra; ctx.strokeStyle=C.red; ctx.lineWidth=2.2;
+    ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.beginPath(); ctx.moveTo(TP[0][0],TP[0][1]);
+    for(let i=1;i<=Math.min(full,TP.length-1);i++) ctx.lineTo(TP[i][0],TP[i][1]);
+    if(full<TP.length-1&&frac>0)
+      ctx.lineTo(lerp(TP[full][0],TP[full+1][0],frac),lerp(TP[full][1],TP[full+1][1],frac));
+    ctx.stroke(); ctx.restore();
+    if(tprog>.85) arrowHead(TP[TP.length-1][0],TP[TP.length-1][1],
+      Math.atan2(TP[TP.length-1][1]-TP[TP.length-2][1],TP[TP.length-1][0]-TP[TP.length-2][0]),C.red,7,tra);
+    if(tprog>.5) txtP('Time →',LCX+BR+6,BTY-12,'bold 9px system-ui',C.red,'left',tra*.85);
+  }
+
+  // ── DOWN-RIGHT ARROW: composition analysis ──
+  const dra=fin(t,29.9,.38);
+  arrow(RCX,TY+BR+6,RCX,196,C.ink,1.4,7,dra,dra);
+  txt('composition',RCX+8,(TY+BR+6+196)/2-7,'9px system-ui',C.muted,'left',dra);
+  txt('analysis',RCX+8,(TY+BR+6+196)/2+6,'9px system-ui',C.muted,'left',dra);
+
+  // ── BOTTOM-RIGHT: v · Cluster Dynamics ──
+  const da=fin(t,30.2,.4);
+  txt('v · Phenotype Cluster Dynamics',(400+682)/2,208,'bold 11px system-ui',C.muted,'center',da);
+
+  // STACKED BAR CHART — time on x-axis (left of right column)
+  const BSX=400, BSY=218, BSW=128, BSH=152;
+  const bprog=sp(t,30.6,32.4,eIO);
+  for(let ti=0;ti<TSTACK.length;ti++){
+    const bx=BSX+ti*(BSW/TSTACK.length);
+    const bw=BSW/TSTACK.length-1;
+    let yO=0;
+    // Draw bottom-up in cluster order
+    for(let ci2=0;ci2<TSTACK[0].length;ci2++){
+      const frac=TSTACK[ti][ci2];
+      const bh=frac*BSH*bprog;
+      ctx.save(); ctx.globalAlpha=da; ctx.fillStyle=C5[ci2];
+      ctx.fillRect(bx,BSY+BSH-yO-bh,bw,bh);
+      ctx.restore(); yO+=bh;
+    }
+  }
+  roughRect(BSX,BSY,BSW,BSH,C.border,1,da);
+  // Axis labels
+  txt('0',BSX-3,BSY+BSH,'9px system-ui',C.muted,'right',da);
+  txt('1.0',BSX-3,BSY,'9px system-ui',C.muted,'right',da);
+  txt('Total Fraction',BSX-20,BSY+BSH/2,'8px system-ui',C.muted,'center',da*.7);
+  txt('Time →',BSX+BSW/2,BSY+BSH+14,'9px system-ui',C.muted,'center',da);
+
+  // CLUSTER TRANSITION CIRCLE — to the right, no overlap with bars
+  const tca=fin(t,31.8,.5);
+  const TCX=626, TCY=295, TCR=52;
+  const nodePos=Array.from({length:5},(_,i)=>{
+    const a=-Math.PI/2+(i/5)*Math.PI*2;
+    return {x:TCX+TCR*Math.cos(a),y:TCY+TCR*Math.sin(a),ci:i};
+  });
+  if(tca>0){
+    // Curved transition arrows
+    const EDGES=[{f:0,to:1,w:2.6},{f:1,to:2,w:3.0},{f:2,to:3,w:1.8},
+                 {f:3,to:4,w:2.2},{f:4,to:0,w:1.0},{f:0,to:2,w:1.3},{f:1,to:3,w:1.5}];
+    EDGES.forEach(({f:fi,to,w})=>{
+      const n1=nodePos[fi],n2=nodePos[to];
+      const mx=(n1.x+n2.x)/2, my=(n1.y+n2.y)/2;
+      const dx=n2.x-n1.x, dy=n2.y-n1.y;
+      const cpx=mx-dy*.3, cpy=my+dx*.3;
+      ctx.save(); ctx.globalAlpha=tca*.55; ctx.strokeStyle=C5[fi];
+      ctx.lineWidth=w; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(n1.x,n1.y);
+      ctx.quadraticCurveTo(cpx,cpy,n2.x,n2.y); ctx.stroke();
+      const ang=Math.atan2(n2.y-cpy,n2.x-cpx);
+      ctx.globalAlpha=tca*.75; ctx.fillStyle=C5[fi];
+      ctx.beginPath(); ctx.moveTo(n2.x,n2.y);
+      ctx.lineTo(n2.x-7*Math.cos(ang-.35),n2.y-7*Math.sin(ang-.35));
+      ctx.lineTo(n2.x-7*Math.cos(ang+.35),n2.y-7*Math.sin(ang+.35));
+      ctx.closePath(); ctx.fill(); ctx.restore();
+    });
+    // Nodes
+    nodePos.forEach(({x,y,ci:nci})=>{
+      ctx.save(); ctx.globalAlpha=tca*.2; ctx.fillStyle=C5[nci];
+      ctx.beginPath(); ctx.arc(x,y,11,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=tca; ctx.strokeStyle=C5[nci]; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.arc(x,y,11,0,Math.PI*2); ctx.stroke(); ctx.restore();
+    });
+    txt('cluster transitions',TCX,TCY+TCR+18,'9px system-ui',C.muted,'center',tca);
+  }
+
+  badge(6,'Two Analyses',fin(t,28,.3));
+}
+
+// ── SCENE 7 · SAM Modules  33–37s ────────────────────
+function drawModules(t) {
+  bg();
+  txt('SAM feature modules: interpreting phenotype clusters',W/2,28,'bold 13px system-ui',C.ink,'center',fin(t,33,.4));
+  txt('Co-varying features → modules; module scores explain each cluster',W/2,46,'11px system-ui',C.muted,'center',fin(t,33.5,.4));
+
+  // ── Left: covariance matrix ──────────────────────────
+  const MX=28, MY=112, MS=210;
+  const ma=fin(t,33.3,.45);
+  roughRect(MX,MY,MS,MS,C.border,1.2,ma);
+  if(ma>0){
+    const N=6, cell_s=MS/N;
+    ctx.save(); ctx.strokeStyle=C.border; ctx.lineWidth=.7; ctx.globalAlpha=ma*.5;
+    for(let i=1;i<N;i++){
+      const d=cell_s*i;
+      ctx.beginPath(); ctx.moveTo(MX+d,MY); ctx.lineTo(MX+d,MY+MS); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(MX,MY+d); ctx.lineTo(MX+MS,MY+d); ctx.stroke();
+    }
+    ctx.restore();
+    // Diagonal module blocks
+    [{r:0,c:0,color:C.blue},{r:2,c:2,color:C.purp},{r:4,c:4,color:C.amber}].forEach((mod,mi)=>{
+      const bp=sp(t,33.5+mi*.4,34+mi*.4);
+      const bx=MX+mod.c*cell_s, by=MY+mod.r*cell_s, bsz=2*cell_s;
+      ctx.save(); ctx.globalAlpha=ma*bp*.4; ctx.fillStyle=mod.color;
+      ctx.fillRect(bx,by,bsz,bsz); ctx.restore();
+      ctx.save(); ctx.globalAlpha=ma*bp; ctx.strokeStyle=mod.color; ctx.lineWidth=2;
+      ctx.strokeRect(bx,by,bsz,bsz); ctx.restore();
+    });
+    const rng2=mkRng(77);
+    ctx.save(); ctx.globalAlpha=ma*.06;
+    for(let r=0;r<N;r++) for(let c=0;c<N;c++){
+      if(rng2()>.5){ ctx.fillStyle=C.ink; ctx.fillRect(MX+c*cell_s+1,MY+r*cell_s+1,cell_s-2,cell_s-2); }
+    }
+    ctx.restore();
+  }
+  // Matrix labels — below matrix
+  txt('Feature covariance',MX+MS/2,MY+MS+14,'10px system-ui',C.muted,'center',ma);
+  txt('matrix (modules on diagonal)',MX+MS/2,MY+MS+27,'9px system-ui',C.muted,'center',ma*.75);
+
+  // ── Arrow ─────────────────────────────────────────────
+  const aa=fin(t,34.8,.45);
+  const ARY=MY+MS/2; // 165
+  arrow(MX+MS+8,ARY,MX+MS+58,ARY,C.ink,1.5,7,aa,aa);
+
+  // ── Right: bar chart ──────────────────────────────────
+  const ba=fin(t,35,.45);
+  const BPX=MX+MS+66, BPY=MY, BPW=W-BPX-12, maxBarH=MS; // match matrix height exactly
+  const barW=36, barGap=7, groupGap=22;
+  const clusterLabels=['Cluster 1','Cluster 2','Cluster 3'];
+  const modLabels=['M1','M2','M3'];
+  const modColors=[C.blue,C.purp,C.amber];
+  const modVals=[[.82,.20,.42],[.30,.85,.38],[.25,.35,.90]];
+  const bprog=sp(t,35.2,37,eIO);
+  const groupW=3*(barW+barGap)+groupGap;
+  clusterLabels.forEach((cl,ci)=>{
+    const gx=BPX+ci*groupW;
+    // Cluster label — always above bar area, never covered
+    txt(cl,gx+(3*barW+2*barGap)/2,BPY-14,'bold 10px system-ui',C.muted,'center',ba);
+    modLabels.forEach((ml,mi)=>{
+      const bx=gx+mi*(barW+barGap);
+      const bh=modVals[mi][ci]*maxBarH*bprog;
+      ctx.save(); ctx.globalAlpha=ba*.12; ctx.fillStyle=modColors[mi];
+      ctx.fillRect(bx,BPY,barW,maxBarH); ctx.restore();
+      ctx.save(); ctx.globalAlpha=ba; ctx.fillStyle=modColors[mi];
+      ctx.fillRect(bx,BPY+maxBarH-bh,barW,bh); ctx.restore();
+    });
+    const dom=modVals.map((m,mi)=>({v:m[ci],mi})).sort((a,b)=>b.v-a.v)[0];
+    if(bprog>.6) txt(`↑ ${modLabels[dom.mi]}`,gx+(3*barW+2*barGap)/2,BPY+maxBarH+16,'bold 10px system-ui',modColors[dom.mi],'center',ba*bprog);
+  });
+  roughRect(BPX,BPY,BPW,maxBarH,C.border,1,ba);
+  const titleStr='Module expression per phenotype cluster';
+  txt(titleStr,BPX+BPW/2,BPY+maxBarH+34,'10px system-ui',C.muted,'center',ba*.85);
+  // Legend — centred under title
+  const legendW=modLabels.length*52-7; // 3 items × 52 - trailing gap
+  const legendLeft=BPX+BPW/2-legendW/2;
+  modLabels.forEach((ml,mi)=>{
+    ctx.save(); ctx.globalAlpha=ba; ctx.fillStyle=modColors[mi];
+    ctx.fillRect(legendLeft+mi*52,BPY+maxBarH+48,10,10); ctx.restore();
+    txt(ml,legendLeft+mi*52+14,BPY+maxBarH+54,'9px system-ui',C.muted,'left',ba*.85);
+  });
+
+  // Arrow label drawn LAST so bars can never cover it
+  txtP('Module',MX+MS+36,ARY-9,'bold 9px system-ui',C.ink,'center',aa*.9);
+  txtP('scores',MX+MS+36,ARY+7,'bold 9px system-ui',C.ink,'center',aa*.9);
+
+  badge(7,'SAM Modules',fin(t,33,.3));
+}
+
+// ── Scene routing ─────────────────────────────────────
+const SCENES=[
+  {fn:drawTitle,    label:'Title',         start:0},
+  {fn:drawQuestion, label:'The Question',  start:3},
+  {fn:drawPhenome,  label:'The Phenome',   start:9},
+  {fn:drawObsSeg,   label:'Observe & Seg', start:15},
+  {fn:drawCompute,  label:'Compute SAM',   start:20},
+  {fn:drawUMAP,     label:'UMAP',          start:24},
+  {fn:drawTwoPaths, label:'Two Analyses',  start:28},
+  {fn:drawModules,  label:'SAM Modules',   start:33},
+];
+function curScene(t){for(let i=SCENES.length-1;i>=0;i--)if(t>=SCENES[i].start)return i;return 0;}
+function render(t) {
+  t=clamp(t,0,TOTAL);
+  SCENES[curScene(t)].fn(t);
+  document.getElementById('pf').style.width=(t/TOTAL*100)+'%';
+  const s=Math.floor(t);
+  document.getElementById('ti').textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,'0')} / 0:37`;
+}
+
+// ── Playback ──────────────────────────────────────────
+let playing=false, startWall=null, offsetTime=0, raf=null;
+const curT=()=>playing?offsetTime+(performance.now()-startWall)/1000:offsetTime;
+function tick(){const t=curT();render(t);if(t>=TOTAL){playing=false;offsetTime=TOTAL;document.getElementById('playBtn').textContent='▶ Play';return;}raf=requestAnimationFrame(tick);}
+function play(){if(playing)return;if(offsetTime>=TOTAL)offsetTime=0;startWall=performance.now();playing=true;document.getElementById('playBtn').textContent='⏸ Pause';raf=requestAnimationFrame(tick);}
+function pause(){if(!playing)return;offsetTime=curT();playing=false;cancelAnimationFrame(raf);document.getElementById('playBtn').textContent='▶ Play';}
+document.getElementById('playBtn').addEventListener('click',()=>playing?pause():play());
+document.getElementById('restBtn').addEventListener('click',()=>{pause();offsetTime=0;render(0);});
+document.getElementById('pt').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();offsetTime=((e.clientX-r.left)/r.width)*TOTAL;if(playing)startWall=performance.now();else render(offsetTime);});
+render(0);
+</script>
