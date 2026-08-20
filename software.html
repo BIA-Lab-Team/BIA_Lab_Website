@@ -186,8 +186,8 @@
             <div class="software-card__links" style="margin-top:1rem;">
               <a href="https://github.com/fyz11/SPOT" class="primary" target="_blank" rel="noopener">GitHub</a>
               <a href="https://pypi.org/project/SAM-SPOT/" target="_blank" rel="noopener">PyPI</a>
-              <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1" target="_blank" rel="noopener">Paper (SPOT)</a>
-              <a href="https://www.biorxiv.org/content/10.1101/2025.11.28.691111" target="_blank" rel="noopener">Paper (Organoids)</a>
+              <a href="https://doi.org/10.1038/s41467-026-75505-8" target="_blank" rel="noopener">Paper (SPOT)</a>
+              <a href="https://doi.org/10.1038/s41467-026-75506-7" target="_blank" rel="noopener">Paper (Organoids)</a>
               <div class="cite-drop" data-tool="sam-spot">
                 <button class="cite-drop__toggle" type="button">Cite ▾</button>
                 <div class="cite-drop__panel" hidden>
@@ -346,6 +346,39 @@
           </div>
         </div>
 
+        <!-- u-protrude3D -->
+        <div class="software-card">
+          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
+          <div>
+            <div class="software-card__name">u-protrude3D</div>
+            <div class="software-card__tagline">3D cell surface protrusion detection, benchmarking, and volumisation for fluorescence microscopy meshes</div>
+            <p class="software-card__desc">Takes a triangulated cell surface mesh and automatically detects and labels individual protrusions (blebs, filopodia, microvilli, lamellipodia) by inferring an optimal basal reference surface via conformalized mean curvature flow. Supports benchmarking against ground-truth labels and volumises surface labels into 3D voxel volumes, decomposing the cell into protrusion and basal volumes.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-protrude3D" data-pypi="u-Protrude3D">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install u-Protrude3D</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-protrude3D" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/u-Protrude3D/" target="_blank" rel="noopener">PyPI</a>
+              <div class="cite-drop" data-tool="u-protrude3d">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- u-Unwrap3D -->
         <div class="software-card">
           <div class="software-card__icon"><img src="software_logos/u-Unwrap3D_logo.png" alt="u-Unwrap3D logo" style="width:100%;height:100%;object-fit:contain;"></div>
@@ -422,40 +455,44 @@
 const CITATIONS = {
   'sam-spot': {
     bibtex: {
-      text: `@article{zhou2025spot,
-  title   = {Development of a universal imaging 'phenome' using Shape, Appearance and Motion ({SAM}) features and the {SAM} Observation Tool ({SPOT})},
-  author  = {Zhou, Felix Y. and Norton-Steele, A. and Marsh, L. and Byrne, H. and Harrington, H. and Lu, X.},
-  journal = {bioRxiv},
-  year    = {2025},
-  doi     = {10.1101/2025.11.28.691105},
-  url     = {https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1}
+      text: `@article{zhou2026spot,
+  title   = {Development of a universal imaging 'phenome' using shape, appearance and motion ({SAM}) features and the {SAM} Phenotype Observation Tool ({SPOT})},
+  author  = {Zhou, Felix Y. and Norton-Steele, A. and Marsh, L. and Byrne, H.M. and Harrington, H.A. and Lu, X.},
+  journal = {Nature Communications},
+  volume  = {17},
+  pages   = {8409},
+  year    = {2026},
+  doi     = {10.1038/s41467-026-75505-8}
 }
 
-@article{zhou2025spot_organoids,
+@article{zhou2026spot_organoids,
   title   = {Identifying phenotype--genotype--function coupling in {3D} organoid imaging using {SPOT}},
   author  = {Zhou, Felix Y. and Jacobs, B.A. and Norton-Steele, A. and Han, X. and Zhou, L. and Carroll, T.M. and others},
-  journal = {bioRxiv},
-  year    = {2025},
-  doi     = {10.1101/2025.11.28.691111},
-  url     = {https://www.biorxiv.org/content/10.1101/2025.11.28.691111}
+  journal = {Nature Communications},
+  volume  = {17},
+  pages   = {8410},
+  year    = {2026},
+  doi     = {10.1038/s41467-026-75506-7}
 }`,
       ext: 'bib', mime: 'application/x-bibtex'
     },
     ris: {
-      text: `TY  - RPRT
-TI  - Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+      text: `TY  - JOUR
+TI  - Development of a universal imaging 'phenome' using shape, appearance and motion (SAM) features and the SAM Phenotype Observation Tool (SPOT)
 AU  - Zhou, Felix Y.
 AU  - Norton-Steele, A.
 AU  - Marsh, L.
-AU  - Byrne, H.
-AU  - Harrington, H.
+AU  - Byrne, H.M.
+AU  - Harrington, H.A.
 AU  - Lu, X.
-PY  - 2025
-DO  - 10.1101/2025.11.28.691105
-UR  - https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1
+JO  - Nature Communications
+VL  - 17
+SP  - 8409
+PY  - 2026
+DO  - 10.1038/s41467-026-75505-8
 ER  -
 
-TY  - RPRT
+TY  - JOUR
 TI  - Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
 AU  - Zhou, Felix Y.
 AU  - Jacobs, B.A.
@@ -463,24 +500,28 @@ AU  - Norton-Steele, A.
 AU  - Han, X.
 AU  - Zhou, L.
 AU  - Carroll, T.M.
-PY  - 2025
-DO  - 10.1101/2025.11.28.691111
-UR  - https://www.biorxiv.org/content/10.1101/2025.11.28.691111
+JO  - Nature Communications
+VL  - 17
+SP  - 8410
+PY  - 2026
+DO  - 10.1038/s41467-026-75506-7
 ER  - `,
       ext: 'ris', mime: 'application/x-research-info-systems'
     },
     endnote: {
       text: `%0 Journal Article
-%T Development of a universal imaging 'phenome' using Shape, Appearance and Motion (SAM) features and the SAM Observation Tool (SPOT)
+%T Development of a universal imaging 'phenome' using shape, appearance and motion (SAM) features and the SAM Phenotype Observation Tool (SPOT)
 %A Zhou, Felix Y.
 %A Norton-Steele, A.
 %A Marsh, L.
-%A Byrne, H.
-%A Harrington, H.
+%A Byrne, H.M.
+%A Harrington, H.A.
 %A Lu, X.
-%D 2025
-%R 10.1101/2025.11.28.691105
-%U https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1
+%J Nature Communications
+%V 17
+%P 8409
+%D 2026
+%R 10.1038/s41467-026-75505-8
 
 %0 Journal Article
 %T Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT
@@ -490,9 +531,11 @@ ER  - `,
 %A Han, X.
 %A Zhou, L.
 %A Carroll, T.M.
-%D 2025
-%R 10.1101/2025.11.28.691111
-%U https://www.biorxiv.org/content/10.1101/2025.11.28.691111`,
+%J Nature Communications
+%V 17
+%P 8410
+%D 2026
+%R 10.1038/s41467-026-75506-7`,
       ext: 'enw', mime: 'text/plain'
     }
   },
@@ -714,6 +757,35 @@ ER  - `,
 %R 10.1038/s41592-025-02887-w
 %U https://www.nature.com/articles/s41592-025-02887-w`,
       ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'u-protrude3d': {
+    bibtex: {
+      text: `@software{zhou2026uprotrude3d,
+  author    = {Zhou, Felix Y. and others},
+  title     = {u-{Protrude3D}: {3D} Cell Surface Protrusion Detection and Volumisation},
+  year      = {2026},
+  url       = {https://github.com/DanuserLab/u-protrude3D},
+  note      = {Associated paper forthcoming}
+}`, ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - COMP
+AU  - Zhou, Felix Y.
+TI  - u-Protrude3D: 3D Cell Surface Protrusion Detection and Volumisation
+PY  - 2026
+UR  - https://github.com/DanuserLab/u-protrude3D
+N1  - Associated paper forthcoming
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Computer Program
+%A Zhou, Felix Y.
+%T u-Protrude3D: 3D Cell Surface Protrusion Detection and Volumisation
+%D 2026
+%U https://github.com/DanuserLab/u-protrude3D
+%Z Associated paper forthcoming`, ext: 'enw', mime: 'text/plain'
     }
   },
 
