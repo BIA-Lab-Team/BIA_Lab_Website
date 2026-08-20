@@ -11,7 +11,7 @@
 | # | Title | Authors | Venue | DOI / URL | Citations |
 |---|-------|---------|-------|-----------|-----------|
 | 1 | Modulation of Oncogenic KRAS Signaling by Branched Actin-driven Cell Membrane Protrusions | Gihana GM, Bhatt K, Chang B-J, Murali VS, **Zhou FY**, Noh J, Ravishankar R et al. | *bioRxiv* 2026 [preprint] | — | — |
-| 2 | Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration and epiblast retrograde cell flow during anterior patterning in the mouse embryo | Stower MJ†, **Zhou FY**†, Valani R, Rozman J, Hathrell H, Godwin J, Lu X et al. | *bioRxiv* 2026.04.24.720339 [preprint] | — | — |
+| 2 | Quantitative multi-scale morphodynamic analysis reveals ratchet-like collective DVE migration and epiblast retrograde cell flow during anterior patterning in the mouse embryo | Stower MJ†, **Zhou FY**†, Valani R, Rozman J, Hathrell H, Godwin J, Lu X et al. | *eLife* [Reviewed Preprint], 2026 | https://doi.org/10.7554/eLife.111884 | — |
 | 3 | Unraveling Subcellular Ultrastructure with Cyclically Multiplexed Expansion Microscopy | Gałecki S, Chang B-J, **Zhou FY**, Shen Q, Stoddard D, Chen B, Nicastro D et al. | *bioRxiv* 2026.01.01.697161 [preprint] | — | — |
 | 4 | Volumetric Cyclic Immunofluorescence for 3D Spatial Profiling of Immune Structures in Human FFPE Tissue | Wong AYH, Lu YD, Zhao Z, **Zhou F**, Park H, Maliga Z, Anang Y et al. | *bioRxiv* 2026.05.17.725158 [preprint] | — | — |
 | 5 | Advanced Tissue Clearing and Axially Swept Light-Sheet Microscopy for High-Resolution Imaging of Neural Systems | Borges HM, Haug J, Lin J, Calvache S, **Zhou FY**, Luo X, Pop IV, Zhong Z et al. | *Light Sheet Microscopy* pp. 23–47, 2026 [book chapter] | — | — |
