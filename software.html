@@ -299,6 +299,72 @@
           </div>
         </div>
 
+        <!-- v-InfoTrace -->
+        <div class="software-card">
+          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
+          <div>
+            <div class="software-card__name">v-InfoTrace</div>
+            <div class="software-card__tagline">Multiscale pixel-to-pixel causal information flow across 2D/3D, multichannel video and volumes</div>
+            <p class="software-card__desc">Successor to u-infotrace, extending it with multichannel support (within- and cross-channel, confound-aware causal flow across an arbitrary number of channels) and a 3D+time generalisation of the full pipeline, from 2D+time videos to 3D+time (Z,Y,X+time) volumes. Provides five interchangeable causal measures (DDC, LK flow, correlation, PCCA, GC).</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="BIA-Lab-Team/v-InfoTrace" data-pypi="v-InfoTrace">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-InfoTrace</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/BIA-Lab-Team/v-InfoTrace" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/v-InfoTrace/" target="_blank" rel="noopener">PyPI</a>
+              <div class="cite-drop" data-tool="v-infotrace">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v-TimeLKFlow -->
+        <div class="software-card">
+          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
+          <div>
+            <div class="software-card__name">v-TimeLKFlow</div>
+            <div class="software-card__tagline">Time-varying, multivariate causal information flow between time series via Kalman-filter estimation</div>
+            <p class="software-card__desc">Implements time-varying Liang–Kleeman information flow, tracking directed causal-flow strength between multivariate time series as a continuous, time-indexed estimate rather than a single static verdict — revealing when a causal coupling switches on, strengthens, weakens, or disappears. Every signal is modelled jointly, so estimated flows are automatically conditional on all other observed variables.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">MIT</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="BIA-Lab-Team/v-TimeLKFlow" data-pypi="v-TimeLKFlow">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-TimeLKFlow</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/BIA-Lab-Team/v-TimeLKFlow" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/v-TimeLKFlow/" target="_blank" rel="noopener">PyPI</a>
+              <div class="cite-drop" data-tool="v-timelkflow">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -700,6 +766,64 @@ ER  - `,
 %D 2022
 %U https://openreview.net/forum?id=4P0qQrU_SlN`,
       ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'v-infotrace': {
+    bibtex: {
+      text: `@software{zhou2026vinfotrace,
+  author    = {Zhou, Felix Y.},
+  title     = {v-{InfoTrace}: Multiscale Pixel Spatiotemporal Information Flows},
+  year      = {2026},
+  url       = {https://github.com/BIA-Lab-Team/v-InfoTrace},
+  note      = {No standalone paper yet; builds on Zhou \\& Ravishankar, NeurIPS 2022 Workshop on Causality for Dynamical Systems}
+}`, ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - COMP
+AU  - Zhou, Felix Y.
+TI  - v-InfoTrace: Multiscale Pixel Spatiotemporal Information Flows
+PY  - 2026
+UR  - https://github.com/BIA-Lab-Team/v-InfoTrace
+N1  - No standalone paper yet; builds on Zhou & Ravishankar, NeurIPS 2022 Workshop on Causality for Dynamical Systems
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Computer Program
+%A Zhou, Felix Y.
+%T v-InfoTrace: Multiscale Pixel Spatiotemporal Information Flows
+%D 2026
+%U https://github.com/BIA-Lab-Team/v-InfoTrace
+%Z No standalone paper yet; builds on Zhou & Ravishankar, NeurIPS 2022 Workshop on Causality for Dynamical Systems`, ext: 'enw', mime: 'text/plain'
+    }
+  },
+
+  'v-timelkflow': {
+    bibtex: {
+      text: `@software{zhou2026vtimelkflow,
+  author    = {Zhou, Felix Y.},
+  title     = {v-{TimeLKFlow}: Time-Varying Liang-Kleeman Information Flow Implementations},
+  year      = {2026},
+  url       = {https://github.com/BIA-Lab-Team/v-TimeLKFlow},
+  note      = {Associated paper forthcoming}
+}`, ext: 'bib', mime: 'application/x-bibtex'
+    },
+    ris: {
+      text: `TY  - COMP
+AU  - Zhou, Felix Y.
+TI  - v-TimeLKFlow: Time-Varying Liang-Kleeman Information Flow Implementations
+PY  - 2026
+UR  - https://github.com/BIA-Lab-Team/v-TimeLKFlow
+N1  - Associated paper forthcoming
+ER  -`, ext: 'ris', mime: 'application/x-research-info-systems'
+    },
+    endnote: {
+      text: `%0 Computer Program
+%A Zhou, Felix Y.
+%T v-TimeLKFlow: Time-Varying Liang-Kleeman Information Flow Implementations
+%D 2026
+%U https://github.com/BIA-Lab-Team/v-TimeLKFlow
+%Z Associated paper forthcoming`, ext: 'enw', mime: 'text/plain'
     }
   },
 
