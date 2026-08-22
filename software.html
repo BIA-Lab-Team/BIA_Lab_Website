@@ -267,104 +267,6 @@
           </div>
         </div>
 
-        <!-- u-infotrace -->
-        <div class="software-card">
-          <div class="software-card__icon"><img src="software_logos/u-InfoTrace_logo.png" alt="u-InfoTrace logo" style="width:100%;height:100%;object-fit:contain;"></div>
-          <div>
-            <div class="software-card__name">u-infotrace</div>
-            <div class="software-card__tagline">Multiscale pixel spatiotemporal information flow analysis in 2D time-lapse video</div>
-            <p class="software-card__desc">Computes multiscale pixel-to-pixel spatiotemporal information flows in 2D videos using formal causal measures, complementing optical flow with information-theoretic signal propagation analysis. Applicable across diverse biological phenomena including embryonic development and collective cell migration, as well as physical dynamical systems.</p>
-            <div class="badge-row">
-              <span class="badge badge-lang">Python</span>
-              <span class="badge badge-license">GPL-3.0</span>
-              <span class="badge badge-status">✓ Active</span>
-            </div>
-            <div class="sw-metrics" data-github="DanuserLab/u-infotrace">
-              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
-              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
-            </div>
-            <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/DanuserLab/u-infotrace.git</div>
-            <div class="software-card__links" style="margin-top:1rem;">
-              <a href="https://github.com/DanuserLab/u-infotrace" class="primary" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://openreview.net/forum?id=4P0qQrU_SlN" target="_blank" rel="noopener">Paper</a>
-              <div class="cite-drop" data-tool="u-infotrace">
-                <button class="cite-drop__toggle" type="button">Cite ▾</button>
-                <div class="cite-drop__panel" hidden>
-                  <button data-fmt="bibtex">BibTeX</button>
-                  <button data-fmt="ris">RIS</button>
-                  <button data-fmt="endnote">EndNote</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- v-InfoTrace -->
-        <div class="software-card">
-          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
-          <div>
-            <div class="software-card__name">v-InfoTrace</div>
-            <div class="software-card__tagline">Multiscale pixel-to-pixel causal information flow across 2D/3D, multichannel video and volumes</div>
-            <p class="software-card__desc">Successor to u-infotrace, extending it with multichannel support (within- and cross-channel, confound-aware causal flow across an arbitrary number of channels) and a 3D+time generalisation of the full pipeline, from 2D+time videos to 3D+time (Z,Y,X+time) volumes. Provides five interchangeable causal measures (DDC, LK flow, correlation, PCCA, GC).</p>
-            <div class="badge-row">
-              <span class="badge badge-lang">Python</span>
-              <span class="badge badge-license">GPL-3.0</span>
-              <span class="badge badge-status">✓ Active</span>
-            </div>
-            <div class="sw-metrics" data-github="BIA-Lab-Team/v-InfoTrace" data-pypi="v-InfoTrace">
-              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
-              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
-              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
-            </div>
-            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-InfoTrace</div>
-            <div class="software-card__links" style="margin-top:1rem;">
-              <a href="https://github.com/BIA-Lab-Team/v-InfoTrace" class="primary" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://pypi.org/project/v-InfoTrace/" target="_blank" rel="noopener">PyPI</a>
-              <div class="cite-drop" data-tool="v-infotrace">
-                <button class="cite-drop__toggle" type="button">Cite ▾</button>
-                <div class="cite-drop__panel" hidden>
-                  <button data-fmt="bibtex">BibTeX</button>
-                  <button data-fmt="ris">RIS</button>
-                  <button data-fmt="endnote">EndNote</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- v-TimeLKFlow -->
-        <div class="software-card">
-          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
-          <div>
-            <div class="software-card__name">v-TimeLKFlow</div>
-            <div class="software-card__tagline">Time-varying, multivariate causal information flow between time series via Kalman-filter estimation</div>
-            <p class="software-card__desc">Implements time-varying Liang–Kleeman information flow, tracking directed causal-flow strength between multivariate time series as a continuous, time-indexed estimate rather than a single static verdict — revealing when a causal coupling switches on, strengthens, weakens, or disappears. Every signal is modelled jointly, so estimated flows are automatically conditional on all other observed variables.</p>
-            <div class="badge-row">
-              <span class="badge badge-lang">Python</span>
-              <span class="badge badge-license">MIT</span>
-              <span class="badge badge-status">✓ Active</span>
-            </div>
-            <div class="sw-metrics" data-github="BIA-Lab-Team/v-TimeLKFlow" data-pypi="v-TimeLKFlow">
-              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
-              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
-              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
-            </div>
-            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-TimeLKFlow</div>
-            <div class="software-card__links" style="margin-top:1rem;">
-              <a href="https://github.com/BIA-Lab-Team/v-TimeLKFlow" class="primary" target="_blank" rel="noopener">GitHub</a>
-              <a href="https://pypi.org/project/v-TimeLKFlow/" target="_blank" rel="noopener">PyPI</a>
-              <div class="cite-drop" data-tool="v-timelkflow">
-                <button class="cite-drop__toggle" type="button">Cite ▾</button>
-                <div class="cite-drop__panel" hidden>
-                  <button data-fmt="bibtex">BibTeX</button>
-                  <button data-fmt="ris">RIS</button>
-                  <button data-fmt="endnote">EndNote</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
@@ -468,6 +370,116 @@
               <a href="https://pypi.org/project/u-Unwrap3D/" target="_blank" rel="noopener">PyPI</a>
               <a href="https://www.biorxiv.org/content/10.1101/2023.04.12.536640" target="_blank" rel="noopener">Paper</a>
               <div class="cite-drop" data-tool="u-unwrap3d">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Group 3: Information Flow Analysis -->
+    <div class="tool-group">
+      <div class="tool-group__header">
+        <div class="section-label">Group 3</div>
+        <h2>Information Flow Analysis</h2>
+        <p>Formal causal-measure frameworks for tracing directed information flow between pixels, signals, and time series.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.75rem;">
+
+        <!-- u-infotrace -->
+        <div class="software-card">
+          <div class="software-card__icon"><img src="software_logos/u-InfoTrace_logo.png" alt="u-InfoTrace logo" style="width:100%;height:100%;object-fit:contain;"></div>
+          <div>
+            <div class="software-card__name">u-infotrace</div>
+            <div class="software-card__tagline">Multiscale pixel spatiotemporal information flow analysis in 2D time-lapse video</div>
+            <p class="software-card__desc">Computes multiscale pixel-to-pixel spatiotemporal information flows in 2D videos using formal causal measures, complementing optical flow with information-theoretic signal propagation analysis. Applicable across diverse biological phenomena including embryonic development and collective cell migration, as well as physical dynamical systems.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="DanuserLab/u-infotrace">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from GitHub</span><br>pip install git+https://github.com/DanuserLab/u-infotrace.git</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/DanuserLab/u-infotrace" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://openreview.net/forum?id=4P0qQrU_SlN" target="_blank" rel="noopener">Paper</a>
+              <div class="cite-drop" data-tool="u-infotrace">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v-InfoTrace -->
+        <div class="software-card">
+          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
+          <div>
+            <div class="software-card__name">v-InfoTrace</div>
+            <div class="software-card__tagline">Multiscale pixel-to-pixel causal information flow across 2D/3D, multichannel video and volumes</div>
+            <p class="software-card__desc">Successor to u-infotrace, extending it with multichannel support (within- and cross-channel, confound-aware causal flow across an arbitrary number of channels) and a 3D+time generalisation of the full pipeline, from 2D+time videos to 3D+time (Z,Y,X+time) volumes. Provides five interchangeable causal measures (DDC, LK flow, correlation, PCCA, GC).</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">GPL-3.0</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="BIA-Lab-Team/v-InfoTrace" data-pypi="v-InfoTrace">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-InfoTrace</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/BIA-Lab-Team/v-InfoTrace" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/v-InfoTrace/" target="_blank" rel="noopener">PyPI</a>
+              <div class="cite-drop" data-tool="v-infotrace">
+                <button class="cite-drop__toggle" type="button">Cite ▾</button>
+                <div class="cite-drop__panel" hidden>
+                  <button data-fmt="bibtex">BibTeX</button>
+                  <button data-fmt="ris">RIS</button>
+                  <button data-fmt="endnote">EndNote</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- v-TimeLKFlow -->
+        <div class="software-card">
+          <div class="software-card__icon" style="background:var(--off-white);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:2rem;">🔬</div>
+          <div>
+            <div class="software-card__name">v-TimeLKFlow</div>
+            <div class="software-card__tagline">Time-varying, multivariate causal information flow between time series via Kalman-filter estimation</div>
+            <p class="software-card__desc">Implements time-varying Liang–Kleeman information flow, tracking directed causal-flow strength between multivariate time series as a continuous, time-indexed estimate rather than a single static verdict — revealing when a causal coupling switches on, strengthens, weakens, or disappears. Every signal is modelled jointly, so estimated flows are automatically conditional on all other observed variables.</p>
+            <div class="badge-row">
+              <span class="badge badge-lang">Python</span>
+              <span class="badge badge-license">MIT</span>
+              <span class="badge badge-status">✓ Active</span>
+            </div>
+            <div class="sw-metrics" data-github="BIA-Lab-Team/v-TimeLKFlow" data-pypi="v-TimeLKFlow">
+              <span class="sw-metric" data-m="stars">★ <span>–</span></span>
+              <span class="sw-metric" data-m="forks">⑂ <span>–</span></span>
+              <span class="sw-metric" data-m="pypi">↓ <span>–</span>/mo PyPI</span>
+            </div>
+            <div class="code-snippet"><span class="cm"># install from PyPI</span><br>pip install v-TimeLKFlow</div>
+            <div class="software-card__links" style="margin-top:1rem;">
+              <a href="https://github.com/BIA-Lab-Team/v-TimeLKFlow" class="primary" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://pypi.org/project/v-TimeLKFlow/" target="_blank" rel="noopener">PyPI</a>
+              <div class="cite-drop" data-tool="v-timelkflow">
                 <button class="cite-drop__toggle" type="button">Cite ▾</button>
                 <div class="cite-drop__panel" hidden>
                   <button data-fmt="bibtex">BibTeX</button>
