@@ -264,6 +264,46 @@
       transition: background .15s ease, color .15s ease;
     }
     .guide-card__resource-links a:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+
+    /* Infographic cards */
+    .infographic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+    @media (max-width: 900px) { .infographic-grid { grid-template-columns: 1fr; } }
+    .infographic-card__preview {
+      position: relative;
+      display: block;
+      padding-bottom: 130%;
+      height: 0;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+    .infographic-card__preview img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+    }
+    .talk-card__ext-links {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.25rem;
+    }
+    .talk-card__ext-links a {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .2rem .7rem;
+      text-decoration: none;
+      transition: background .15s ease, color .15s ease;
+    }
+    .talk-card__ext-links a:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
   </style>
 </head>
 <body>
@@ -361,8 +401,101 @@
   </div>
 </section>
 
+<!-- Infographics -->
+<section class="section section--alt" id="infographics">
+  <div class="container">
+    <div class="category-header">
+      <h2>Infographics</h2>
+      <span class="category-count">3 infographics</span>
+    </div>
+    <div class="infographic-grid">
+
+      <!-- Infographic 1: SAM-SPOT -->
+      <div class="talk-card">
+        <a class="infographic-card__preview" href="assets/img/infographics/sam-spot-infographic.png" target="_blank" rel="noopener">
+          <img src="assets/img/infographics/sam-spot-infographic.png" alt="SAM-SPOT infographic: a universal imaging phenome for dynamic cells">
+          <button class="video-fs-btn" style="opacity:1;" tabindex="-1">⛶ View full size</button>
+        </a>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">SAM-SPOT: a universal imaging phenome for dynamic cells</h3>
+          <p class="talk-card__venue">BIA Lab · Software Infographic</p>
+          <p class="talk-card__desc">A one-page visual summary of SAM-SPOT, the standardised framework for fingerprinting cell state at every moment using three complementary feature families &mdash; Shape, Appearance, and Motion.</p>
+          <div class="talk-card__ext-links">
+            <a href="https://doi.org/10.1038/s41467-026-75505-8" target="_blank" rel="noopener">Paper (SPOT)</a>
+            <a href="https://doi.org/10.1038/s41467-026-75506-7" target="_blank" rel="noopener">Paper (Organoids)</a>
+            <a href="https://pypi.org/project/SAM-SPOT/" target="_blank" rel="noopener">PyPI</a>
+            <a href="https://github.com/fyz11/SPOT" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <div class="talk-card__tags">
+            <span class="talk-tag">SAM-SPOT</span>
+            <span class="talk-tag">phenomics</span>
+            <span class="talk-tag">cell segmentation</span>
+            <span class="talk-tag">unsupervised clustering</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infographic 2: u-Segment3D -->
+      <div class="talk-card">
+        <a class="infographic-card__preview" href="assets/img/infographics/u-segment3d-infographic.png" target="_blank" rel="noopener">
+          <img src="assets/img/infographics/u-segment3d-infographic.png" alt="u-Segment3D infographic: from 2D views to one accurate 3D segmentation">
+          <button class="video-fs-btn" style="opacity:1;" tabindex="-1">⛶ View full size</button>
+        </a>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">u-segment3D: from 2D views to one accurate 3D segmentation</h3>
+          <p class="talk-card__venue">BIA Lab · Software Infographic</p>
+          <p class="talk-card__desc">A one-page visual summary of u-segment3D, which combines 2D segmentations from one or more orthogonal views into a single consensus 3D cell labeling &mdash; compatible with any 2D segmentation method and requiring no 3D training.</p>
+          <div class="talk-card__ext-links">
+            <a href="https://www.nature.com/articles/s41592-025-02887-w" target="_blank" rel="noopener">Paper</a>
+            <a href="https://pypi.org/project/u-Segment3D/" target="_blank" rel="noopener">PyPI</a>
+            <a href="https://github.com/DanuserLab/u-segment3D" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <div class="talk-card__tags">
+            <span class="talk-tag">u-segment3D</span>
+            <span class="talk-tag">3D cell segmentation</span>
+            <span class="talk-tag">zero deep learning</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Infographic 3: u-Unwrap3D -->
+      <div class="talk-card">
+        <a class="infographic-card__preview" href="assets/img/infographics/u-unwrap3d-infographic.png" target="_blank" rel="noopener">
+          <img src="assets/img/infographics/u-unwrap3d-infographic.png" alt="u-Unwrap3D infographic: see your cells in a whole new way">
+          <button class="video-fs-btn" style="opacity:1;" tabindex="-1">⛶ View full size</button>
+        </a>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">u-Unwrap3D: see your cells in a whole new way</h3>
+          <p class="talk-card__venue">BIA Lab · Software Infographic</p>
+          <p class="talk-card__desc">A one-page visual summary of u-Unwrap3D, which transforms complicated 3D cell surfaces into canonical representations &mdash; topographic maps, spherical parameterisations, and unfolded 2D images &mdash; for quantitative morphology and membrane-signal analysis.</p>
+          <div class="talk-card__ext-links">
+            <a href="https://www.biorxiv.org/content/10.1101/2023.04.12.536640" target="_blank" rel="noopener">Paper</a>
+            <a href="https://pypi.org/project/u-Unwrap3D/" target="_blank" rel="noopener">PyPI</a>
+            <a href="https://github.com/DanuserLab/u-unwrap3D" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <div class="talk-card__tags">
+            <span class="talk-tag">u-Unwrap3D</span>
+            <span class="talk-tag">3D surface parameterisation</span>
+            <span class="talk-tag">cell morphology</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- Talks -->
-<section class="section section--alt" id="talks">
+<section class="section" id="talks">
   <div class="container">
     <div class="category-header">
       <h2>Pipeline Talks</h2>
@@ -430,7 +563,7 @@
 </section>
 
 <!-- Tutorial Videos -->
-<section class="section" id="tutorials">
+<section class="section section--alt" id="tutorials">
   <div class="container">
     <div class="category-header">
       <h2>Tutorial Videos</h2>
@@ -471,7 +604,7 @@
 </section>
 
 <!-- Visual Explainers -->
-<section class="section section--alt" id="explainers">
+<section class="section" id="explainers">
   <div class="container">
     <div class="category-header">
       <h2>Visual Explainers</h2>
