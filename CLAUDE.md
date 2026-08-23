@@ -23,6 +23,7 @@ publications.html   Filterable paper list (25 real papers, 2019–2026)
 software.html       Open-source tools
 news.html           News timeline
 team.html           PI + members + alumni
+location.html       Lab address, map, and building photos
 join.html           Positions + contact form
 papers.md           Local bibliography database — all 45 publications (source of truth)
 assets/css/main.css             Global styles & design tokens
