@@ -199,33 +199,7 @@
     }
     .talk-card__video:hover .video-fs-btn { opacity: 1; }
 
-    /* Guide cards (document-based resources) */
-    .guide-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem;
-    }
-    @media (max-width: 900px) { .guide-grid { grid-template-columns: 1fr; } }
-    .guide-card__icon {
-      position: relative;
-      padding-bottom: 32%;
-      height: 0;
-      overflow: hidden;
-      background: var(--navy);
-    }
-    .guide-card__icon-inner {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .5rem;
-      font-size: .95rem;
-      font-weight: 700;
-      color: rgba(255,255,255,.85);
-      letter-spacing: .04em;
-    }
-    .guide-card__icon-inner svg { flex-shrink: 0; }
+    /* Guide-style download rows (used inside infographic cards) */
     .guide-card__resources {
       display: flex;
       flex-direction: column;
@@ -275,8 +249,7 @@
     .infographic-card__preview {
       position: relative;
       display: block;
-      padding-bottom: 130%;
-      height: 0;
+      aspect-ratio: 10 / 13;
       overflow: hidden;
       background: var(--off-white);
     }
@@ -336,7 +309,7 @@
   <div class="container">
     <div class="section-label">Learn</div>
     <h1>Talks &amp; Tutorials</h1>
-    <p class="page-hero__lead">Pedagogical talks, tutorials, and guides from BIA Lab and collaborators on computational methods, multiplexed imaging, quantitative cell biology, and practical tools like Claude Code.</p>
+    <p class="page-hero__lead">Pedagogical talks, tutorials, and infographics from BIA Lab and collaborators on computational methods, multiplexed imaging, quantitative cell biology, and practical tools like Claude Code.</p>
   </div>
   <a href="#talks" class="scroll-hint" aria-label="Scroll down">
     <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -345,34 +318,54 @@
   </a>
 </div>
 
-<!-- Guides -->
-<section class="section" id="guides">
+<!-- Infographics -->
+<section class="section" id="infographics">
   <div class="container">
     <div class="category-header">
-      <h2>Guides</h2>
-      <span class="category-count">1 guide</span>
+      <h2>Infographics</h2>
+      <span class="category-count">5 infographics</span>
     </div>
-    <div class="guide-grid">
+    <div class="infographic-grid">
 
-      <!-- Guide 1: Claude Code for Science -->
+      <!-- Infographic 1: 3D CyCIF -->
       <div class="talk-card">
-        <div class="guide-card__icon">
-          <div class="guide-card__icon-inner">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M15 2v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-              <path d="M8 13h8M8 17h8M8 9h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-            </svg>
-            Guide
+        <a class="infographic-card__preview" href="assets/img/infographics/3d-cycif-infographic.png" target="_blank" rel="noopener" style="aspect-ratio: 1692 / 929;">
+          <img src="assets/img/infographics/3d-cycif-infographic.png" alt="3D CyCIF infographic: see more markers, see more biology, in 3D">
+          <button class="video-fs-btn" style="opacity:1;" tabindex="-1">⛶ View full size</button>
+        </a>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge speaker-badge--collab">Clarence Yapp · Sorger Lab, HMS</span>
+          </div>
+          <h3 class="talk-card__title">3D CyCIF: see more markers, see more biology, in 3D</h3>
+          <p class="talk-card__venue">Laboratory of Systems Pharmacology, Harvard Medical School</p>
+          <p class="talk-card__desc">A one-page visual summary of 3D CyCIF, which images many markers (20&ndash;50+) in the same intact 3D sample by repeating stain&ndash;image&ndash;erase cycles &mdash; preserving spatial context to map cell states, neighborhoods, and signaling niches in their true 3D architecture.</p>
+          <div class="talk-card__ext-links">
+            <a href="https://doi.org/10.1038/s41592-025-02824-x" target="_blank" rel="noopener">Paper (Yapp et al., 2025)</a>
+            <a href="https://www.biorxiv.org/content/10.1101/2026.05.17.725158" target="_blank" rel="noopener">Paper (Wong et al., 2026)</a>
+          </div>
+          <div class="talk-card__tags">
+            <span class="talk-tag">3D CyCIF</span>
+            <span class="talk-tag">multiplexed imaging</span>
+            <span class="talk-tag">spatial proteomics</span>
+            <span class="talk-tag">tumour microenvironment</span>
           </div>
         </div>
+      </div>
+
+      <!-- Infographic 2: Claude Code for Scientific Research -->
+      <div class="talk-card">
+        <a class="infographic-card__preview" href="assets/img/infographics/claude-code-intro-infographic.png" target="_blank" rel="noopener">
+          <img src="assets/img/infographics/claude-code-intro-infographic.png" alt="Claude Code for Scientific Research infographic: a cheat sheet for using an AI coding agent in the lab">
+          <button class="video-fs-btn" style="opacity:1;" tabindex="-1">⛶ View full size</button>
+        </a>
         <div class="talk-card__body">
           <div class="talk-card__meta">
             <span class="speaker-badge">BIA Lab</span>
           </div>
-          <h3 class="talk-card__title">A Brief Introduction to Claude Code for Science</h3>
+          <h3 class="talk-card__title">Claude Code for Scientific Research</h3>
           <p class="talk-card__venue">BIA Lab · Getting-Started Guide</p>
-          <p class="talk-card__desc">A practical primer for researchers new to Claude Code, covering the basics of the CLI, everyday commands and workflows, and tips for applying it to computational research tasks like data analysis, scripting, and lab documentation. Available as a one-page cheat sheet and an accompanying slide deck.</p>
+          <p class="talk-card__desc">A one-page cheat sheet for using an AI coding agent to speed up analysis, scripting, and data wrangling in the lab &mdash; covering the basic workflow, Plan Mode, usage limits, model tiers, and best practices for optimizing token usage.</p>
           <div class="guide-card__resources">
             <div class="guide-card__resource">
               <span class="guide-card__resource-name">Cheat Sheet (PDF)</span>
@@ -397,20 +390,7 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- Infographics -->
-<section class="section section--alt" id="infographics">
-  <div class="container">
-    <div class="category-header">
-      <h2>Infographics</h2>
-      <span class="category-count">3 infographics</span>
-    </div>
-    <div class="infographic-grid">
-
-      <!-- Infographic 1: SAM-SPOT -->
+      <!-- Infographic 3: SAM-SPOT -->
       <div class="talk-card">
         <a class="infographic-card__preview" href="assets/img/infographics/sam-spot-infographic.png" target="_blank" rel="noopener">
           <img src="assets/img/infographics/sam-spot-infographic.png" alt="SAM-SPOT infographic: a universal imaging phenome for dynamic cells">
@@ -438,7 +418,7 @@
         </div>
       </div>
 
-      <!-- Infographic 2: u-Segment3D -->
+      <!-- Infographic 4: u-Segment3D -->
       <div class="talk-card">
         <a class="infographic-card__preview" href="assets/img/infographics/u-segment3d-infographic.png" target="_blank" rel="noopener">
           <img src="assets/img/infographics/u-segment3d-infographic.png" alt="u-Segment3D infographic: from 2D views to one accurate 3D segmentation">
@@ -464,7 +444,7 @@
         </div>
       </div>
 
-      <!-- Infographic 3: u-Unwrap3D -->
+      <!-- Infographic 5: u-Unwrap3D -->
       <div class="talk-card">
         <a class="infographic-card__preview" href="assets/img/infographics/u-unwrap3d-infographic.png" target="_blank" rel="noopener">
           <img src="assets/img/infographics/u-unwrap3d-infographic.png" alt="u-Unwrap3D infographic: see your cells in a whole new way">
@@ -495,7 +475,7 @@
 </section>
 
 <!-- Talks -->
-<section class="section" id="talks">
+<section class="section section--alt" id="talks">
   <div class="container">
     <div class="category-header">
       <h2>Pipeline Talks</h2>
@@ -563,7 +543,7 @@
 </section>
 
 <!-- Tutorial Videos -->
-<section class="section section--alt" id="tutorials">
+<section class="section" id="tutorials">
   <div class="container">
     <div class="category-header">
       <h2>Tutorial Videos</h2>
@@ -604,7 +584,7 @@
 </section>
 
 <!-- Visual Explainers -->
-<section class="section" id="explainers">
+<section class="section section--alt" id="explainers">
   <div class="container">
     <div class="category-header">
       <h2>Visual Explainers</h2>
