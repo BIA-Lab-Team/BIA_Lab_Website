@@ -1,14 +1,14 @@
 # Biological Information Architecture Lab
-
 **Vanderbilt University** · [bia-lab-team.github.io](https://bia-lab-team.github.io/BIA_Lab_Website/)
+<div align="center"><img src="banner.svg" alt="BIA Lab — Observe · Measure · Model · Design" width="100%"></div>
 
 > We are building the science to make biological signaling **designable** — to move tissues from something we observe to something we can specify, predict, and engineer.
 
 ![papers](https://img.shields.io/badge/papers-~45_publications-4878be?style=flat-square)
 ![h-index](https://img.shields.io/badge/h--index-20-4878be?style=flat-square)
 ![patents](https://img.shields.io/badge/patents-2_granted_%C2%B7_1_pending-7b65b2?style=flat-square)
-![tools](https://img.shields.io/badge/tools-6_open--source-3fa86a?style=flat-square)
-![PyPI](https://img.shields.io/badge/PyPI-4_packages-0075ca?style=flat-square)
+![tools](https://img.shields.io/badge/tools-9_open--source-3fa86a?style=flat-square)
+![PyPI](https://img.shields.io/badge/PyPI-8_packages-0075ca?style=flat-square)
 [![Join Us](https://img.shields.io/badge/Join_Us-we're_hiring-e05c2a?style=flat-square)](https://bia-lab-team.github.io/BIA_Lab_Website/join.html)
 
 ---
@@ -21,17 +21,25 @@ All tools are freely available and designed to compose — they share data struc
 
 | Tool | Description | Repo | Paper |
 |------|-------------|------|-------|
-| **SAM-SPOT** `PyPI` | Three-stage pipeline — video segmentation, SAM phenome computation, unsupervised clustering — for characterising dynamic cells and organoids in time-lapse imaging. Interpretable cross-experiment phenotype comparison. | [fyz11/SPOT](https://github.com/fyz11/SPOT) | *Nat. Commun.* (in press) |
-| **MOSES** | Superpixel optical-flow framework for quantifying collective motion phenotypes in time-lapse microscopy without single-cell tracking. Constructs motion meshes and extracts boundary and flow statistics. | [fyz11/MOSES](https://github.com/fyz11/MOSES) | [*eLife* 2019](https://elifesciences.org/articles/40162) |
+| **SAM-SPOT** `PyPI` | Three-stage pipeline — video segmentation, SAM phenome computation, unsupervised clustering — for characterising dynamic cells and organoids in time-lapse imaging. Interpretable cross-experiment phenotype comparison. | [fyz11/SPOT](https://github.com/fyz11/SPOT) | [*Nat. Commun.* 2026](https://doi.org/10.1038/s41467-026-75505-8) |
+| **MOSES** `PyPI` | Superpixel optical-flow framework for quantifying collective motion phenotypes in time-lapse microscopy without single-cell tracking. Constructs motion meshes and extracts boundary and flow statistics. | [BIA-Lab-Team/MOSES](https://github.com/BIA-Lab-Team/MOSES) | [*eLife* 2019](https://elifesciences.org/articles/40162) |
 | **u-Unwrap** `PyPI` | Maps 2D cell shapes to canonical disk and rectangular coordinate systems via conformal, equiareal, and equidistant parameterisation. Enables spatiotemporal registration and ML-ready representations of membrane signals. | [DanuserLab/u-unwrap](https://github.com/DanuserLab/u-unwrap) | [OpenReview](https://openreview.net/forum?id=jUmTewPzII) |
-| **u-infotrace** | Multiscale pixel-to-pixel spatiotemporal information flow analysis using formal causal measures. Complements optical flow with information-theoretic signal propagation; applicable across developmental biology and collective migration. | [DanuserLab/u-infotrace](https://github.com/DanuserLab/u-infotrace) | [OpenReview](https://openreview.net/forum?id=4P0qQrU_SlN) |
 
 ### Group 2 · 3D Cell Imaging & Segmentation
 
 | Tool | Description | Repo | Paper |
 |------|-------------|------|-------|
 | **u-segment3D** `PyPI` | Generates robust 3D instance segmentations by merging 2D slice-by-slice predictions from orthogonal xy/xz/yz views. Compatible with any 2D engine (e.g. Cellpose) — no 3D retraining required. | [DanuserLab/u-segment3D](https://github.com/DanuserLab/u-segment3D) | [*Nature Methods* 2025](https://www.nature.com/articles/s41592-025-02887-w) |
+| **u-protrude3D** `PyPI` | Detects and labels individual protrusions (blebs, filopodia, microvilli, lamellipodia) on triangulated cell surface meshes by inferring an optimal basal reference surface via conformalized mean curvature flow. Benchmarks against ground truth and volumises surface labels into 3D voxel volumes. | [DanuserLab/u-protrude3D](https://github.com/DanuserLab/u-protrude3D) | *Forthcoming* |
 | **u-Unwrap3D** `PyPI` | Transforms 3D cell surface meshes into canonical representations — topographic maps, spherical parameterisations, unfolded 2D images — via conformalized mean curvature flow. Quantitative analysis of 3D membrane-associated signals. | [DanuserLab/u-unwrap3D](https://github.com/DanuserLab/u-unwrap3D) | [bioRxiv 2023](https://www.biorxiv.org/content/10.1101/2023.04.12.536640) |
+
+### Group 3 · Information Flow Analysis
+
+| Tool | Description | Repo | Paper |
+|------|-------------|------|-------|
+| **u-infotrace** | Multiscale pixel-to-pixel spatiotemporal information flow analysis using formal causal measures. Complements optical flow with information-theoretic signal propagation; applicable across developmental biology and collective migration. | [DanuserLab/u-infotrace](https://github.com/DanuserLab/u-infotrace) | [OpenReview](https://openreview.net/forum?id=4P0qQrU_SlN) |
+| **v-InfoTrace** `PyPI` | Successor to u-infotrace, extended with multichannel (cross-channel, confound-aware) causal flow and a 3D+time generalisation of the full pipeline; provides five interchangeable causal measures (DDC, LK flow, correlation, PCCA, GC). | [BIA-Lab-Team/v-InfoTrace](https://github.com/BIA-Lab-Team/v-InfoTrace) | *Forthcoming* |
+| **v-TimeLKFlow** `PyPI` | Time-varying, multivariate Liang–Kleeman information flow via Kalman-filter estimation — tracks directed causal-flow strength between time series as a continuous, time-indexed estimate rather than a single static verdict. | [BIA-Lab-Team/v-TimeLKFlow](https://github.com/BIA-Lab-Team/v-TimeLKFlow) | *Forthcoming* |
 
 ### Quick install
 
@@ -39,12 +47,17 @@ All tools are freely available and designed to compose — they share data struc
 # Group 1 — cell phenomics & motion
 pip install SAM-SPOT           # SAM-SPOT (2D/3D phenotyping)
 pip install u-Unwrap            # u-Unwrap (2D shape normalisation)
-pip install git+https://github.com/fyz11/MOSES.git
-pip install git+https://github.com/DanuserLab/u-infotrace.git
+pip install v-MOSES             # MOSES (collective motion phenotyping)
 
 # Group 2 — 3D imaging & segmentation
 pip install u-Segment3D         # u-segment3D (3D consensus segmentation)
+pip install u-Protrude3D        # u-protrude3D (3D protrusion detection & volumisation)
 pip install u-Unwrap3D          # u-Unwrap3D (3D surface parameterisation)
+
+# Group 3 — information flow analysis
+pip install git+https://github.com/DanuserLab/u-infotrace.git
+pip install v-InfoTrace         # v-InfoTrace (multichannel/3D causal information flow)
+pip install v-TimeLKFlow        # v-TimeLKFlow (time-varying causal information flow)
 ```
 
 ---
@@ -54,8 +67,8 @@ pip install u-Unwrap3D          # u-Unwrap3D (3D surface parameterisation)
 | Tool / topic | Paper | Journal |
 |---|---|---|
 | u-segment3D | [Universal consensus 3D cell segmentation](https://www.nature.com/articles/s41592-025-02887-w) | *Nature Methods* 2025 |
-| SAM-SPOT *(methods)* | [Universal imaging phenome via SAM features](https://www.biorxiv.org/content/10.1101/2025.11.28.691105v1) | *Nature Communications* (in press) |
-| SAM-SPOT (organoids) | [Phenotype–genotype–function coupling in 3D organoids](https://www.biorxiv.org/content/10.1101/2025.11.28.691111) | *Nature Communications* (in press) |
+| SAM-SPOT *(methods)* | [Development of a universal imaging phenome using shape, appearance and motion (SAM) features and the SAM Phenotype Observation Tool (SPOT)](https://doi.org/10.1038/s41467-026-75505-8) | *Nature Communications* 17:8409 · 2026 |
+| SAM-SPOT (organoids) | [Identifying phenotype-genotype-function coupling in 3D organoid imaging using SPOT](https://doi.org/10.1038/s41467-026-75506-7) | *Nature Communications* 17:8410 · 2026 |
 | u-Unwrap | [Mapping cell morphology to a standard coordinate system for analysing dynamic cell signaling](https://openreview.net/forum?id=jUmTewPzII) | NeurIPS Workshop 2025 |
 | u-infotrace | [Multiscale pixel spatiotemporal information flows](https://openreview.net/forum?id=4P0qQrU_SlN) | NeurIPS Workshop 2022 |
 | MOSES | [Collective cell migration phenotypes via motion sensing superpixels](https://elifesciences.org/articles/40162) | *eLife* 2019 |
