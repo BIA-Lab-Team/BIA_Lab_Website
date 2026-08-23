@@ -198,6 +198,72 @@
       transition: opacity .15s ease;
     }
     .talk-card__video:hover .video-fs-btn { opacity: 1; }
+
+    /* Guide cards (document-based resources) */
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+    }
+    @media (max-width: 900px) { .guide-grid { grid-template-columns: 1fr; } }
+    .guide-card__icon {
+      position: relative;
+      padding-bottom: 32%;
+      height: 0;
+      overflow: hidden;
+      background: var(--navy);
+    }
+    .guide-card__icon-inner {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      font-size: .95rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .04em;
+    }
+    .guide-card__icon-inner svg { flex-shrink: 0; }
+    .guide-card__resources {
+      display: flex;
+      flex-direction: column;
+      gap: .75rem;
+      margin-bottom: 1.25rem;
+    }
+    .guide-card__resource {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .75rem;
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .6rem .9rem;
+    }
+    .guide-card__resource-name {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .guide-card__resource-links {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+    }
+    .guide-card__resource-links a {
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--teal-dark);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: .2rem .7rem;
+      text-decoration: none;
+      transition: background .15s ease, color .15s ease;
+    }
+    .guide-card__resource-links a:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
   </style>
 </head>
 <body>
@@ -229,7 +295,7 @@
   <div class="container">
     <div class="section-label">Learn</div>
     <h1>Talks &amp; Tutorials</h1>
-    <p class="page-hero__lead">Pedagogical talks and step-by-step tutorials from BIA Lab and collaborators on computational methods, multiplexed imaging, and quantitative cell biology.</p>
+    <p class="page-hero__lead">Pedagogical talks, tutorials, and guides from BIA Lab and collaborators on computational methods, multiplexed imaging, quantitative cell biology, and practical tools like Claude Code.</p>
   </div>
   <a href="#talks" class="scroll-hint" aria-label="Scroll down">
     <svg width="40" height="40" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -238,8 +304,64 @@
   </a>
 </div>
 
+<!-- Guides -->
+<section class="section" id="guides">
+  <div class="container">
+    <div class="category-header">
+      <h2>Guides</h2>
+      <span class="category-count">1 guide</span>
+    </div>
+    <div class="guide-grid">
+
+      <!-- Guide 1: Claude Code for Science -->
+      <div class="talk-card">
+        <div class="guide-card__icon">
+          <div class="guide-card__icon-inner">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M15 2v5h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M8 13h8M8 17h8M8 9h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            Guide
+          </div>
+        </div>
+        <div class="talk-card__body">
+          <div class="talk-card__meta">
+            <span class="speaker-badge">BIA Lab</span>
+          </div>
+          <h3 class="talk-card__title">A Brief Introduction to Claude Code for Science</h3>
+          <p class="talk-card__venue">BIA Lab · Getting-Started Guide</p>
+          <p class="talk-card__desc">A practical primer for researchers new to Claude Code, covering the basics of the CLI, everyday commands and workflows, and tips for applying it to computational research tasks like data analysis, scripting, and lab documentation. Available as a one-page cheat sheet and an accompanying slide deck.</p>
+          <div class="guide-card__resources">
+            <div class="guide-card__resource">
+              <span class="guide-card__resource-name">Cheat Sheet (PDF)</span>
+              <div class="guide-card__resource-links">
+                <a href="assets/docs/guides/claude-code-cheat-sheet.pdf" target="_blank" rel="noopener">View</a>
+                <a href="assets/docs/guides/claude-code-cheat-sheet.docx" download>Download .docx</a>
+              </div>
+            </div>
+            <div class="guide-card__resource">
+              <span class="guide-card__resource-name">Slides (PDF)</span>
+              <div class="guide-card__resource-links">
+                <a href="assets/docs/guides/claude-code-intro-slides.pdf" target="_blank" rel="noopener">View</a>
+                <a href="assets/docs/guides/claude-code-intro-slides.pptx" download>Download .pptx</a>
+              </div>
+            </div>
+          </div>
+          <div class="talk-card__tags">
+            <span class="talk-tag">Claude Code</span>
+            <span class="talk-tag">getting started</span>
+            <span class="talk-tag">computational workflows</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- Talks -->
-<section class="section" id="talks">
+<section class="section section--alt" id="talks">
   <div class="container">
     <div class="category-header">
       <h2>Pipeline Talks</h2>
@@ -307,7 +429,7 @@
 </section>
 
 <!-- Tutorial Videos -->
-<section class="section section--alt" id="tutorials">
+<section class="section" id="tutorials">
   <div class="container">
     <div class="category-header">
       <h2>Tutorial Videos</h2>
@@ -348,7 +470,7 @@
 </section>
 
 <!-- Visual Explainers -->
-<section class="section" id="explainers">
+<section class="section section--alt" id="explainers">
   <div class="container">
     <div class="category-header">
       <h2>Visual Explainers</h2>
